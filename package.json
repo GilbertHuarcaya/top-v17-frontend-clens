@@ -111,9 +111,5 @@
   "bugs": {
     "url": "https://github.com/GilbertHuarcaya/top-v17-frontend-clens/issues"
   },
-  "homepage": "https://github.com/GilbertHuarcaya/top-v17-frontend-clens#readme",
-  "volta": {
-    "node": "16.13.0",
-    "npm": "8.1.4"
-  }
+  "homepage": "https://github.com/GilbertHuarcaya/top-v17-frontend-clens#readme"
 }
