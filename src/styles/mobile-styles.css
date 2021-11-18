@@ -1,0 +1,200 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  background-color: #f0fefe;
+  min-width: 300px;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 44px;
+  background-color: #77c6ca;
+  padding: 0.5rem;
+}
+
+/* Estilos Boton Hamburguesa */
+.btn-menu {
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+}
+.linea-1,
+.linea-2,
+.linea-3 {
+  width: 25px;
+  height: 5px;
+  background-color: #333;
+  margin: 1.5px 0px;
+  transition: 0.3s ease-out;
+}
+
+.change-menu .linea-1 {
+  transform: rotate(-45deg) translate(3px, -3.5px);
+  position: absolute;
+}
+.change-menu .linea-2 {
+  opacity: 0;
+  transition: 0.1s;
+}
+.change-menu .linea-3 {
+  transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* estilos menu */
+
+.menu {
+  position: fixed;
+  align-items: center;
+  display: flex;
+  font-size: 2.4rem;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  background-color: #77c6ca;
+  transform: translate(0, 106%);
+  opacity: 1;
+  right: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+  z-index: 998;
+}
+
+.menu a {
+  text-decoration: none;
+  border-top: 0.1px solid #999;
+  width: 100%;
+  padding: 10px 0;
+  color: #f0fefe;
+  display: block;
+  transition: all 0.3s ease;
+}
+.menu a:nth-child(7) {
+  border-bottom: 0.1px solid #999;
+}
+
+.menu a:hover {
+  color: #ff5151;
+  background-color: #87e7e7;
+  font-weight: bold;
+}
+
+.is-active {
+  opacity: 1;
+  transform: translate(0, -106%);
+}
+
+/* Logo */
+.logo {
+  width: 70%;
+  padding-left: 2rem;
+}
+.logo img {
+  height: 40px;
+}
+/* Estilos del Main */
+main {
+  display: flex;
+  flex-direction: column;
+  min-width: inherit;
+}
+
+.initial {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  min-width: inherit;
+}
+.initial img {
+  width: 100%;
+  height: 200px;
+  min-width: inherit;
+  max-width: inherit;
+  position: absolute;
+  z-index: -999;
+  filter: brightness(70%);
+}
+.initial .slogan h2 {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 400;
+}
+
+.initial .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.initial .buttons button {
+  width: 100px;
+  height: 35px;
+  background-color: #b9f6f6;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0.5px 0.5px 2px black;
+  border-radius: 3px;
+}
+.initial .buttons button:hover {
+  background-color: #87e7e7;
+  font-weight: bold;
+  box-shadow: -0.5px -0.5px 1.5px black;
+}
+
+.why-clens {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.why-clens h2 {
+  font-size: 1.9rem;
+}
+
+.why-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 15px auto;
+  gap: 15px;
+}
+
+.why-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 20px;
+}
+
+.why-card img {
+  width: 35px;
+  margin: 15px 0;
+}
+.why-card h3 {
+  font-size: 2rem;
+  color: #38b2b2;
+  margin-bottom: 5px;
+}
+.why-card p {
+  text-align: center;
+  font-size: 1.4rem;
+}
