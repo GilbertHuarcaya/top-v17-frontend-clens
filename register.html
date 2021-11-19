@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Clens</title>
-		<link rel="stylesheet" href="src/styles/login-styles.css" />
+		<link rel="stylesheet" href="src/styles/register-styles.css" />
 	</head>
 	<body>
 		<header>
@@ -40,22 +40,35 @@
 			<form action="" method="">
 				<!-- inputs -->
 				<div class="form-text">
+					<h3>Nombre completo</h3>
+					<input type="text" />
+				</div>
+				<div class="form-text">
+					<h3>Identificación/DNI</h3>
+					<input type="text" />
+				</div>
+				<div class="form-text">
 					<h3>Correo</h3>
 					<input type="text" />
 				</div>
 				<div class="form-text">
 					<h3>Contraseña</h3>
 					<input type="text" placeholder="******" />
+					<p>6 caracteres como mínimo</p>
 				</div>
-				<!-- menu -->
-				<button class="boton-ingresa">Ingresa</button>
-				<p>o Ingresa con:</p>
+				<div class="form-text">
+					<h3>Confirmar Contraseña</h3>
+					<input type="text" placeholder="******" />
+				</div>
+				<!-- boton -->
+				<button class="boton-registrate">Regístrate</button>
+				<p>o Regístrate con:</p>
 				<div class="auth-logos">
 					<a href=""><img src="./src/images/gmail-logo.png" alt="gmail" /></a>
 				</div>
-				<p>Aún no tienes una cuenta?</p>
-				<!-- menu -->
-				<a class="registrate" href="./register.html">Regístrate</a>
+				<p>Ya tienes una cuenta?</p>
+				<!-- boton -->
+				<a class="ingresa" href="./login.html">Ingresa</a>
 			</form>
 			<div class="behind_container">
 			</div>

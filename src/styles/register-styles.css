@@ -120,7 +120,6 @@ header {
   height: 2rem;
 }
 
-/* formulario */
 .form-login {
   height: 100vh;
   display: flex;
@@ -129,8 +128,9 @@ header {
   position: relative;
 }
 
+/* formulario */
 form {
-  min-height: 30rem;
+  min-height: 45rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -142,7 +142,7 @@ form {
   background-color: white;
 }
 
-.boton-ingresa {
+.boton-registrate  {
   background-color: black;
   color: white;
   border-radius: 2rem;
@@ -160,8 +160,11 @@ form {
   border: 0;
   background: rgb(119,198,202);
 }
+.form-text p{
+  font-size: 0.7rem;
+}
 
-.registrate {
+.ingresa{
   text-decoration: none;
   color: #77c6ca;
 }
