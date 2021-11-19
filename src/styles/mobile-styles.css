@@ -1,3 +1,4 @@
+/* reset styles */
 * {
   margin: 0;
   padding: 0;
@@ -21,6 +22,7 @@ header {
   height: 44px;
   background-color: #77c6ca;
   padding: 0.5rem;
+  border-top: thin solid white;
 }
 
 /* Estilos Boton Hamburguesa */
@@ -158,15 +160,17 @@ main {
   box-shadow: -0.5px -0.5px 1.5px black;
 }
 
+/* Por qué clens? */
 .why-clens {
   display: flex;
   flex-direction: column;
   margin: 20px 0;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 0;
 }
 .why-clens h2 {
-  font-size: 1.9rem;
+  font-size: 2.3rem;
 }
 
 .why-wrapper {
@@ -196,5 +200,161 @@ main {
 }
 .why-card p {
   text-align: center;
+  font-size: 1.6rem;
+}
+
+/* Services */
+
+.services-clens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  background-color: #77c6ca;
+}
+
+.services-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.service-card {
+  padding: 15px;
+  border: thin solid white;
+  width: 90%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.services-clens h2 {
+  font-size: 2.3rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.service-card h3 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 5px;
+  color: #3e599c;
+  text-align: center;
+}
+
+.service-card img {
+  height: 180px;
+}
+
+.service-card p {
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.service-card .services-description {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
   font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+/* Reviews - reseñas SLIDER *************************/
+.reviews-clens {
+  margin-bottom: 50px;
+  width: 100%;
+  padding: 20px;
+}
+.reviews-clens h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+.reviews-clens .sliderDad {
+  position: relative;
+  margin-bottom: 200px;
+  width: 100%;
+  padding: 0 auto;
+}
+
+.review-wrapper {
+  width: 250px;
+  left: 50%;
+  margin-left: -125px;
+  position: absolute;
+  top: 0px;
+  opacity: 0;
+  transition: opacity 0.5s;
+  padding: 20px;
+  background-color: #f0fefe;
+}
+.review-wrapper .comment {
+  background-color: #fff;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0.5px 0.5px 1px #77c6ca;
+}
+.review-wrapper .comment h3 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  padding-top: 15px;
+}
+.review-wrapper .comment p {
+  padding: 15px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.review-wrapper .client {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.review-wrapper .client img {
+  height: 100px;
+  border-radius: 50%;
+}
+
+.reviews-clens img {
+  height: 180px;
+}
+
+.reviews-clens h4 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.reviews-clens .sliderDad .review-wrapper:first-child {
+  opacity: 1;
+}
+.reviews-clens .sliderDad .review-wrapper:target {
+  opacity: 1;
+}
+
+/* MENU NAVEGACION SLIDER - REVIEWS */
+.navigator-reviews {
+  text-align: center;
+  margin-top: 325px;
+}
+
+.navigator-reviews li {
+  display: inline-block;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.navigator-reviews li a {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  background-color: #77c6ca;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  border-radius: 100%;
+  padding: 4px;
 }
