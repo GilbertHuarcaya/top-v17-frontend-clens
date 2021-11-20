@@ -85,7 +85,7 @@ header {
   display: block;
   transition: all 0.3s ease;
 }
-.menu a:nth-child(7) {
+.menu a:nth-child(8) {
   border-bottom: 0.1px solid #999;
 }
 
@@ -97,7 +97,7 @@ header {
 
 .is-active {
   opacity: 1;
-  transform: translate(0, -106%);
+  transform: translate(0, -105.7%);
 }
 
 /* Logo */
@@ -126,7 +126,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
 form {
@@ -138,7 +137,6 @@ form {
   box-shadow: 2px 2px 50px 2px rgba(0, 0, 0, 0.2);
   padding: 2rem;
   border-radius: 1rem;
-  z-index: 2;
   background-color: white;
 }
 
@@ -158,7 +156,7 @@ form {
   border-radius: 2rem;
   padding: 0.5rem 1rem;
   border: 0;
-  background: rgb(119,198,202);
+  background: rgb(119, 198, 202);
 }
 
 .registrate {
@@ -170,13 +168,83 @@ button:hover {
   font-weight: bold;
   cursor: pointer;
 }
+.registrate:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
 
-.form-login .behind_container {
-  background: rgb(119,198,202);
-  width: 30rem;
-  height: 25rem;
-  position: fixed;
-  z-index: 1;
-  border-radius: 1rem;
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+/* responsive */
+@media (min-width: 768px) and (min-height: 670px) {
+  h3 {
+    font-size: 1.5rem;
+  }
+  .auth-logos img {
+    height: 3rem;
+  }
+
+  /* formulario */
+
+  .form-login {
+    height: 92vh;
+  }
+  form {
+    height: 40rem;
+    min-width: 30rem;
+  }
+
+  .boton-ingresa {
+    font-size: 2rem;
+  }
+
+  .form-text input {
+    width: 30rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+  .form-text p {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+  form > p {
+    font-size: 1.5rem;
+  }
+
+  .registrate {
+    font-size: 2rem;
+  }
+
+  /*HEADER*/
+
+  header {
+    top: 0;
+    position: static;
+    height: 60px;
+  }
+  .menu {
+    flex-direction: row;
+    top: 0;
+    transform: translate(0, -106%);
+  }
+  btn-menu {
+    display: none;
+  }
+
+  .menu a {
+    border: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu a:nth-child(7) {
+    border-bottom: 0;
+  }
+  .is-active {
+    opacity: 1;
+    transform: translate(0, 50px);
+    position: fixed;
+  }
+  .logo img {
+    height: 60px;
+  }
 }
