@@ -1,0 +1,215 @@
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+html {
+  background-color: #87E7E7;
+}
+
+body {
+  height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 44px;
+  background-color: #77c6ca;
+  padding: 0.5rem;
+  left: 0
+}
+
+/* Estilos Boton Hamburguesa */
+.btn__menu {
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+}
+
+.btn__menu--1, .btn__menu--2, .btn__menu--3 {
+  width: 25px;
+  height: 5px;
+  background-color: #333;
+  margin: 1.5px 0px;
+  transition: 0.3s ease-out;
+}
+
+.change-menu .btn__menu--1 {
+  transform: rotate(-45deg) translate(3px, -3.5px);
+  position: absolute;
+}
+.change-menu .btn__menu--2 {
+  opacity: 0;
+  transition: 0.1s;
+}
+.change-menu .btn__menu--3 {
+  transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* estilos menu */
+.nav__menu {
+  position: fixed;
+  align-items: center;
+  display: flex;
+  font-size: 2.4rem;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  background-color: #77c6ca;
+  transform: translate(0, 106%);
+  opacity: 1;
+  right: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+  z-index: 998;
+}
+
+.nav__menu__item {
+  text-decoration: none;
+  border-top: 0.1px solid #999;
+  width: 100%;
+  padding: 10px 0;
+  color: #f0fefe;
+  display: block;
+  transition: all 0.3s ease;
+  font-size: 0.5em;
+}
+
+.nav__menu__item:nth-child(7) {
+  border-bottom: 0.1px solid #999;
+}
+
+.nav__menu__item:hover {
+  color: #ff5151;
+  background-color: #87e7e7;
+  font-weight: bold;
+}
+
+.is-active {
+  opacity: 1;
+  transform: translate(0, -106%);
+}
+
+/* Logo */
+.navbar__logo {
+  width: 70%;
+  padding-left: 2rem;
+}
+
+.navbar__logo--mini {
+  height: 40px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 70px
+}
+
+.card__form {
+  background-color: white;
+  display: flex;
+  width: 85%;
+  padding: 30px;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.card__form__group {
+  margin: 15px 0 0 0;
+}
+
+.card__form__titulo {
+  margin-bottom: 0.5rem;
+  color: #929292;
+  font-size: 0.8rem;
+}
+
+.card__form__input {
+  border: 0;
+  border-bottom: 1px solid gray;
+  padding: 0 10px 5px 0;
+  width: 100%
+}
+
+.card__form__h2 {
+  margin: 30px 0 10px 0;
+  font-size: 2.7rem;
+}
+
+.card__form__h4 {
+  margin: 60px 5px 0 5px;
+  font-size: 1.4rem;
+}
+
+.card__form__h5 {
+  margin: 5px 0 5px 0;
+  font-size: 1rem;
+}
+
+.card__form__btn {
+  margin: auto;
+  margin-top: 30px;
+  width: 180px;
+  height: 75px;
+  background-color: black;
+  color: white;
+  font-size: 1.6em;
+  font-weight: bold;
+  border-radius: 10px;
+  border-style: solid;
+}
+
+.pass-eye {
+  display: flex;
+  flex-direction: row;
+}
+
+.fa-eye {
+  margin-left: -25px;
+  cursor: pointer;
+}
+
+.info__img {
+  display: none
+}
+
+@media screen and (min-width: 1025px ) {
+  .card {
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card__form {
+    width: 40%;
+    padding: 30px;
+    border-radius: 20px;
+  }
+
+  .info__img {
+    border-radius: 0 20px 20px 0;
+    display: flex;
+  }
+
+  .card__form__group {
+    width: 85%
+  }
+
+  .navbar {
+    left: 0;
+  }
+}
