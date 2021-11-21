@@ -118,6 +118,7 @@ header {
 
 .auth-logos img {
   height: 2rem;
+  margin: 0.5rem;
 }
 
 .form-login {
@@ -180,6 +181,45 @@ button:hover {
 
 /* responsive */
 @media (min-width: 768px) and (min-height: 670px) {
+  header {
+    align-items: center;
+    justify-content: stretch;
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 44px;
+  }
+  .btn-menu {
+    display: none;
+  }
+  .logo {
+    /* width: 25%; */
+    padding-left: 2rem;
+  }
+  .logo img {
+    height: 44px;
+  }
+  .menu {
+    position: relative;
+    align-items: center;
+    font-size: 1.8rem;
+    flex-direction: row;
+    transform: none;
+    /* width: 70%; */
+    z-index: 0;
+    margin-right: 20px;
+  }
+  .menu a {
+    border-top: none;
+    padding: 0;
+    margin: 0 10px;
+  }
+  .menu a:nth-child(8) {
+    border-bottom: 0;
+  }
+
+   /* formulario desktop */
+
   h3 {
     font-size: 1.5rem;
   }
@@ -187,7 +227,6 @@ button:hover {
     height: 3rem;
   }
 
-  /* formulario */
   .form-login {
     height: 92vh;
   }
@@ -218,38 +257,4 @@ button:hover {
     font-size: 2rem;
   }
 
-  /*HEADER*/
-
-  header {
-    top: 0;
-    position: static;
-    height: 60px;
-  }
-  .menu {
-    flex-direction: row;
-    top: 0;
-    transform: translate(0, -106%);
-  }
-  btn-menu {
-    display: none;
-  }
-
-  .menu a {
-    border: 0;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .menu a:nth-child(7) {
-    border-bottom: 0;
-  }
-  .is-active {
-    opacity: 1;
-    transform: translate(0, 50px);
-    position: fixed;
-  }
-  .logo img {
-    height: 60px;
-  }
 }
