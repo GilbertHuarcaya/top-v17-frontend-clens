@@ -107,7 +107,7 @@ header {
   padding-left: 2rem;
 }
 .logo img {
-  height: 44px;
+  height: 40px;
 }
 /* Estilos del Main */
 main {
@@ -267,6 +267,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-self: center;
 }
 .services-clens h2 {
   font-size: 2.3rem;
@@ -401,7 +402,7 @@ footer {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 15px;
+  padding: 20px;
   background: #77c6ca;
   color: white;
   margin-bottom: 44px;
@@ -543,6 +544,7 @@ footer .logo img {
   /* Services */
   .why-clens {
     margin-bottom: 20px;
+    padding: 20px;
   }
 
   .services-wrapper {
@@ -553,12 +555,13 @@ footer .logo img {
     gap: 20px;
     padding: 20px;
   }
+
   footer {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     align-items: space-evenly;
-    padding: 15px;
+    padding: 20px;
     margin-bottom: 0;
   }
 }
