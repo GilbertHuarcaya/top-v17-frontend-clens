@@ -385,13 +385,17 @@ main {
 
 /* FOOTER */
 footer {
+
   width: 100%;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 15px;
   background: #77c6ca;
   color: white;
   margin-bottom: 44px;
+
+  max-width: 768px;
 }
 footer h2 {
   color: #3e599c;
