@@ -157,7 +157,7 @@ main {
   border-radius: 3px;
 }
 .initial .buttons button:hover {
-  background-color:#87e7e7;
+  background-color: #87e7e7;
   color: #ff5151;
   font-weight: bold;
   box-shadow: -0.5px -0.5px 1.5px black;
@@ -426,7 +426,7 @@ footer ul li a:hover {
   color: #ff5151;
   text-decoration: underline;
 }
-footer  img {
+footer img {
   width: 30px;
   height: 30px;
 }
@@ -480,6 +480,9 @@ footer .logo img {
     display: block;
     transition: all 0.3s ease;
     margin: 0 10px;
+  }
+  .menu a:hover {
+    background-color: #77c6ca;
   }
   .menu a:nth-child(8) {
     border-bottom: 0;

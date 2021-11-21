@@ -209,6 +209,10 @@ button:hover {
     padding: 0;
     margin: 0 10px;
   }
+
+  .menu a:hover {
+    background-color: #77c6ca;
+  }
   .menu a:nth-child(8) {
     border-bottom: 0;
   }

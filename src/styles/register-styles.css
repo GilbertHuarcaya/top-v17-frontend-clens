@@ -213,12 +213,17 @@ button:hover {
     border-top: none;
     padding: 0;
     margin: 0 10px;
+    background-color: #77c6ca;
   }
+  .menu a:hover {
+    background-color: #77c6ca;
+  }
+
   .menu a:nth-child(8) {
     border-bottom: 0;
   }
 
-   /* formulario desktop */
+  /* formulario desktop */
 
   h3 {
     font-size: 1.5rem;
@@ -256,5 +261,4 @@ button:hover {
   .ingresa {
     font-size: 2rem;
   }
-
 }
