@@ -463,18 +463,12 @@ footer .logo img {
   .menu {
     position: relative;
     align-items: center;
-    display: flex;
     font-size: 1.8rem;
     flex-direction: row;
-    justify-content: space-evenly;
-    text-align: center;
-    background-color: none;
     transform: none;
-    opacity: 1;
     /* width: 70%; */
-    transition: all 0.3s ease-in-out;
     z-index: 0;
-    margin-right: 100px;
+    margin-right: 20px;
   }
   .menu a {
     border-top: none;

@@ -10,7 +10,10 @@ body {
   background-color: #f0fefe;
   min-width: 300px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
 header {
   display: flex;
   align-items: center;
@@ -85,7 +88,7 @@ header {
   display: block;
   transition: all 0.3s ease;
 }
-.menu a:nth-child(8) {
+.menu a:nth-child(7) {
   border-bottom: 0.1px solid #999;
 }
 
@@ -97,7 +100,7 @@ header {
 
 .is-active {
   opacity: 1;
-  transform: translate(0, -105.7%);
+  transform: translate(0, -106%);
 }
 
 /* Logo */
@@ -118,13 +121,14 @@ header {
 
 .auth-logos img {
   height: 2rem;
+  margin: 0.5rem;
 }
 
 .form-login {
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 15vh auto;
 }
 
 /* formulario */
@@ -138,7 +142,6 @@ form {
   padding: 2rem;
   border-radius: 1rem;
   background-color: white;
-  margin-bottom: 3rem;
 }
 
 .boton-registrate {
@@ -178,18 +181,99 @@ button:hover {
   cursor: pointer;
 }
 
+/* FOOTER */
+footer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 20px 20px 60px 20px;
+  background: #77c6ca;
+  color: white;
+}
+footer h2 {
+  color: #3e599c;
+  margin: 15px 0;
+  font-size: 1.9rem;
+}
+footer ul {
+  list-style: none;
+}
+footer ul li {
+  padding: 3px;
+  font-size: 1.4rem;
+}
+footer ul li a {
+  text-decoration: none;
+  color: white;
+}
+footer ul li a:hover {
+  color: #ff5151;
+  text-decoration: underline;
+}
+footer img {
+  width: 30px;
+  height: 30px;
+}
+
+footer .logo img {
+  width: 100px;
+  height: 100px;
+}
 /* responsive */
 @media (min-width: 768px) and (min-height: 670px) {
+  header {
+    align-items: center;
+    justify-content: stretch;
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 44px;
+  }
+  .btn-menu {
+    display: none;
+  }
+  .logo {
+    /* width: 25%; */
+    padding-left: 2rem;
+  }
+  .logo img {
+    height: 44px;
+  }
+  .menu {
+    position: relative;
+    align-items: center;
+    font-size: 1.8rem;
+    flex-direction: row;
+    transform: none;
+    /* width: 70%; */
+    z-index: 0;
+    margin-right: 20px;
+  }
+  .menu a {
+    border-top: none;
+    padding: 0;
+    margin: 0 10px;
+    background-color: #77c6ca;
+  }
+  .menu a:hover {
+    background-color: #77c6ca;
+  }
+
+  .menu a:nth-child(7) {
+    border-bottom: 0;
+  }
+
+  /* formulario desktop */
+
   h3 {
     font-size: 1.5rem;
   }
   .auth-logos img {
     height: 3rem;
   }
-
-  /* formulario */
   .form-login {
-    height: 92vh;
+    margin: auto;
+    padding: 3vh;
   }
 
   form {
@@ -217,39 +301,11 @@ button:hover {
   .ingresa {
     font-size: 2rem;
   }
-
-  /*HEADER*/
-
-  header {
-    top: 0;
-    position: static;
-    height: 60px;
-  }
-  .menu {
-    flex-direction: row;
-    top: 0;
-    transform: translate(0, -106%);
-  }
-  btn-menu {
-    display: none;
-  }
-
-  .menu a {
-    border: 0;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .menu a:nth-child(7) {
-    border-bottom: 0;
-  }
-  .is-active {
-    opacity: 1;
-    transform: translate(0, 50px);
-    position: fixed;
-  }
-  .logo img {
-    height: 60px;
+  /* footer desktop */
+  footer {
+    grid-template-columns: repeat(6, 1fr);
+    align-items: space-evenly;
+    padding: 20px;
+    margin-bottom: 0;
   }
 }
