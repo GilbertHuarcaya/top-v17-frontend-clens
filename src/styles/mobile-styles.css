@@ -102,6 +102,38 @@ header {
   transform: translate(0, -105.7%);
 }
 
+/* Menu perfil */
+.menu-perfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
+  position: absolute;
+  right: 0px;
+  top: 45px;
+  transition: all 0.3s ease-out;
+  background-color: #77c6ca;
+  pointer-events: none;
+  opacity: 0;
+}
+.menu-perfil a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  margin: 7px;
+  width: 100%;
+  padding-left: 7px;
+}
+.menu-perfil a:hover {
+  font-weight: bold;
+}
+
+.is-active-menu-perfil {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* Logo */
 .logo {
   width: 70%;
@@ -197,6 +229,7 @@ main {
   height: 40px;
   border-radius: 100%;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 /* Por qué clens? */
@@ -302,7 +335,7 @@ main {
   font-size: 1.4rem;
   margin-bottom: 15px;
 }
-.service-card .services-description ul:nth-child(1){
+.service-card .services-description ul:nth-child(1) {
   margin-right: 20px;
 }
 
