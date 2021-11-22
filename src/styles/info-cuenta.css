@@ -105,6 +105,37 @@ header {
   opacity: 1;
   transform: translate(0, -105.5%);
 }
+/* Menu perfil */
+.menu-perfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
+  position: absolute;
+  right: 0px;
+  top: 45px;
+  transition: all 0.3s ease-out;
+  background-color: #77c6ca;
+  pointer-events: none;
+  opacity: 0;
+}
+.menu-perfil a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  margin: 7px;
+  width: 100%;
+  padding-left: 7px;
+}
+.menu-perfil a:hover {
+  font-weight: bold;
+}
+
+.is-active-menu-perfil {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* Logo */
 .logo {
