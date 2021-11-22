@@ -113,8 +113,10 @@ header {
   align-items: center;
   width: 150px;
   position: absolute;
+
   right: 51px;
   bottom: 50px;
+
   transition: all 0.3s ease-out;
   background-color: #77c6ca;
   pointer-events: none;
