@@ -1,86 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="src/styles/info-cuenta.css">
-	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato' type='text/css'>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-	<title>Document</title>
-</head>
-<body>
-	<div class="navbar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/styles/info-cuenta.css" />
+    <link
+      rel="stylesheet"
+      href="http://fonts.googleapis.com/css?family=Lato"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
     <!-- logo -->
-    <div class="navbar__logo">
-      <img class="navbar__logo--mini" src="./src/images/logo-clens.jpg" alt="logo-clens">
+    <div class="logo">
+      <a href="./mobile.html">
+					<img src="./src/images/logo-clens.jpg" alt="logo-clens" />
+				</a>
     </div>
     <!-- Botón Hamburguesa -->
-    <div class="btn__menu" id="btn-menu-id">
-      <div class="btn__menu--1"></div>
-      <div class="btn__menu--2"></div>
-      <div class="btn__menu--3"></div>
+    <div class="btn-menu" id="btn-menu-id">
+      <div class="linea-1"></div>
+      <div class="linea-2"></div>
+      <div class="linea-3"></div>
     </div>
     <!-- menu -->
-    <div class="nav">
-      <div class="nav__menu" id="menu-id">
-        <a class="nav__menu__item" href="#">¿Por qué nosotros?</a>
-        <a class="nav__menu__item" href="#">Servicios</a>
-        <a class="nav__menu__item" href="#">Personal</a>
-        <a class="nav__menu__item" href="#">Reseñas</a>
-        <a class="nav__menu__item" href="#">Cotiza</a>
-        <a class="nav__menu__item" href="#">Postula</a>
-        <a class="nav__menu__item" href="#">Registrate</a>
+    <nav>
+      <div class="menu" id="menu-id">
+        <a href="#">¿Por qué nosotros?</a>
+        <a href="#">Servicios</a>
+        <a href="#">Personal</a>
+        <a href="#">Reseñas</a>
+        <a href="#">Cotiza</a>
+        <a href="#">Postula</a>
+        <a href="./register.html">Registrate</a>
+        <a href="./login.html">Ingresa</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+		<section class="cart-user">
+			<div class="cart" ><img src="./src/images/icons/cart.svg" alt="carrito-compras"></div>
+      <a href="./info-cuenta.html">
+			<img class="user-picture" src="https://randomuser.me/api/portraits/women/40.jpg" alt="foto-usuario">
+      </a>
+		</section>
+  </main>
+    <div class="card--desktop">
+      <div class="card">
+        <form class="card__form">
+          <h2 class="card__form__h2">Información de Cuenta</h2>
+          <h5 class="card__form__h5">Aqui puede actualizar su información:</h5>
+          <div class="card__form__group">
+            <p class="card__form__titulo">Dirección</p>
+            <input
+              type="text"
+              id="input-direccion"
+              class="card__form__input"
+              value="Direccion Actual"
+            />
+          </div>
+          <div class="card__form__group">
+            <p class="card__form__titulo">Nombre Completo</p>
+            <input
+              type="text"
+              id="input-nombre"
+              class="card__form__input"
+              value="Nombre Actual"
+            />
+          </div>
+          <div class="card__form__group">
+            <p class="card__form__titulo">Teléfono</p>
+            <input
+              type="tel"
+              id="input-telefono"
+              class="card__form__input"
+              value="Telefono Actual"
+            />
+          </div>
+
+          <h4 class="card__form__h4">Cambie su información de ingreso</h4>
+          <div class="card__form__group">
+            <p class="card__form__titulo">Correo</p>
+            <input
+              type="email"
+              class="card__form__input"
+              value="Correo_actual@gmail.com"
+            />
+          </div>
+          <div class="card__form__group">
+            <p class="card__form__titulo">Contraseña antigua</p>
+            <div class="pass-eye">
+              <input
+                type="password"
+                class="card__form__input"
+                id="old-password"
+              />
+              <span class="far fa-eye" id="toggleOldPassword"></span>
+            </div>
+          </div>
+          <div class="card__form__group">
+            <p class="card__form__titulo">Nueva contraseña</p>
+            <div class="pass-eye">
+              <input
+                type="password"
+                class="card__form__input"
+                id="new-password"
+              />
+              <span class="far fa-eye" id="toggleNewPassword"></span>
+            </div>
+          </div>
+          <div class="card__form__group">
+            <p class="card__form__titulo">Foto</p>
+            <input type="text" class="card__form__input" />
+          </div>
+          <button class="card__form__btn">Actualizar</button>
+        </form>
+        <img class="info__img" src="src/images/info-cuenta.png" alt="" />
       </div>
     </div>
-  </div>
-	<div class="card--desktop">
-		<div class="card">
-			<form class="card__form">
-				<h2 class="card__form__h2">Informacion de Cuenta</h2>
-				<h5 class="card__form__h5">Aqui puede actualizar su informacion:</h5>
-				<div class="card__form__group">
-					<p class="card__form__titulo">Direccion</p>
-					<input type="text" id="input-direccion" class="card__form__input" value="Direccion Actual">
-				</div>
-				<div class="card__form__group">
-					<p class="card__form__titulo">Nombre Completo</p>
-					<input type="text" id="input-nombre" class="card__form__input" value="Nombre Actual">
-				</div>
-				<div class="card__form__group">
-					<p class="card__form__titulo">Telefono</p>
-					<input type="tel" id="input-telefono" class="card__form__input" value="Telefono Actual">
-				</div>
+    <footer>
+      <section class="logo">
+        <a href="./index.html">
+          <img src="./src/images/logo-clens.jpg" alt="logo-clens" />
+        </a>
+      </section>
+      <section class="services">
+        <h2>Servicios</h2>
+        <ul>
+          <li><a href="#">Baño</a></li>
+          <li><a href="#">Cocina</a></li>
+          <li><a href="#">Sala</a></li>
+          <li><a href="#">Cuarto</a></li>
+          <li><a href="#">Otros</a></li>
+        </ul>
+      </section>
+      <section class="company">
+        <h2>Empresa</h2>
 
-				<h4 class="card__form__h4">Cambie su informacion de ingreso</h4>
-				<div class="card__form__group">
-					<p class="card__form__titulo">Correo</p>
-					<input type="email" class="card__form__input" value="Correo actual">
-				</div>
-				<div class="card__form__group">
-					<p class="card__form__titulo">Contraseña antigua</p>
-					<div class="pass-eye">
-						<input type="password" class="card__form__input" id="old-password">
-						<span class="far fa-eye" id="toggleOldPassword"></span>
-				</div>
-				</div>
-				<div class="card__form__group">
-					<p class="card__form__titulo">Nueva contraseña</p>
-					<div class="pass-eye">
-						<input type="password" class="card__form__input" id="new-password">
-						<span class="far fa-eye" id="toggleNewPassword"></span>
-					</div>
-				</div>
-				<div class="card__form__group">
-					<p class="card__form__titulo">Foto</p>
-					<input type="text" class="card__form__input">
-				</div>
-				<button class="card__form__btn">Actualizar</button>
-			</form>
-			<img class="info__img" src="src/images/info-cuenta.png" alt="">
-		</div>
-	</div>
-	<script src="src/js/hamburguer-btn.js"></script>
-	<script src="src/js/info-cuenta.js"></script>
-</body>
+        <ul>
+          <li><a href="#">Sobre nosotros</a></li>
+          <li><a href="#">Cotiza</a></li>
+          <li><a href="#">Postula</a></li>
+          <li><a href="#">Personal</a></li>
+        </ul>
+      </section>
+      <section class="Support">
+        <h2>Soporte</h2>
+        <ul>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="#">Ayuda</a></li>
+        </ul>
+      </section>
+      <section class="contact">
+        <h2>Contáctenos</h2>
+        <ul>
+          <li>contacto@clens.com</li>
+          <li>Lima / Perú</li>
+          <li>+51 123456789</li>
+        </ul>
+      </section>
+      <section class="social-networks">
+        <h2>Nuestras redes</h2>
+
+        <a href="#" target="_blank"
+          ><img src="./src/images/icons/facebook.png" alt="facebook"
+        /></a>
+        <a href="#" target="_blank"
+          ><img src="./src/images/icons/instagram.png" alt="instagram"
+        /></a>
+      </section>
+    </footer>
+    <script src="src/js/hamburguer-btn.js"></script>
+    <script src="src/js/info-cuenta.js"></script>
+  </body>
 </html>
