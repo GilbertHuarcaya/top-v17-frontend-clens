@@ -1,10 +1,8 @@
-import HelloWorld from './components/HelloWorld';
-
 import './App.scss';
 
 const App = () => (
   <div className="App">
-    <HelloWorld />
+    <h1>Clens</h1>
   </div>
 );
 export default App;
