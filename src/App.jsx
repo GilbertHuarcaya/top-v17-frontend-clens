@@ -1,8 +1,13 @@
 import './App.scss';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import HeroSection from './components/HeroSection';
 
 const App = () => (
-  <div className="App">
-    <h1>Clens</h1>
-  </div>
+  <>
+    <Header />
+    <HeroSection />
+    <Footer />
+  </>
 );
 export default App;
