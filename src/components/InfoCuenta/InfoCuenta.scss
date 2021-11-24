@@ -1,0 +1,148 @@
+* {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #f0fefe;
+  min-width: 300px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card con info de usuario*/
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--desktop {
+    margin: 10vh 1rem;
+  }
+
+  &__form {
+    background-color: white;
+    display: flex;
+    width: 90%;
+    padding: 2rem;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 2px 2px 50px 2px rgba(0, 0, 0, 0.2);
+
+    &__group {
+      margin: 15px 0 0 0;
+    }
+
+    &__titulo {
+      margin-bottom: 0.5rem;
+      color: #929292;
+      font-size: 1rem;
+    }
+
+    &__input {
+      border: 0;
+      border-bottom: 1px solid gray;
+      padding: 0 10px 5px 0;
+      width: 100%;
+    }
+
+    &__h2 {
+      margin: 30px 0 10px 0;
+      font-size: 3rem;
+    }
+
+    &__h4 {
+      margin: 40px 5px 0 5px;
+      font-size: 1rem;
+    }
+
+    &__h5 {
+      margin: 5px 0 5px 0;
+      font-size: 1rem;
+    }
+
+    &__btn {
+      margin: auto;
+      margin-top: 30px;
+      width: 130px;
+      height: 60px;
+      background-color: black;
+      color: white;
+      font-size: 1.6em;
+      font-weight: bold;
+      border-radius: 10px;
+      border-style: solid;
+    }
+
+    &__btn:hover {
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.info__img {
+  display: none;
+}
+
+@media screen and (min-width: 769px) {
+  .card--desktop {
+    margin: 20px 0 20px 0;
+    padding: 1rem;
+  }
+
+  .card__form {
+    &__titulo,
+    &__input {
+      font-size: 1.4rem;
+    }
+
+    &__h2 {
+      font-size: 3rem;
+    }
+
+    &__h4,
+    &__h5 {
+      font-size: 1.7rem;
+    }
+  }
+
+  .info__img {
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    width: 50vw;
+    height: 70vh;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .card--desktop {
+    margin-left: 20px;
+  }
+
+  .card__form {
+    width: 55vw;
+    max-width: 600px;
+    padding: 4rem;
+    font-size: 1.5rem;
+
+    &__btn {
+      width: 170px;
+      height: 80px;
+    }
+  }
+
+  .info__img {
+    width: 45vw;
+    max-width: 560px;
+    height: 65vh;
+    margin-right: 20px;
+  }
+}
