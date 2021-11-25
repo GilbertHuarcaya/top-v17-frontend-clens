@@ -1,0 +1,14 @@
+.title-minititle {
+  width: 100%;
+
+  &__minititle {
+    color: #8198a4;
+    margin: 25px 0;
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: -10px;
+  }
+}
