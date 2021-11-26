@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import './RegisterForm.scss';
 import gmailLogo from '../../img/icons/gmail.png';
 import facebookLogo from '../../img/icons/facebook.png';
@@ -32,28 +34,32 @@ const RegisterForm = () => (
     </button>
     <p className="form_register__text">o Regístrate con:</p>
     <div className="form_register__logos_register">
-      <a href target>
+      <Link to="/">
         <img
           className="form_register__logo_register"
           src={facebookLogo}
           alt="facebook"
         />
-      </a>
-      <a href target>
+      </Link>
+      <Link to="/">
         <img
           className="form_register__logo_register"
           src={instagramLogo}
           alt="instagram"
         />
-      </a>
-      <a href>
-        <img className="form_register__logo_register" src={gmailLogo} alt="gmail" />
-      </a>
+      </Link>
+      <Link to="/">
+        <img
+          className="form_register__logo_register"
+          src={gmailLogo}
+          alt="gmail"
+        />
+      </Link>
     </div>
     <p className="form_register__text">¿Ya tienes una cuenta?</p>
-    <a className="form_register__button__login" href="./login.html">
+    <Link className="form_register__button__login" to="/login">
       Ingresa
-    </a>
+    </Link>
   </form>
 );
 

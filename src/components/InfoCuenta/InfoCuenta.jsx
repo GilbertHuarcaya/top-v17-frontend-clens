@@ -6,7 +6,9 @@ const InfoCuenta = () => (
     <div className="card">
       <form className="card__form">
         <h2 className="card__form__h2">Información de Cuenta</h2>
-        <h5 className="card__form__h5">Aqui puede actualizar su información:</h5>
+        <h5 className="card__form__h5">
+          Aqui puede actualizar su información:
+        </h5>
         <div className="card__form__group">
           <p className="card__form__titulo">Dirección</p>
           <input
@@ -70,7 +72,9 @@ const InfoCuenta = () => (
           <p className="card__form__titulo">Foto</p>
           <input type="text" className="card__form__input" />
         </div>
-        <button type="submit" className="card__form__btn">Actualizar</button>
+        <button type="submit" className="card__form__btn">
+          Actualizar
+        </button>
       </form>
       <img className="info__img" src={info} alt="" />
     </div>
