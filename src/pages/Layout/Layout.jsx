@@ -1,12 +1,13 @@
+import { Outlet } from 'react-router-dom';
+
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import RegisterForm from '../../components/RegisterForm/RegisterForm';
 
-const Register = () => (
+const App = () => (
   <>
     <Header />
-    <RegisterForm />
+    <Outlet />
     <Footer />
   </>
 );
-export default Register;
+export default App;
