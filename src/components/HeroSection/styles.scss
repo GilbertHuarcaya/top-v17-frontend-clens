@@ -1,11 +1,15 @@
 .hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)), url(../../img/hero-image.jpg);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 80vh;
   width: inherit;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-justify: auto;
 
   &__image {
     width: 100%;
@@ -48,6 +52,8 @@
     align-items: flex-start;
     height: 90vh;
 
+
+
     &__image {
       width: 100%;
       position: absolute;
@@ -66,7 +72,7 @@
       width: 600px;
     }
     &--button {
-      margin-left: 300px;
+      margin-left: 40vw;
     }
   }
 }

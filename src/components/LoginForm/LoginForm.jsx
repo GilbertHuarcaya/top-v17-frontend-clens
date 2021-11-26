@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import './LoginForm.scss';
 import gmailLogo from '../../img/icons/gmail.png';
 import facebookLogo from '../../img/icons/facebook.png';
@@ -13,23 +15,33 @@ const LoginForm = () => (
       <h3>Contraseña</h3>
       <input type="password" placeholder="******" />
     </div>
-    <button className="form_login__button__login" type="submit">Ingresa</button>
+    <button className="form_login__button__login" type="submit">
+      Ingresa
+    </button>
     <p className="form_login__text">o Ingresa con:</p>
     <div className="form_login__logos_login">
-      <a href target>
-        <img className="form_login__logo_login" src={facebookLogo} alt="facebook" />
-      </a>
-      <a href target>
-        <img className="form_login__logo_login" src={instagramLogo} alt="instagram" />
-      </a>
-      <a href>
+      <Link to="/">
+        <img
+          className="form_login__logo_login"
+          src={facebookLogo}
+          alt="facebook"
+        />
+      </Link>
+      <Link to="/">
+        <img
+          className="form_login__logo_login"
+          src={instagramLogo}
+          alt="instagram"
+        />
+      </Link>
+      <Link to="/">
         <img className="form_login__logo_login" src={gmailLogo} alt="gmail" />
-      </a>
+      </Link>
     </div>
     <p className="form_login__text">¿Aún no tienes una cuenta?</p>
-    <a className="form_login__button__register" href="./register.html">
+    <Link className="form_login__button__register" to="/register">
       Regístrate
-    </a>
+    </Link>
   </form>
 );
 

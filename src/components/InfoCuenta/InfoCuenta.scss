@@ -5,16 +5,8 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
-
 body {
   background-color: #f0fefe;
-  min-width: 300px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Card con info de usuario*/
@@ -71,8 +63,8 @@ body {
     &__btn {
       margin: auto;
       margin-top: 30px;
-      width: 130px;
-      height: 60px;
+      width: 120px;
+      height: 50px;
       background-color: black;
       color: white;
       font-size: 1.6em;
@@ -116,9 +108,8 @@ body {
 
   .info__img {
     border-radius: 0 20px 20px 0;
-    display: flex;
-    width: 50vw;
-    height: 70vh;
+    display: inline-block;
+    width: 40rem;
   }
 }
 
@@ -134,15 +125,12 @@ body {
     font-size: 1.5rem;
 
     &__btn {
-      width: 170px;
-      height: 80px;
+      width: 160px;
+      height: 60px;
     }
   }
 
   .info__img {
-    width: 45vw;
-    max-width: 560px;
-    height: 65vh;
     margin-right: 20px;
   }
 }
