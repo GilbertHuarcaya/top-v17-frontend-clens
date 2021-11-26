@@ -10,7 +10,6 @@
   background-color: #77c6ca;
   padding: 0.5rem;
   border-top: thin solid white;
-
   /* Logo */
   &__logo {
     width: 70%;
@@ -120,17 +119,16 @@
   }
 
   &__cart {
-    height: 25px;
+    height: 30px;
     width: 30px;
     background-color: #fff;
     border-radius: 100%;
     padding: 3px;
-    margin-right: 5px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 5px;
+    margin: 5px;
   }
 
   &__icon {
@@ -214,10 +212,15 @@
       display: block;
       transition: all 0.3s ease;
       margin: 0 10px;
+      font-size: 70%;
     }
 
     &__a:hover {
       background-color: #77c6ca;
+    }
+
+    &__a:nth-child(1) {
+
     }
 
     &__a:nth-child(8) {
@@ -244,7 +247,7 @@
       height: 30px;
       background-color: #fff;
       border-radius: 100%;
-      padding: 3px;
+      padding: 0 3px;
       box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     }
 
