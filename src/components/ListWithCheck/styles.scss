@@ -1,0 +1,10 @@
+.LiCheck {
+  list-style: none;
+  &__img {
+    height: 18px;
+  }
+  &__text {
+    margin-left: 1rem;
+    font-size: 18px;
+  }
+}
