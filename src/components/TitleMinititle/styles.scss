@@ -3,12 +3,23 @@
 
   &__minititle {
     color: #8198a4;
-    margin: 25px 0;
+    margin: 3rem;
+    font-size: 1.5rem;
+    text-align: justify;
   }
 
   &__title {
     font-size: 3rem;
     font-weight: bold;
-    margin-top: -10px;
+    margin-top: 2rem;
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .title-minititle {
+    &__minititle {
+      text-align: center;
+    }
   }
 }
