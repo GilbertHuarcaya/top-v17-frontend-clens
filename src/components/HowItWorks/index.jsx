@@ -6,7 +6,7 @@ import RateImg from '../../img/icons/HowItWorks/rate.svg';
 import SchudleImg from '../../img/icons/HowItWorks/schudle.svg';
 
 const HowItWorks = () => (
-  <div className="how-it-works">
+  <section className="how-it-works">
     <MinititleTitle
       title="Agil servicio de limpieza"
       minititle="Como funciona"
@@ -26,7 +26,7 @@ const HowItWorks = () => (
       info="Una vez haya finalizado el servicio lo invitamos a que nos deje una calificación por el servicio recibido, podrá recibir beneficios para su próxima contratación"
       imgn={RateImg}
     />
-  </div>
+  </section>
 );
 
 export default HowItWorks;
