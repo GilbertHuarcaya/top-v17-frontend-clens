@@ -1,12 +1,13 @@
-import TitleMinititle from '../TitleMinititle';
+import './styles.scss';
+import MinititleTitle from '../MinititleTitle.jsx';
 import SectionInfo from '../SectionInfo';
 import PlansImg from '../../img/icons/HowItWorks/plans.svg';
 import RateImg from '../../img/icons/HowItWorks/rate.svg';
 import SchudleImg from '../../img/icons/HowItWorks/schudle.svg';
 
 const HowItWorks = () => (
-  <>
-    <TitleMinititle
+  <section className="how-it-works">
+    <MinititleTitle
       title="Agil servicio de limpieza"
       minititle="Como funciona"
     />
@@ -25,7 +26,7 @@ const HowItWorks = () => (
       info="Una vez haya finalizado el servicio lo invitamos a que nos deje una calificación por el servicio recibido, podrá recibir beneficios para su próxima contratación"
       imgn={RateImg}
     />
-  </>
+  </section>
 );
 
 export default HowItWorks;

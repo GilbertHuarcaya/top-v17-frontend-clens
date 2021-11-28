@@ -1,0 +1,43 @@
+.cards {
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  .card {
+    display: grid;
+    grid-column: 1fr;
+    grid-row: 1fr 1fr;
+    flex-basis: 32rem;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    gap: 1rem;
+
+    .section-info {
+      display: grid;
+      grid-column: auto;
+      grid-row: 1fr 1fr 1fr;
+      gap: 1rem;
+
+      &__title {
+        font-size: 2rem;
+      }
+
+      &__info {
+        text-align: justify;
+        font-size: 1.5rem;
+        max-width: 100%;
+        margin: auto;
+      }
+
+      &__img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0;
+      }
+    }
+  }
+}
