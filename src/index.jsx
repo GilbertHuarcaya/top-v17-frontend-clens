@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import LoginForm from './components/LoginForm/LoginForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import InfoCuenta from './components/InfoCuenta/InfoCuenta';
+import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
 
 import './index.scss';
@@ -22,6 +23,7 @@ ReactDOM.render(
         {/* Compartir layout */}
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
+          <Route path="postula" element={<Postula />} />
           <Route path="account" element={<InfoCuenta />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="register" element={<RegisterForm />} />
