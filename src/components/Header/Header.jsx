@@ -2,13 +2,17 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import './Header.scss';
 import logo from '../../img/logo-clens.jpg';
-import cart from '../../img/icons/cart.svg';
 
 const Header = () => {
-  const [toggleClassBtn, setToggleCLassBtn] = useState('false');
+  const [toggleClassBtnMenu, setToggleCLassBtn] = useState('false');
+  const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const handleClick = () => {
-    if (!toggleClassBtn) return setToggleCLassBtn(true);
+    if (!toggleClassBtnMenu) return setToggleCLassBtn(true);
     return setToggleCLassBtn(false);
+  };
+  const handlerMenuUser = () => {
+    if (!toggleClassBtnUser) return setToggleCLassBtnUser(true);
+    return setToggleCLassBtnUser(false);
   };
   return (
     <header className="header">
@@ -28,7 +32,9 @@ const Header = () => {
         <div className="header__btn-menu--3" />
       </button>
       <div
-        className={toggleClassBtn ? 'header__menu' : 'header__menu is-active'}
+        className={
+          toggleClassBtnMenu ? 'header__menu' : 'header__menu is-active'
+        }
         id="menu-id"
       >
         <Link className="header__a" to="/why-us">
@@ -56,7 +62,14 @@ const Header = () => {
           Ingresa
         </Link>
       </div>
-      <div className="header__perfil" id="menu-perfil">
+      <div
+        className={
+          toggleClassBtnUser
+            ? 'header__perfil'
+            : 'header__perfil is-active-menu-perfil'
+        }
+        id="menu-perfil"
+      >
         <Link className="header__perfil__a" to="/info-cuenta">
           Mi Perfil
         </Link>
@@ -74,14 +87,16 @@ const Header = () => {
         </Link>
       </div>
       <div className="header__user">
-        <div className="header__cart">
-          <img className="header__icon" src={cart} alt="carrito-compras" />
-        </div>
-        <img
-          className="header__picture"
-          src="https://randomuser.me/api/portraits/women/40.jpg"
-          alt="foto-usuario"
-          id="perfil"
+        <button
+          className="header__user--cart"
+          type="button"
+          aria-label="foto-carrito"
+        />
+        <button
+          className="header__user--user"
+          type="button"
+          aria-label="foto-perfil"
+          onClick={handlerMenuUser}
         />
       </div>
     </header>
