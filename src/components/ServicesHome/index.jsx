@@ -3,7 +3,7 @@ import Cards from '../Cards/Index';
 import './styles.scss';
 
 const ServicesHome = () => (
-  <section className="services">
+  <section className="home-services">
     <TitleMinititle
       minititle="Qué obtienes con los servicios Clens"
       title="Vamos más allá que solo limpieza"
