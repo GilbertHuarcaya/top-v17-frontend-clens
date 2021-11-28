@@ -23,7 +23,11 @@ const Header = () => {
       </div>
       <button
         type="button"
-        className="header__btn-menu"
+        className={
+          toggleClassBtnMenu
+            ? 'header__btn-menu'
+            : 'header__btn-menu change-menu'
+        }
         id="btn-menu-id"
         onClick={handleClick}
       >
