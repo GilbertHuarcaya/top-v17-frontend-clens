@@ -24,7 +24,7 @@ ReactDOM.render(
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
-          <Route path="account" element={<InfoCuenta />} />
+          <Route path="info-cuenta" element={<InfoCuenta />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="register" element={<RegisterForm />} />
         </Route>

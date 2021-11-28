@@ -84,6 +84,12 @@ body {
   display: none;
 }
 
+.fa-eye,
+.fa-image {
+  margin-left: -25px;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 769px) {
   .card--desktop {
     margin: 20px 0 20px 0;
@@ -125,8 +131,8 @@ body {
     font-size: 1.5rem;
 
     &__btn {
-      width: 160px;
-      height: 60px;
+      width: 210px;
+      height: 80px;
     }
   }
 
