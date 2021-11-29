@@ -1,6 +1,7 @@
 import './styles.scss';
 import MinititleTitle from '../MinititleTitle';
 import CardsReseñas from '../CardsReseñas';
+import ReviewNav from '../ReviewNav';
 
 const ReviewsHome = () => {
   const reseñas = [
@@ -23,7 +24,7 @@ const ReviewsHome = () => {
       info: 'Me gusta Clens por que su limpieza es bastante detallada y los chicos no tienen problemas en ayudarme con cualquier cosa extra que les pida acorde al servicio contratado',
       client: 'Manuel Maldonado',
       img: 'https://randomuser.me/api/portraits/men/34.jpg',
-      id: 'review2',
+      id: 'review3',
     },
   ];
   return (
@@ -33,6 +34,7 @@ const ReviewsHome = () => {
         minititle="Reseñas"
       />
       <CardsReseñas reseñas={reseñas} />
+      <ReviewNav />
     </section>
   );
 };
