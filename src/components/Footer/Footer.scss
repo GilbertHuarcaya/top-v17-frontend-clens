@@ -42,6 +42,10 @@ footer .logo img {
   height: 100px;
 }
 
+footer .social-networks img {
+  margin-left: 1rem;
+}
+
 @media screen and (min-width: 768px) {
   footer {
     width: 100%;
@@ -50,5 +54,8 @@ footer .logo img {
     align-items: space-evenly;
     padding: 20px;
     margin-bottom: 0;
+  }
+  footer section {
+    margin: 0 1rem;
   }
 }

@@ -5,7 +5,7 @@
     color: #8198a4;
     margin: 3rem 0;
     font-size: 1.5rem;
-    text-align: justify;
+    text-align: center;
   }
 
   &__title {
@@ -14,11 +14,17 @@
     margin-top: 2rem;
     text-align: center;
   }
+
+  &__info {
+    margin: 3rem 0;
+    font-size: 1.5rem;
+    text-align: justify;
+  }
 }
 
 @media (min-width: 769px) {
   .title-minititle {
-    &__minititle {
+    &__info {
       text-align: center;
     }
   }

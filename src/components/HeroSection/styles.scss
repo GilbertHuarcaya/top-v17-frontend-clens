@@ -1,5 +1,6 @@
 .hero-section {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)), url(../../img/hero-image.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url(../../img/hero-image.jpg);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,14 +20,13 @@
   &__title {
     color: white;
     font-size: 5rem;
-    margin-bottom: 2rem;
-    padding: 15px;
+    padding: 3rem;
   }
 
   &__information {
     font-size: 1.8rem;
     color: white;
-    padding: 0 20px;
+    padding: 0 3rem;
   }
 
   &--button {
@@ -50,9 +50,7 @@
 @media (min-width: 768px) {
   .hero-section {
     align-items: flex-start;
-    height: 90vh;
-
-
+    min-height: 600px;
 
     &__image {
       width: 100%;
@@ -61,18 +59,24 @@
     }
     &__title {
       font-size: 8rem;
-      margin-bottom: 4rem;
-      padding: 40px;
+      padding: 3rem;
       letter-spacing: -2px;
     }
 
     &__information {
       font-size: 2.4rem;
-      padding: 0 60px;
-      width: 600px;
+      padding: 0 3rem;
+      width: 800px;
     }
     &--button {
       margin-left: 40vw;
     }
+  }
+}
+
+@media (min-width: 1025px) {
+  .hero-section {
+    align-items: flex-start;
+    min-height: 800px;
   }
 }
