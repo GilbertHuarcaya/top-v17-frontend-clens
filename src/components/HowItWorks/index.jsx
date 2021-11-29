@@ -1,5 +1,5 @@
 import './styles.scss';
-import MinititleTitle from '../MinititleTitle.jsx';
+import MinititleTitle from '../MinititleTitle';
 import SectionInfo from '../SectionInfo';
 import PlansImg from '../../img/icons/HowItWorks/plans.svg';
 import RateImg from '../../img/icons/HowItWorks/rate.svg';
