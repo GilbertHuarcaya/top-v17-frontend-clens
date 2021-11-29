@@ -1,0 +1,55 @@
+.btn-solicita {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url(../../img/baner-button.jpeg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 38rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 6rem 3rem;
+  position: relative;
+
+  &__title {
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  &__button {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    bottom: 15rem;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: none;
+    border: 4px solid #77c6ca;
+    margin-top: 50px;
+    font-size: 2rem;
+    color: #f9f9f9;
+    -webkit-box-shadow: 4px 3px 28px -8px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 4px 3px 28px -8px rgba(0, 0, 0, 0.7);
+    box-shadow: 4px 3px 28px -8px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn-solicita {
+    height: 50rem;
+
+    &__title {
+      font-size: 6rem;
+      letter-spacing: -2px;
+    }
+
+    &__button {
+      width: 140px;
+      height: 70px;
+      margin: 5rem auto;
+    }
+  }
+}
