@@ -1,0 +1,37 @@
+{
+  "orders": [
+    {
+    "id":1,
+    "number": "000001",
+    "date": "Miercoles 1 de Diciembre del 2021",
+    "precio": "$80",
+    "services": [
+      "bathroom",
+      "kitchen",
+      "livingroom",
+      "bedroom"
+    ]
+    },
+    {
+      "id":2,
+      "number": "000002",
+      "date": "Jueves 2 de Diciembre del 2021",
+      "precio": "$40",
+      "services": [
+        "bathroom",
+        "kitchen"
+      ]
+    },
+    {
+      "id":3,
+      "number": "000003",
+      "date": "Viernes 3 de Diciembre del 2021",
+      "precio": "$60",
+      "services": [
+        "bathroom",
+        "livingroom",
+        "kitchen"
+      ]
+    }
+  ]
+}
