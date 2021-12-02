@@ -40,15 +40,15 @@ const View = styled.div`
 
 const Services = styled.div`
   display: flex;
-  height: 20vh;
+  flex-direction: column;
+  height: 100%;
   border: 1px solid red;
   justify-content: center;
-  align-items: center;
 `;
 
 const Service = styled.div`
   display: flex;
-  padding: 30px;
+  padding: 10px 30px;
   width: 100%;
   flex-wrap: wrap;
   text-align: center;
@@ -56,8 +56,8 @@ const Service = styled.div`
 
 const Img = styled.img`
   border-radius: "50px";
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
 `;
 
 const Nombre = styled.p`
@@ -84,25 +84,19 @@ const serviceName = {
 const Scroll = styled.div`
   display: flex;
   overflow-x: scroll;
+  margin: 5px 0;
 `;
 
 const Dots = styled.div`
-  top: 260px;
-  position: absolute;
-  width: 85%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin: 5px 0;
 `;
-
-const X = styled.div``;
 
 const Dot = styled.span`
   background-color: #9faab7;
   border-radius: 50%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 0;
   height: 8px;
   width: 8px;
@@ -114,7 +108,7 @@ const Detail = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 23vh;
+  height: 100%;
   border: 1px solid green;
 `;
 
@@ -124,14 +118,20 @@ const Number = styled.h2`
 `;
 
 const Info = styled.p`
-  margin-top: 8px;
+  margin: 10px 0;
   color: black;
   font-size: 1.25em;
   line-height: 1.6em;
 `;
 
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 10px 0;
+`;
+
 const Button = styled.button`
-  margin-top: 10px;
+  margin: 5px 0;
   border: ${(props) => props.border || '2px solid #4CAF50'};
   background-color: ${(props) => props.bgColor || 'none'};
   padding: 8px;
@@ -183,12 +183,10 @@ const Historial = () => {
                   })}
 
                 </Scroll>
-                  <Dots>
+                <Dots>
                   {order.services.map(total => {
                     return (
-                      <X key={total.id} total={total}>
-                      <Dot>a</Dot>
-                      </X>
+                      <Dot key={total.id} total={total} />
                     )
                   })}
                 </Dots>
@@ -200,10 +198,12 @@ const Historial = () => {
                     Cantidad: {order.services.length} <br />
                     Total: {order.precio}
                   </Info>
-                  <Button color="white" border="none" bgColor="#4CAF50">
-                    Ver resumen
-                  </Button>
-                  <Button>Descargar Comprobante</Button>
+                  <Buttons>
+                    <Button color="white" border="none" bgColor="#4CAF50">
+                      Ver resumen
+                    </Button>
+                    <Button>Descargar Comprobante</Button>
+                  </Buttons>
                 </Detail>
               </View>
             );
