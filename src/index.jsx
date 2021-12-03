@@ -8,6 +8,7 @@ import RegisterForm from './components/RegisterForm/RegisterForm';
 import InfoCuenta from './components/InfoCuenta/InfoCuenta';
 import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
+import Services from './components/Services';
 
 import './index.scss';
 
@@ -19,6 +20,7 @@ ReactDOM.render(
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
           <Route path="info-cuenta" element={<InfoCuenta />} />
+          <Route path="services" element={<Services />} />
         </Route>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />

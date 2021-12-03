@@ -1,0 +1,22 @@
+.Why-Clens {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 500px;
+  min-width: 320px;
+  padding: 30px;
+  gap: 30px;
+  margin: 0px auto;
+}
+
+@media (min-width: 768px) {
+  .Why-Clens {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 3rem;
+    gap: 2rem;
+    align-items: none;
+    justify-content: none;
+    max-width: none;
+    gap: 50px;
+  }
+}
