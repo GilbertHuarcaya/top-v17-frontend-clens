@@ -20,7 +20,6 @@ const CardsReseñas = (props) => {
       selectedIndex === 0 ? labels.length - 1 : selectedIndex - 1;
     setSelectedIndex(nextIndex);
   };
-
   return (
     <div className="review-cards" id="review-cards">
       <button
@@ -51,6 +50,7 @@ const CardsReseñas = (props) => {
             <div className="review-card__comment">
               <h3>{e.title}</h3>
               <p>{e.info}</p>
+              <p className="rate">{e.rate}</p>
             </div>
             <div className="review-card__client">
               <div className="review-card__picture">
