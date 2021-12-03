@@ -6,7 +6,7 @@ import bathroom from '../../img/services/bathroom.jpg';
 import kitchen from '../../img/services/cocinas.jpg';
 import bedroom from '../../img/services/habitaciones.jpg';
 import livingroom from '../../img/services/salas.jpg';
-import { getAllOrders } from './Orders';
+import getAllOrders from './Orders';
 
 const TitleContainer = styled.div`
   background-color: #77c6ca;
@@ -158,9 +158,6 @@ const Historial = () => {
     getMyOrders();
   }, []);
 
-
-  const totalServices = orders.map(item => item.services)
-
   return (
     <>
       <TitleContainer>
@@ -170,23 +167,22 @@ const Historial = () => {
         {orders.length > 0 ? (
           orders.map(order => {
             return (
-              <View key={order.id} order={order}>
+              <View key={order.id} >
               <Services>
                 <Scroll>
                   {order.services.map(services => {
                     return (
-                      <Service key={services.id} services={services}>
+                      <Service key={services.id}>
                         <Img src={imgs[services]} />
                         <Nombre>{serviceName[services]}</Nombre>
                       </Service>
                     )
                   })}
-
                 </Scroll>
                 <Dots>
                   {order.services.map(total => {
                     return (
-                      <Dot key={total.id} total={total} />
+                      <Dot key={total.id} />
                     )
                   })}
                 </Dots>
