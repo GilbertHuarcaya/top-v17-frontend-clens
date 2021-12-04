@@ -8,6 +8,7 @@ import RegisterForm from './components/RegisterForm/RegisterForm';
 import InfoCuenta from './components/InfoCuenta/InfoCuenta';
 import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
+import Page404 from './pages/Page404';
 
 import './index.scss';
 
@@ -20,6 +21,7 @@ ReactDOM.render(
           <Route path="postula" element={<Postula />} />
           <Route path="info-cuenta" element={<InfoCuenta />} />
         </Route>
+        <Route path="*" element={<Page404 />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
       </Routes>
