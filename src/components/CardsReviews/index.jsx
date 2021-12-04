@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
-const CardsReseñas = (props) => {
+const CardsReviews = (props) => {
   const { reseñas } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -74,12 +74,12 @@ const CardsReseñas = (props) => {
   );
 };
 
-CardsReseñas.propTypes = {
+CardsReviews.propTypes = {
   reseñas: PropTypes.arrayOf(PropTypes.object),
 };
 
-CardsReseñas.defaultProps = {
+CardsReviews.defaultProps = {
   reseñas: [],
 };
 
-export default CardsReseñas;
+export default CardsReviews;

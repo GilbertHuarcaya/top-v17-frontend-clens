@@ -121,6 +121,12 @@
 
 @media (min-width: 769px) {
   .review-cards {
+    &__button-before {
+      left: 1rem;
+    }
+    &__button-next {
+      right: 1rem;
+    }
     #slider {
       .review-card {
         &__comment {
