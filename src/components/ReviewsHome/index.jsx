@@ -1,6 +1,6 @@
 import './styles.scss';
 import MinititleTitle from '../MinititleTitle';
-import CardsReseñas from '../CardsReseñas';
+import CardsReviews from '../CardsReviews';
 
 const ReviewsHome = () => {
   const reseñas = [
@@ -45,14 +45,13 @@ const ReviewsHome = () => {
       rate: '⭐⭐⭐',
     },
   ];
-
   return (
     <section className="reviews">
       <MinititleTitle
         title="Reseñas de nuestros clientes"
         minititle="Reseñas"
       />
-      <CardsReseñas reseñas={reseñas} />
+      <CardsReviews reseñas={reseñas} />
     </section>
   );
 };
