@@ -88,7 +88,7 @@
     margin: 0.5rem;
   }
   .to_login {
-    width: 30rem;
+    width: 40rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -100,7 +100,6 @@
     color: white;
   }
   &__button__p:hover {
-    font-weight: bold;
     cursor: pointer;
   }
 }
@@ -112,8 +111,13 @@
         width: 30rem;
       }
     }
+
     &__text {
       margin: 1rem;
+    }
+
+    input::placeholder {
+      font-size: 1.5rem;
     }
 
     &__button__register {
@@ -124,8 +128,17 @@
     &__logos_register {
       height: 2.5rem;
     }
+
     &__logo_register {
       margin: 0.8rem;
+    }
+
+    .to_login {
+      width: 50rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
     }
   }
 }
