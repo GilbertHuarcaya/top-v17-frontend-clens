@@ -9,6 +9,7 @@ import InfoCuenta from './components/InfoCuenta/InfoCuenta';
 import Historial from './components/Historial/Historial';
 import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
+import Page404 from './pages/Page404';
 
 import './index.scss';
 
@@ -16,20 +17,14 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        {/* Layout unico  */}
-        {/* <Route path="/" element={<App />} />
-        <Route path="expenses" element={<Expenses />} />
-        <Route path="invoices" element={<Invoices />} /> */}
-
-        {/* Compartir layout */}
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
           <Route path="info-cuenta" element={<InfoCuenta />} />
+          <Route path="*" element={<Page404 />} />
           <Route path="mi-historial" element={<Historial />} />
-          <Route path="login" element={<LoginForm />} />
-          <Route path="register" element={<RegisterForm />} />
-        </Route>
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
