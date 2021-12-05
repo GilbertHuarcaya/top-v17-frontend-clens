@@ -21,8 +21,9 @@ ReactDOM.render(
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
           <Route path="info-cuenta" element={<InfoCuenta />} />
-          <Route path="*" element={<Page404 />} />
           <Route path="mi-historial" element={<Historial />} />
+        </Route>
+          <Route path="*" element={<Page404 />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
       </Routes>
