@@ -23,9 +23,9 @@ ReactDOM.render(
           <Route path="info-cuenta" element={<InfoCuenta />} />
           <Route path="mi-historial" element={<Historial />} />
         </Route>
-          <Route path="*" element={<Page404 />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
+        <Route path="*" element={<Page404 />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
