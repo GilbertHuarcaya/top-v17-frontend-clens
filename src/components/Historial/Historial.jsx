@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
@@ -20,38 +21,59 @@ const Title = styled.h1`
 `;
 
 const OrdersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color: white;
   height: 100%;
   width: 90vw;
-  margin: auto;
-  margin-top: -45px;
-  display: flex;
-  flex-direction: column;
+  max-width: 1300px;
+  margin: -45px auto 20px auto;
+  padding: 0 0 15px 0;
   border-radius: 20px;
 `;
 
 const View = styled.div`
-  width: 100%;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  width: 96%;
+  height: 96%;
+  margin: auto;
   margin-top: 15px;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+
+  @media screen and (min-width: 769px) {
+    flex-direction: row;
+  }
 `;
 
 const Services = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   justify-content: center;
+  @media screen and (min-width: 769px) {
+    width: 50%;
+  }
+  @media screen and (min-width: 1025px) {
+    width: 61%;
+  }
 `;
 
 const Service = styled.div`
   display: flex;
-  padding: 10px 30px;
+  flex-direction: column;
+  padding: 10px 20px;
   width: 100%;
-  flex-wrap: wrap;
-  text-align: center;
+  align-items: center;
+  @media screen and (min-width: 1025px) {
+    width: 70%;
+    padding: 10px 10px;
+  }
 `;
 
 const Img = styled.img`
@@ -109,7 +131,14 @@ const Detail = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  border: 1px solid green;
+  /* border: 1px solid green; */
+  @media screen and (min-width: 769px) {
+    min-width: 50%;
+    margin-left: 10px
+  }
+  @media screen and (min-width: 1025px) {
+    min-width: 39%;
+  }
 `;
 
 const Number = styled.h2`
@@ -131,31 +160,40 @@ const Buttons = styled.div`
 `;
 
 const Button = styled.button`
-  margin: 5px 0;
+  margin: ${(props) => props.margin || '5px 0'};
   border: ${(props) => props.border || '2px solid #4CAF50'};
   background-color: ${(props) => props.bgColor || 'none'};
   padding: 8px;
   border-radius: 0.6rem;
-  width: 45vw;
+  width: ${(props) => props.width || '100%'};
   color: ${(props) => props.color || '#4CAF50'};
 `;
 
+let count = 2;
+
 const Historial = () => {
   const [orders, setOrders] = useState([]);
+  const [ordersToShow, setOrdersToShow] = useState([]);
+
+  const getOrders = async () => {
+    try {
+      const data = await getAllOrders();
+      setTimeout(() => {
+        setOrders(data);
+        setOrdersToShow(data.slice(0, count))
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onHandleMore = () => {
+    count += 2;
+    setOrdersToShow(orders.slice(0, count))
+  }
 
   useEffect(() => {
-    const getMyOrders = async () => {
-      try {
-        const data = await getAllOrders();
-        setTimeout(() => {
-          setOrders(data);
-        }, 1000);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    };
-    getMyOrders();
+    getOrders();
   }, []);
 
   return (
@@ -164,15 +202,15 @@ const Historial = () => {
         <Title>Historial de ordenes</Title>
       </TitleContainer>
       <OrdersContainer>
-        {orders.length > 0 ? (
-          orders.map(order => {
+        {ordersToShow.length > 0 ? (
+          ordersToShow.map(order => {
             return (
-              <View key={order.id} >
+              <View key={order.id} order={order} >
               <Services>
                 <Scroll>
                   {order.services.map(services => {
                     return (
-                      <Service key={services.id}>
+                      <Service key={services.id} services={services}>
                         <Img src={imgs[services]} />
                         <Nombre>{serviceName[services]}</Nombre>
                       </Service>
@@ -182,7 +220,7 @@ const Historial = () => {
                 <Dots>
                   {order.services.map(total => {
                     return (
-                      <Dot key={total.id} />
+                      <Dot key={total.id} total={total}/>
                     )
                   })}
                 </Dots>
@@ -204,9 +242,16 @@ const Historial = () => {
               </View>
             );
           })
-        ) : (
+        ): (
           <h1>Loading ...</h1>
         )}
+        {ordersToShow.length === orders.length ?
+         null : ordersToShow.length > 0 &&
+         <Button margin="20px" type="button" width="150px" onClick={onHandleMore}>
+          VER MAS
+         </Button>
+      }
+
       </OrdersContainer>
     </>
   );
