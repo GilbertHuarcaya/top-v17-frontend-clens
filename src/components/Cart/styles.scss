@@ -1,0 +1,234 @@
+.float-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  background-color: rgb(119, 198, 201);
+
+  .bag {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+    background-image: url('../../img/icons/cart.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    &__quantity {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      color: #0c0b10;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: center;
+      line-height: 18px;
+      border-radius: 50%;
+      background-color: #eabf00;
+      position: absolute;
+      bottom: -5px;
+      right: -5px;
+    }
+  }
+
+  &__header {
+    color: #ececec;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 45px 0;
+
+    .header-title {
+      font-weight: bold;
+      font-size: 2rem;
+      vertical-align: middle;
+    }
+  }
+
+  &__shelf-container {
+    position: relative;
+    min-height: 280px;
+
+    .shelf-empty {
+      color: #ececec;
+      text-align: center;
+      line-height: 40px;
+    }
+
+    .shelf-item {
+      position: relative;
+      box-sizing: border-box;
+      padding: 5%;
+      max-width: 60rem;
+
+      transition: background-color 0.2s, opacity 0.2s;
+
+      &::before {
+        content: '';
+        width: 90%;
+        height: 2px;
+        background-color: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 0;
+        left: 5%;
+      }
+
+      &--mouseover {
+        background: #0c0b10;
+        .shelf-item__details {
+          .title,
+          .desc {
+            text-decoration: line-through;
+            opacity: 0.6;
+          }
+        }
+
+        .shelf-item__price {
+          text-decoration: line-through;
+          opacity: 0.6;
+        }
+      }
+
+      &__del {
+        width: 16px;
+        height: 16px;
+        background-color: transparent;
+        top: 5px;
+        right: 5%;
+        border: none;
+        border-radius: 50%;
+        position: absolute;
+        background-size: auto 100%;
+        background-image: url('../../img/icons/sprite_delete-icon.png');
+        background-repeat: no-repeat;
+        z-index: 2;
+        cursor: pointer;
+
+        &:hover {
+          background-position-x: -17px;
+        }
+      }
+
+      &__thumb,
+      &__details,
+      &__price {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &__thumb {
+        vertical-align: middle;
+        width: 25%;
+        margin-right: 3%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      &__details {
+        width: 47%;
+
+        .title {
+          color: #ececec;
+          font-size: 1.5rem;
+          margin: 0;
+        }
+
+        .desc {
+          color: #5b5a5e;
+          font-size: 1.5rem;
+          margin: 0;
+        }
+      }
+      &__price {
+        color: #eabf00;
+        text-align: right;
+        font-size: 1.5rem;
+        width: 25%;
+      }
+      .change-product-button {
+        color: #b7b7b7;
+        border: 0;
+        background-color: #000;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+
+        &:disabled {
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    box-sizing: border-box;
+    padding: 5%;
+    width: 100%;
+    height: 200px;
+    z-index: 2;
+    background-color: rgb(119, 198, 201);
+
+    &::before {
+      content: '';
+      width: 100%;
+      height: 20px;
+      display: block;
+      position: absolute;
+      top: -20px;
+      left: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+    }
+
+    .sub,
+    .sub-price {
+      color: #5b5a5e;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    .sub {
+      width: 20%;
+      font-size: 1.5rem;
+    }
+
+    .sub-price {
+      width: 80%;
+      text-align: right;
+
+      &__val,
+      &__installment {
+        margin: 0;
+      }
+
+      &__val {
+        color: #eabf00;
+        font-size: 2rem;
+      }
+    }
+    .buy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .buy-btn {
+      color: #ececec;
+      text-align: center;
+      text-transform: uppercase;
+      background-color: #0c0b10;
+      padding: 15px 5px;
+      margin-top: 40px;
+      cursor: pointer;
+
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #000;
+      }
+    }
+  }
+}

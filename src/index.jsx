@@ -10,6 +10,7 @@ import Historial from './components/Historial/Historial';
 import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
 import Page404 from './pages/Page404';
+import Cart from './components/Cart';
 
 import './index.scss';
 
@@ -22,6 +23,7 @@ ReactDOM.render(
           <Route path="postula" element={<Postula />} />
           <Route path="info-cuenta" element={<InfoCuenta />} />
           <Route path="mi-historial" element={<Historial />} />
+          <Route path="mi-carrito" element={<Cart />} />
         </Route>
         <Route path="*" element={<Page404 />} />
         <Route path="/login" element={<LoginForm />} />
