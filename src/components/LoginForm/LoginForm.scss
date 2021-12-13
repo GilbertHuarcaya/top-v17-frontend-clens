@@ -40,7 +40,7 @@
       font-size: 1.5rem;
     }
     input::placeholder {
-      font-size: 1.2em;
+      font-size: 1.5rem;
       font-style: italic;
     }
     input:hover {
@@ -86,7 +86,7 @@
   }
   .to_register,
   .to_recover {
-    width: 30rem;
+    width: 40rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,7 +99,6 @@
     color: white;
   }
   &__button__p:hover {
-    font-weight: bold;
     cursor: pointer;
   }
 }
@@ -125,6 +124,10 @@
     }
     &__logo_login {
       margin: 0.8rem;
+    }
+    .to_register,
+    .to_recover {
+      width: 50rem;
     }
   }
 }

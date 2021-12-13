@@ -111,6 +111,37 @@
       font-weight: bold;
     }
   }
+
+  &__cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 150px;
+    position: absolute;
+
+    right: 70px;
+    bottom: 45px;
+
+    transition: all 0.3s ease-out;
+    background-color: #77c6ca;
+    pointer-events: none;
+    opacity: 0;
+    border: thin solid #999;
+
+    &__a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.5rem;
+      margin: 7px;
+      width: 100%;
+      padding-left: 7px;
+    }
+
+    &__a:hover {
+      font-weight: bold;
+    }
+  }
   /* carrito de compras y foto usuario (menu) */
   &__user {
     position: absolute;
@@ -191,6 +222,10 @@
 }
 
 .is-active-menu-perfil {
+  opacity: 1;
+  pointer-events: auto;
+}
+.is-active-menu-cart {
   opacity: 1;
   pointer-events: auto;
 }

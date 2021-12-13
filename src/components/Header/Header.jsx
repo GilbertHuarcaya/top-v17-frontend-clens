@@ -6,6 +6,8 @@ import logo from '../../img/logo-clens.jpg';
 const Header = () => {
   const [toggleClassBtnMenu, setToggleCLassBtn] = useState('false');
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
+  const [toggleClassBtnCart, setToggleClassBtnCart] = useState('false');
+
   const handleClick = () => {
     if (!toggleClassBtnMenu) return setToggleCLassBtn(true);
     return setToggleCLassBtn(false);
@@ -13,6 +15,10 @@ const Header = () => {
   const handlerMenuUser = () => {
     if (!toggleClassBtnUser) return setToggleCLassBtnUser(true);
     return setToggleCLassBtnUser(false);
+  };
+  const handlerCart = () => {
+    if (!toggleClassBtnCart) return setToggleClassBtnCart(true);
+    return setToggleClassBtnCart(false);
   };
   return (
     <header className="header">
@@ -84,18 +90,33 @@ const Header = () => {
           Mi historial
         </Link>
         <Link className="header__perfil__a" to="/mi-carrito">
-          Mi carrito
+          Ir al carrito
         </Link>
         <Link className="header__perfil__a" to="/">
           Cerrar sesion
         </Link>
       </div>
+      {/* <div
+        className={
+          toggleClassBtnCart
+            ? 'header__cart'
+            : 'header__cart is-active-menu-cart'
+        }
+        id="menu-perfil"
+      >
+        <Link className="header__perfil__a" to="/mi-carrito">
+          Ir al carrito
+        </Link>
+      </div> */}
       <div className="header__user">
-        <button
-          className="header__user--cart"
-          type="button"
-          aria-label="foto-carrito"
-        />
+        <Link className="header__perfil__linkto-cart" to="/mi-carrito">
+          <button
+            className="header__user--cart"
+            type="button"
+            aria-label="foto-carrito"
+            onClick={handlerCart}
+          />
+        </Link>
         <button
           className="header__user--user"
           type="button"

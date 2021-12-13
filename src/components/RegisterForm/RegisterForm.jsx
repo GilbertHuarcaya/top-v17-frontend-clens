@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import useForm from '../../hooks/useForm';
 
 import './RegisterForm.scss';
 import gmailLogo from '../../img/icons/Google__G__Logo.svg';
@@ -7,26 +8,29 @@ import facebookLogo from '../../img/icons/facebook.png';
 import logo from '../../img/logo-clens.jpg';
 
 const RegisterForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordtwo, setPasswordtwo] = useState('');
-  const [ID, setID] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
+  const { form, handleChange } = useForm({});
+  const [formOk, setFormOk] = useState(0);
 
-  function validateForm() {
-    return (
-      email.length > 0 &&
-      password.length > 5 &&
-      passwordtwo === password &&
-      ID.length > 0 &&
-      firstname.length > 0 &&
-      lastname.length > 0
-    );
-  }
-
+  useEffect(() => {
+    const validateForm = () => {
+      try {
+        if (form.password !== undefined) {
+          const data =
+            form?.password.length > 5 &&
+            form?.confirmpassword === form?.password;
+          setFormOk(data);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+    validateForm();
+  }, [handleChange]);
   function handleSubmit(event) {
     event.preventDefault();
+    // eslint-disable-next-line no-console
+    console.log(form);
   }
   return (
     <form className="form_register" onSubmit={handleSubmit}>
@@ -40,58 +44,70 @@ const RegisterForm = () => {
       </div>
       <div className="form_register__item">
         <input
+          name="firstname"
           type="text"
           placeholder="nombres"
-          value={firstname}
-          onChange={(e) => setFirstname(e.target.value)}
+          value={undefined}
+          onChange={handleChange}
+          required
         />
       </div>
       <div className="form_register__item">
         <input
+          name="lastname"
           type="text"
           placeholder="apellidos"
-          value={lastname}
-          onChange={(e) => setLastname(e.target.value)}
+          value={undefined}
+          onChange={handleChange}
+          required
         />
       </div>
       <div className="form_register__item">
         <input
+          name="ID"
           type="text"
           placeholder="identificación/DNI"
-          value={ID}
-          onChange={(e) => setID(e.target.value)}
+          value={undefined}
+          onChange={handleChange}
+          required
         />
       </div>
       <div className="form_register__item">
         <input
+          name="email"
           type="email"
           placeholder="correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={undefined}
+          onChange={handleChange}
+          required
         />
       </div>
       <div className="form_register__item">
         <input
+          name="password"
           type="password"
           placeholder="contraseña/mínimo 6 caracteres"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={undefined}
+          onChange={handleChange}
+          required
         />
         <p>6 caracteres como mínimo</p>
       </div>
       <div className="form_register__item">
         <input
+          name="confirmpassword"
           type="password"
           placeholder="confirmar contraseña/mínimo 6 caracteres"
-          value={passwordtwo}
-          onChange={(e) => setPasswordtwo(e.target.value)}
+          value={undefined}
+          onChange={handleChange}
+          required
         />
       </div>
 
       <button
         className="form_register__button__register"
         type="submit"
-        disabled={!validateForm()}
+        disabled={!formOk}
       >
         Regístrate
       </button>
