@@ -1,0 +1,74 @@
+.plan-cards {
+  padding: 25px 30px;
+  &__wrapper-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      margin: 20px auto;
+
+      &--img {
+        max-height: 200px;
+        margin-top: 20px;
+      }
+
+      &--title {
+        text-align: center;
+        font-size: 1.9rem;
+        margin-top: 20px;
+        margin-bottom: 15px;
+      }
+      &--description {
+        text-align: center;
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  &__wrapper-prices {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20px;
+
+    &__price-card-1,
+    &__price-card-2,
+    &__price-card-3 {
+      box-shadow: 7px 10px 50px #999;
+      max-width: 150px;
+      width: 100%;
+      padding: 20px;
+
+      &--title {
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 2px;
+        color: #3e599c;
+        text-align: center;
+      }
+      &--price {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 60px;
+        text-align: center;
+      }
+      &--button {
+        background: #77c6ca;
+        width: 100px;
+        border-radius: 0;
+        box-shadow: 3px 5px 18px #555;
+        transition: 0.2s;
+        cursor: pointer;
+        color: white;
+        border: none;
+      }
+      &--button:hover {
+        background: #3e599c;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import HowItWorks from '../HowItWorks';
 import WhyClens from '../WhyClens';
 import ServicesHome from '../ServicesHome';
+import PlansCards from '../PlansCards';
 
 const Services = () => {
   return (
@@ -18,6 +19,7 @@ const Services = () => {
       <HowItWorks />
       <WhyClens />
       <ServicesHome />
+      <PlansCards />
     </>
   );
 };
