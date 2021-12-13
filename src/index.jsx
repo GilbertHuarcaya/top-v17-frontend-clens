@@ -13,7 +13,6 @@ import Services from './components/Services';
 import Page404 from './pages/Page404';
 import Cart from './components/Cart';
 
-
 import './index.scss';
 
 ReactDOM.render(
