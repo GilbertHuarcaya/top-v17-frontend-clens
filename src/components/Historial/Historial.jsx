@@ -8,6 +8,7 @@ import kitchen from '../../img/services/cocinas.jpg';
 import bedroom from '../../img/services/habitaciones.jpg';
 import livingroom from '../../img/services/salas.jpg';
 import getAllOrders from './Orders';
+import DownloadInvoice from './Descarga'
 
 const TitleContainer = styled.div`
   background-color: #77c6ca;
@@ -170,14 +171,13 @@ const Button = styled.button`
 `;
 
 let count = 2;
-
 const Historial = () => {
   const [orders, setOrders] = useState([]);
   const [ordersToShow, setOrdersToShow] = useState([]);
 
-  const getOrders = async () => {
+  const getOrders = () => {
     try {
-      const data = await getAllOrders();
+      const data = getAllOrders();
       setTimeout(() => {
         setOrders(data);
         setOrdersToShow(data.slice(0, count))
@@ -236,7 +236,9 @@ const Historial = () => {
                     <Button color="white" border="none" bgColor="#4CAF50">
                       Ver resumen
                     </Button>
-                    <Button>Descargar Comprobante</Button>
+                    <Button onClick={DownloadInvoice} >
+                      Descargar Comprobante
+                    </Button>
                   </Buttons>
                 </Detail>
               </View>
