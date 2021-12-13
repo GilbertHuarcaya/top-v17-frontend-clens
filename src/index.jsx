@@ -9,6 +9,7 @@ import InfoCuenta from './components/InfoCuenta/InfoCuenta';
 import Historial from './components/Historial/Historial';
 import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
+import Services from './components/Services';
 import Page404 from './pages/Page404';
 import Cart from './components/Cart';
 
@@ -22,6 +23,7 @@ ReactDOM.render(
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
           <Route path="info-cuenta" element={<InfoCuenta />} />
+          <Route path="services" element={<Services />} />
           <Route path="mi-historial" element={<Historial />} />
           <Route path="mi-carrito" element={<Cart />} />
         </Route>
