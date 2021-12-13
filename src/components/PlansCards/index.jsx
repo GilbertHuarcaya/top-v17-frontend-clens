@@ -1,5 +1,5 @@
 import React from 'react';
-import TitleMinititle from '../TitleMinititleInfo';
+import TitleMinititle from '../MinititleTitle';
 import deepCleanImg from '../../img/cards/deep-clean.svg';
 import desinfectionImg from '../../img/cards/desinfection.svg';
 import laundringImg from '../../img/cards/laundring.svg';
