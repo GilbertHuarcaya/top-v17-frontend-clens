@@ -1,5 +1,5 @@
 import './styles.scss';
-import Check from '../../img/icons/check.svg';
+import Check from '../../../img/icons/check.svg';
 
 // eslint-disable-next-line react/prop-types
 const LiCheck = ({ item = '' }) => (

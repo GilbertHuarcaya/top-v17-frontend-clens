@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import SectionInfo from '../SectionInfo';
+import SectionInfo from '../../SectionInfo';
 import LiCheck from '../LiCheck';
 import './styles.scss';
 

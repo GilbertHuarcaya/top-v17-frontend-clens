@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './styles.scss';
 import MinititleTitle from '../MinititleTitle';
-import CardsReviews from '../CardsReviews';
+import CardsReviews from './CardsReviews';
 import { getAllReviews } from './reviews';
 
 const ReviewsHome = () => {

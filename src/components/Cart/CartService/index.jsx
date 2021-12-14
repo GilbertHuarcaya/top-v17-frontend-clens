@@ -1,19 +1,7 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const CartService = (props) => {
   const { service, value, removeProduct, subTotalPlus, subTotalMinus } = props;
-  const [ownquantity, setOwnQuantity] = useState(1);
-
-  function handleOnDecrease() {
-    subTotalMinus(service);
-
-    setOwnQuantity(ownquantity + 1);
-  }
-  function handleOnIncrease() {
-    subTotalPlus(service);
-    setOwnQuantity(ownquantity + 1);
-  }
 
   return (
     <div className="shelf-item" key={value}>
@@ -36,7 +24,7 @@ const CartService = (props) => {
         <div>
           <button
             type="button"
-            onClick={handleOnDecrease}
+            onClick={() => subTotalMinus(service)}
             disabled={service.quantity === 1}
             className="change-product-button"
           >
@@ -44,7 +32,7 @@ const CartService = (props) => {
           </button>
           <button
             type="button"
-            onClick={handleOnIncrease}
+            onClick={() => subTotalPlus(service)}
             className="change-product-button"
           >
             +
