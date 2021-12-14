@@ -8,19 +8,6 @@ const FloatCart = () => {
   const [servicesAdded, setServicesAdded] = useState([]);
   const [subTotal, setSubTotal] = useState();
 
-  function subTotalSum() {
-    const total = setSubTotal(
-      servicesAdded.reduce(
-        (sum, value) =>
-          typeof value.quantity === 'number'
-            ? sum + value.quantity * value.price
-            : sum,
-        0,
-      ),
-    );
-    return total;
-  }
-
   useEffect(() => {
     const getServices = async () => {
       try {
@@ -37,13 +24,6 @@ const FloatCart = () => {
     getServices();
   }, []);
 
-  useEffect(() => {
-    const totalCount = () => {
-      subTotalSum();
-    };
-    totalCount();
-  });
-
   function proceedToCheckout() {
     // eslint-disable-next-line no-console
     console.log('ir a comprar!');
@@ -59,14 +39,25 @@ const FloatCart = () => {
     }
   };
 
+  function subTotalSum() {
+    const total = setSubTotal(
+      servicesAdded.reduce(
+        (sum, value) =>
+          typeof value.quantity === 'number'
+            ? sum + value.quantity * value.price
+            : sum,
+        0,
+      ),
+    );
+    return total;
+  }
   const subTotalPlus = (service) => {
     const index = servicesAdded.findIndex(
       (p) => p.serviceid === service.serviceid,
     );
     if (index >= 0) {
       servicesAdded[index].quantity += 1;
-      const total = subTotalSum();
-      setSubTotal(total);
+      subTotalSum();
       setServicesAdded(servicesAdded);
     }
   };
@@ -77,11 +68,17 @@ const FloatCart = () => {
     );
     if (index >= 0) {
       servicesAdded[index].quantity -= 1;
-      const total = subTotalSum();
-      setSubTotal(total);
+      subTotalSum();
       setServicesAdded(servicesAdded);
     }
   };
+
+  useEffect(() => {
+    const totalCount = () => {
+      subTotalSum();
+    };
+    totalCount();
+  }, [subTotalPlus, subTotalMinus]);
 
   return (
     <div className="float-cart">

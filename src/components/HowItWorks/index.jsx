@@ -6,7 +6,7 @@ import RateImg from '../../img/icons/HowItWorks/rate.svg';
 import SchudleImg from '../../img/icons/HowItWorks/schudle.svg';
 
 const HowItWorks = () => (
-  <section className="how-it-works">
+  <section className="how-it-works" id="how-it-works">
     <MinititleTitle
       title="Agil servicio de limpieza"
       minititle="Como funciona"

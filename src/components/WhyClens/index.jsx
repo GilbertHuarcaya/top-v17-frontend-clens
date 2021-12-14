@@ -1,5 +1,5 @@
 import React from 'react';
-import CardWhyClens from '../CardWhyClens';
+import CardWhyClens from './CardWhyClens';
 import MinititleTitle from '../MinititleTitle';
 import './styles.scss';
 
