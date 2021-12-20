@@ -3,6 +3,7 @@ import getAllOrders from './Orders';
 
 function getSampleData() {
   const data1 = getAllOrders();
+  // eslint-disable-next-line no-console
   console.log(data1[0].precio);
   return {
     documentTitle: 'Recibo',
