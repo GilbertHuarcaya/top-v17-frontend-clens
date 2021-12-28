@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useForm from '../../hooks/useForm';
+import { loginUser } from '../../context/actions';
+import { useAppDispatch } from '../../context/store';
 
 import './LoginForm.scss';
 import gmailLogo from '../../img/icons/Google__G__Logo.svg';
@@ -8,14 +10,11 @@ import facebookLogo from '../../img/icons/facebook.png';
 import logo from '../../img/logo-clens.jpg';
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { form, handleChange } = useForm({});
   const [formOk, setFormOk] = useState(0);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(form);
-  }
   useEffect(() => {
     const validateForm = () => {
       try {
@@ -30,6 +29,13 @@ const LoginForm = () => {
     };
     validateForm();
   }, [handleChange]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    loginUser(dispatch, form);
+    navigate('/');
+  };
 
   return (
     <form className="form_login" onSubmit={handleSubmit}>
