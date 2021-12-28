@@ -257,10 +257,10 @@
 @media screen and (min-width: 769px) {
   .header {
     align-items: center;
-    justify-content: stretch;
+    justify-content: space-between;
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 100vw;
     height: 60px;
     border-top: 0;
 
@@ -316,9 +316,10 @@
     /* carrito de compras y foto usuario (menu) */
     &__user {
       position: relative;
-      right: 0;
+      right: 1.5vw;
       top: 0;
       flex-direction: row;
+      margin-left: 1rem;
     }
     /* .cart-user img {
     background-color: #fff;
