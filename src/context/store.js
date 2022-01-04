@@ -6,6 +6,7 @@ import {
   GET_USER_FROM_LOCALSTORAGE,
   LOGOUT_USER,
   REGISTER_USER,
+  GET_ALL_REVIEWS,
 } from './constants';
 
 const AppStateContext = createContext();
@@ -49,6 +50,12 @@ function AppReducer(state, action) {
       return {
         ...state,
         user: action.payload,
+      };
+    }
+    case GET_ALL_REVIEWS: {
+      return {
+        ...state,
+        reviews: action.payload,
       };
     }
     default:

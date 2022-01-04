@@ -8,9 +8,11 @@ import {
   SET_LOADING,
   GET_USER_FROM_LOCALSTORAGE,
   REGISTER_USER,
+  GET_ALL_REVIEWS,
 } from './constants';
 
 import authService from '../services/auth';
+import reviewService from '../services/review';
 
 export const getUserFromLocalStorage = (dispatch) => {
   const token = localStorage.getItem('token');
@@ -60,4 +62,22 @@ export const logout = (dispatch) => {
   localStorage.removeItem('token');
 
   dispatch({ type: LOGOUT_USER, payload: null });
+};
+
+export const getReviewsFromDB = async (dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await reviewService.getReviews();
+
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: GET_ALL_REVIEWS, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
 };
