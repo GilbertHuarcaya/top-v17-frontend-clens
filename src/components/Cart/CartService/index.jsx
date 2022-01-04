@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
 const CartService = (props) => {
-  const { service, value, removeProduct, subTotalPlus, subTotalMinus } = props;
+  const { service, removeProduct, subTotalPlus, subTotalMinus } = props;
 
   return (
-    <div className="shelf-item" key={value}>
+    <div className="shelf-item" id={service.title}>
       <button
         className="shelf-item__del"
         onClick={() => removeProduct(service)}
@@ -45,7 +45,6 @@ const CartService = (props) => {
 
 CartService.propTypes = {
   service: PropTypes.objectOf(PropTypes.any),
-  value: PropTypes.objectOf(PropTypes.string),
   removeProduct: PropTypes.func,
   subTotalPlus: PropTypes.func,
   subTotalMinus: PropTypes.func,
@@ -53,7 +52,6 @@ CartService.propTypes = {
 
 CartService.defaultProps = {
   service: {},
-  value: {},
   removeProduct: () => {},
   subTotalPlus: () => {},
   subTotalMinus: () => {},

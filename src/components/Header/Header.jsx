@@ -14,6 +14,24 @@ const Header = () => {
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const [toggleClassBtnCart, setToggleClassBtnCart] = useState('false');
 
+  const url = window.location.pathname.split('/').pop();
+
+  let prevScrollpos = window.pageYOffset;
+  window.onscroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    if (prevScrollpos !== currentScrollPos) {
+      setToggleCLassBtn(true);
+    }
+    prevScrollpos = currentScrollPos;
+  };
+
+  useEffect(() => {
+    setToggleCLassBtnUser(true);
+    setToggleClassBtnCart(true);
+    setToggleCLassBtn(true);
+    window.scrollTo(0, 0);
+  }, [url]);
+
   useEffect(() => {
     getUserFromLocalStorage(dispatch);
   }, []);
@@ -42,13 +60,16 @@ const Header = () => {
   if (!isLoading) {
     buttons = user ? (
       <div className="header__user">
-        <Link className="header__perfil__linkto-cart" to="/mi-carrito">
+        <Link className="header__user__linkto-cart" to="/mi-carrito">
           <button
             className="header__user--cart"
             type="button"
             aria-label="foto-carrito"
             onClick={handlerCart}
           />
+          {!isLoading ? (
+            <span className="header__user--cart__quantity">{0}</span>
+          ) : null}
         </Link>
         <button
           className="header__user--user"
@@ -62,9 +83,9 @@ const Header = () => {
         <Link className="header__login" to="./login">
           Ingresa
         </Link>
-        {/* <Link className="header__register" to="./register">
+        <Link className="header__register" to="./register">
           Registrate
-        </Link> */}
+        </Link>
       </>
     );
   } else {
