@@ -1,7 +1,9 @@
-export const REGISTER_USER = '@the-job/register-user';
-export const LOGOUT_USER = '@the-job/logout-user';
-export const LOGIN_USER = '@the-job/login-user';
-export const GET_USER_FROM_LOCALSTORAGE = '@the-job/get-user-from-localstorage';
-export const GET_ALL_JOBS = '@the-job/all-jobs';
-export const GET_JOB = '@the-job/get-job';
-export const SET_LOADING = '@the-job/loading';
+export const REGISTER_USER = '@clens/register-user';
+export const LOGOUT_USER = '@clens/logout-user';
+export const LOGIN_USER = '@clens/login-user';
+export const GET_USER_FROM_LOCALSTORAGE = '@clens/get-user-from-localstorage';
+export const GET_ALL_SERVICES = '@clens/all-services';
+export const GET_ALL_ORDERS = '@clens/all-orders';
+export const GET_ALL_REVIEWS = '@clens/all-reviews';
+export const GET_ORDER = '@clens/get-order';
+export const SET_LOADING = '@clens/loading';
