@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './styles.scss';
 import MinititleTitle from '../MinititleTitle';
 import CardsReviews from './CardsReviews';
-import { getAllReviews } from './reviews';
+import { getReviewsFromDB } from '../../context/actions';
+import { useAppState, useAppDispatch } from '../../context/store';
 
 const ReviewsHome = () => {
-  const [reviews, setReviews] = useState([]);
+  const dispatch = useAppDispatch();
+  const { reviews, isLoading } = useAppState();
 
   useEffect(() => {
     const getReviews = async () => {
       try {
-        const data = await getAllReviews();
-        setTimeout(() => {
-          setReviews(data);
-        }, 1000);
+        getReviewsFromDB(dispatch);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -28,11 +27,7 @@ const ReviewsHome = () => {
         title="Reseñas de nuestros clientes"
         minititle="Reseñas"
       />
-      {reviews.length > 0 ? (
-        <CardsReviews reseñas={reviews} />
-      ) : (
-        <h1>Loading ...</h1>
-      )}
+      {!isLoading ? <CardsReviews reviews={reviews} /> : <h1>Loading ...</h1>}
     </section>
   );
 };
