@@ -81,16 +81,15 @@ const FloatCart = () => {
   }, [subTotalPlus, subTotalMinus]);
 
   return (
-    <div className="float-cart">
-      <div className="float-cart__content">
-        <div className="float-cart__header">
-          <span className="bag">
-            <span className="bag__quantity">{servicesAdded.length}</span>
-          </span>
-          <span className="header-title">Carrito</span>
-        </div>
-
-        <div className="float-cart__shelf-container">
+    <div className="cart">
+      <div className="cart__header">
+        <span className="bag">
+          <span className="bag__quantity">{servicesAdded.length}</span>
+        </span>
+        <span className="header-title">Carrito</span>
+      </div>
+      <div className="cart__content">
+        <div className="cart__shelf-container">
           {servicesAdded.length > 0 ? (
             servicesAdded.map((p) => {
               return (
@@ -111,11 +110,10 @@ const FloatCart = () => {
           )}
         </div>
 
-        <div className="float-cart__footer">
+        <div className="cart__footer">
           <div className="sub">SUBTOTAL</div>
           <div className="sub-price">
             <p className="sub-price__val">{`$${subTotal}`}</p>
-            <small className="sub-price__installment" />
           </div>
           <div className="buy">
             <button
