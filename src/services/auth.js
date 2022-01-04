@@ -13,12 +13,38 @@ const loginAccount = ({ email, password }) => {
 };
 
 // const registerAccount = (user) => {};
+const registerAccount = ({
+  firstName,
+  lastName,
+  direccion,
+  identificacion,
+  telefono,
+  email,
+  password,
+}) => {
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      direccion,
+      identificacion,
+      telefono,
+      email,
+      password,
+    }),
+  };
+  return fetch(`${URL_BASE}/api/users`, payload);
+};
 
 // const forgotPassword = (email) => {};
 
 const auth = {
   loginAccount,
-  // registerAccount,
+  registerAccount,
   // forgotPassword,
 };
 
