@@ -21,6 +21,7 @@ const Header = () => {
     const currentScrollPos = window.pageYOffset;
     if (prevScrollpos !== currentScrollPos) {
       setToggleCLassBtn(true);
+      setToggleCLassBtnUser(true);
     }
     prevScrollpos = currentScrollPos;
   };
@@ -38,10 +39,14 @@ const Header = () => {
 
   const handleClick = () => {
     if (!toggleClassBtnMenu) return setToggleCLassBtn(true);
+    setToggleCLassBtnUser(true);
     return setToggleCLassBtn(false);
   };
   const handlerMenuUser = () => {
-    if (!toggleClassBtnUser) return setToggleCLassBtnUser(true);
+    if (!toggleClassBtnUser) {
+      return setToggleCLassBtnUser(true);
+    }
+    setToggleCLassBtn(true);
     return setToggleCLassBtnUser(false);
   };
   const handlerCart = () => {
