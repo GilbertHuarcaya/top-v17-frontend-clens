@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useForm from '../../hooks/useForm';
+import { registerUser } from '../../context/actions';
+import { useAppDispatch } from '../../context/store';
 
 import './RegisterForm.scss';
 import gmailLogo from '../../img/icons/Google__G__Logo.svg';
@@ -8,6 +10,8 @@ import facebookLogo from '../../img/icons/facebook.png';
 import logo from '../../img/logo-clens.jpg';
 
 const RegisterForm = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { form, handleChange } = useForm({});
   const [formOk, setFormOk] = useState(0);
 
@@ -27,11 +31,18 @@ const RegisterForm = () => {
     };
     validateForm();
   }, [handleChange]);
-  function handleSubmit(event) {
-    event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(form);
-  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    registerUser(dispatch, form);
+    navigate('/');
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <form className="form_register" onSubmit={handleSubmit}>
       <div className="form_login__logo">
@@ -44,7 +55,7 @@ const RegisterForm = () => {
       </div>
       <div className="form_register__item">
         <input
-          name="firstname"
+          name="firstName"
           type="text"
           placeholder="nombres"
           value={undefined}
@@ -54,7 +65,7 @@ const RegisterForm = () => {
       </div>
       <div className="form_register__item">
         <input
-          name="lastname"
+          name="lastName"
           type="text"
           placeholder="apellidos"
           value={undefined}
@@ -64,9 +75,29 @@ const RegisterForm = () => {
       </div>
       <div className="form_register__item">
         <input
-          name="ID"
+          name="identificacion"
           type="text"
           placeholder="identificación/DNI"
+          value={undefined}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="form_register__item">
+        <input
+          name="telefono"
+          type="text"
+          placeholder="telefono/celular"
+          value={undefined}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="form_register__item">
+        <input
+          name="direccion"
+          type="text"
+          placeholder="dirección completa"
           value={undefined}
           onChange={handleChange}
           required

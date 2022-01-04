@@ -7,6 +7,7 @@ import {
   LOGOUT_USER,
   SET_LOADING,
   GET_USER_FROM_LOCALSTORAGE,
+  REGISTER_USER,
 } from './constants';
 
 import authService from '../services/auth';
@@ -30,6 +31,22 @@ export const loginUser = async (dispatch, user) => {
       localStorage.setItem('token', data.token);
       const decoded = jwt_decode(data.token);
       dispatch({ type: LOGIN_USER, payload: decoded });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const registerUser = async (dispatch, newUser) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await authService.registerAccount(newUser);
+
+    if (response.ok) {
+      dispatch({ type: REGISTER_USER, payload: null });
     }
   } catch (error) {
     // eslint-disable-next-line no-console

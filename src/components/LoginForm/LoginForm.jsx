@@ -37,6 +37,10 @@ const LoginForm = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <form className="form_login" onSubmit={handleSubmit}>
       <div className="form_login__logo">

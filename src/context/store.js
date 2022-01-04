@@ -5,6 +5,7 @@ import {
   SET_LOADING,
   GET_USER_FROM_LOCALSTORAGE,
   LOGOUT_USER,
+  REGISTER_USER,
 } from './constants';
 
 const AppStateContext = createContext();
@@ -12,9 +13,10 @@ const AppDispatchContext = createContext();
 
 const initialState = {
   isLoading: false,
-  jobs: [],
-  jobDetail: {},
-  companies: [],
+  services: [],
+  reviews: [],
+  orderDetail: {},
+  orders: [],
   user: null,
 };
 
@@ -38,6 +40,12 @@ function AppReducer(state, action) {
       };
     }
     case GET_USER_FROM_LOCALSTORAGE: {
+      return {
+        ...state,
+        user: action.payload,
+      };
+    }
+    case REGISTER_USER: {
       return {
         ...state,
         user: action.payload,
