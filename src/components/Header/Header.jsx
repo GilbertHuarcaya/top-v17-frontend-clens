@@ -13,9 +13,13 @@ const Header = () => {
   const [toggleClassBtnMenu, setToggleCLassBtn] = useState('false');
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const [toggleClassBtnCart, setToggleClassBtnCart] = useState('false');
+  const [scrollingY, setScrollingY] = useState(0);
 
   useEffect(() => {
     getUserFromLocalStorage(dispatch);
+    window.onscroll = () => {
+      setScrollingY(window.pageYOffset);
+    };
   }, []);
 
   const handleClick = () => {
@@ -72,7 +76,7 @@ const Header = () => {
   }
 
   return (
-    <header className="header">
+    <header className={scrollingY < 100 ? 'header transparent' : 'header'}>
       <div className="header__logo">
         <Link to="/">
           <img className="header__img" src={logo} alt="logo-clens" />
@@ -80,13 +84,12 @@ const Header = () => {
       </div>
       <div
         className={
-          toggleClassBtnMenu ? 'header__menu' : 'header__menu is-active'
+          toggleClassBtnMenu
+            ? `header__menu${scrollingY < 100 ? ' transparent' : ''}`
+            : 'header__menu is-active'
         }
         id="menu-id"
       >
-        <Link className="header__a" to="/why-us">
-          ¿Por qué nosotros?
-        </Link>
         <Link className="header__a" to="/services">
           Servicios
         </Link>
