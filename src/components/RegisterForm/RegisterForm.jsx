@@ -39,10 +39,6 @@ const RegisterForm = () => {
     navigate('/');
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <form className="form_register" onSubmit={handleSubmit}>
       <div className="form_login__logo">
