@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUserFromLocalStorage, logout } from '../../context/actions';
 import { useAppState, useAppDispatch } from '../../context/store';
-
 import './Header.scss';
 import logo from '../../img/logo-clens.jpg';
 
