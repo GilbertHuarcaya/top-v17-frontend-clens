@@ -122,7 +122,7 @@ const Header = () => {
         <Link className="header__a" to="/reseñas">
           Reseñas
         </Link>
-        <Link className="header__a" to="/cotiza">
+        <Link className="header__a" to="/order/cotiza">
           Cotiza
         </Link>
         <Link className="header__a" to="/postula">

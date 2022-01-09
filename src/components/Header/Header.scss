@@ -301,6 +301,7 @@
       transform: none;
       /* width: 70%; */
       z-index: 0;
+      transition: color 0s, font-weight 0s;
     }
 
     &__a {
@@ -309,7 +310,7 @@
       padding: 0;
       color: #f0fefe;
       display: block;
-      transition: all 0.3s ease;
+      transition: color 0.3s ease;
       margin: 0 10px;
       font-size: 70%;
     }
