@@ -1,53 +1,140 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getOrderFromCotizar } from '../../../context/actions';
+import { useAppDispatch } from '../../../context/store';
+import useForm from '../../../hooks/useForm';
 import './styles.scss';
 
 const Cotiza = () => {
-  const [selectedCocina, setSelectedCocina] = useState(1);
-  const [selectedHabitacion, setSelectedHabitacion] = useState(1);
-  const [selectedBaño, setSelectedBaño] = useState(1);
-  const [selectedSala, setSelectedSala] = useState(1);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { form, handleChange } = useForm({});
+  const [selectedCocina, setSelectedCocina] = useState(0);
+  const [selectedHabitacion, setSelectedHabitacion] = useState(0);
+  const [selectedBaño, setSelectedBaño] = useState(0);
+  const [selectedSala, setSelectedSala] = useState(0);
 
+  const getServiceAmount = (e) => {
+    switch (e.target.name) {
+      case 'cocina':
+        setSelectedCocina(e.target.value);
+        handleChange(e);
+        break;
+      case 'habitacion':
+        setSelectedHabitacion(e.target.value);
+        handleChange(e);
+        break;
+      case 'baño':
+        setSelectedBaño(e.target.value);
+        handleChange(e);
+        break;
+      default:
+        setSelectedSala(e.target.value);
+        handleChange(e);
+        break;
+    }
+  };
   const checkNext = (service) => {
     switch (service) {
       case 'cocina':
-        setSelectedCocina(selectedCocina === 7 ? 1 : selectedCocina + 1);
+        getServiceAmount({
+          target: {
+            value:
+              selectedCocina === '7' ? '0' : String(Number(selectedCocina) + 1),
+            name: 'cocina',
+          },
+        });
         break;
       case 'habitacion':
-        setSelectedHabitacion(
-          selectedHabitacion === 7 ? 1 : selectedHabitacion + 1,
-        );
+        getServiceAmount({
+          target: {
+            value:
+              selectedHabitacion === '7'
+                ? '0'
+                : String(Number(selectedHabitacion) + 1),
+            name: 'habitacion',
+          },
+        });
         break;
       case 'baño':
-        setSelectedBaño(selectedBaño === 7 ? 1 : selectedBaño + 1);
+        getServiceAmount({
+          target: {
+            value:
+              selectedBaño === '7' ? '0' : String(Number(selectedBaño) + 1),
+            name: 'baño',
+          },
+        });
         break;
       default:
-        setSelectedSala(selectedSala === 7 ? 1 : selectedSala + 1);
+        getServiceAmount({
+          target: {
+            value:
+              selectedSala === '7' ? '0' : String(Number(selectedSala) + 1),
+            name: 'sala',
+          },
+        });
         break;
     }
   };
   const checkBefore = (service) => {
     switch (service) {
       case 'cocina':
-        setSelectedCocina(selectedCocina === 1 ? 7 : selectedCocina - 1);
+        getServiceAmount({
+          target: {
+            value:
+              selectedCocina === '0' ? '7' : String(Number(selectedCocina) - 1),
+            name: 'cocina',
+          },
+        });
         break;
       case 'habitacion':
-        setSelectedHabitacion(
-          selectedHabitacion === 1 ? 7 : selectedHabitacion - 1,
-        );
+        getServiceAmount({
+          target: {
+            value:
+              selectedHabitacion === '0'
+                ? '7'
+                : String(Number(selectedHabitacion) - 1),
+            name: 'habitacion',
+          },
+        });
         break;
       case 'baño':
-        setSelectedBaño(selectedBaño === 1 ? 7 : selectedBaño - 1);
+        getServiceAmount({
+          target: {
+            value:
+              selectedBaño === '0' ? '7' : String(Number(selectedBaño) - 1),
+            name: 'baño',
+          },
+        });
         break;
       default:
-        setSelectedSala(selectedSala === 1 ? 7 : selectedSala - 1);
+        getServiceAmount({
+          target: {
+            value:
+              selectedSala === '0' ? '7' : String(Number(selectedSala) - 1),
+            name: 'sala',
+          },
+        });
         break;
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    /* loginUser(dispatch, form); */
+    getOrderFromCotizar(dispatch, form);
+    navigate('/order/tiempo');
+  };
+
+  useEffect(() => {
+    getOrderFromCotizar(dispatch, form);
+  }, [form]);
+
   return (
     <div className="cotiza">
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <h2 className="headline">Personaliza tu limpieza</h2>
         <div className="form-group">
           <label className="control-label" htmlFor="distrito">
@@ -59,6 +146,7 @@ const Cotiza = () => {
                 required
                 type="text"
                 id="distrito"
+                onChange={handleChange}
               />
             </div>
           </label>
@@ -85,17 +173,19 @@ const Cotiza = () => {
                 }`}</span> */}
                 <select
                   className="number-input-select"
-                  id="cocinas"
-                  onChange={(e) => setSelectedCocina(Number(e.target.value))}
+                  name="cocina"
+                  id="cocina"
+                  onChange={(evt) => getServiceAmount(evt)}
                   value={selectedCocina}
                 >
-                  <option value="1"> 1 cocina </option>
-                  <option value="2"> 2 cocinas </option>
-                  <option value="3"> 3 cocinas </option>
-                  <option value="4"> 4 cocinas </option>
-                  <option value="5"> 5 cocinas </option>
-                  <option value="6"> 6 cocinas </option>
-                  <option value="7"> 7 cocinas </option>
+                  <option value={0}> 0 cocinas </option>
+                  <option value={1}>1 cocina</option>
+                  <option value={2}> 2 cocinas </option>
+                  <option value={3}> 3 cocinas </option>
+                  <option value={4}> 4 cocinas </option>
+                  <option value={5}> 5 cocinas </option>
+                  <option value={6}> 6 cocinas </option>
+                  <option value={7}> 7 cocinas </option>
                 </select>
 
                 <button
@@ -120,11 +210,12 @@ const Cotiza = () => {
 
                 <select
                   className="number-input-select"
-                  onChange={(e) =>
-                    setSelectedHabitacion(Number(e.target.value))
-                  }
+                  name="habitacion"
+                  id="habitacion"
+                  onChange={(evt) => getServiceAmount(evt)}
                   value={selectedHabitacion}
                 >
+                  <option value="0"> 0 habitaciones </option>
                   <option value="1"> 1 habitación </option>
                   <option value="2"> 2 habitaciones </option>
                   <option value="3"> 3 habitaciones </option>
@@ -155,9 +246,12 @@ const Cotiza = () => {
 
                 <select
                   className="number-input-select"
-                  onChange={(e) => setSelectedBaño(Number(e.target.value))}
+                  name="baño"
+                  id="baño"
+                  onChange={(evt) => getServiceAmount(evt)}
                   value={selectedBaño}
                 >
+                  <option value="0"> 0 baños </option>
                   <option value="1"> 1 baño </option>
                   <option value="2"> 2 baños </option>
                   <option value="3"> 3 baños </option>
@@ -189,9 +283,12 @@ const Cotiza = () => {
 
                 <select
                   className="number-input-select"
-                  onChange={(e) => setSelectedSala(Number(e.target.value))}
+                  name="sala"
+                  id="sala"
+                  onChange={(evt) => getServiceAmount(evt)}
                   value={selectedSala}
                 >
+                  <option value="0"> 0 salas </option>
                   <option value="1"> 1 sala </option>
                   <option value="2"> 2 salas </option>
                   <option value="3"> 3 salas </option>
@@ -221,63 +318,91 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="2hours">
               <input
                 type="radio"
-                name="hours"
+                name="servicesHours"
+                onChange={handleChange}
                 id="2hours"
                 defaultValue={2}
-                defaultChecked
               />
               <span>2.0</span>
             </label>
             <label className="option-label" htmlFor="2.5hours">
               <input
                 type="radio"
-                name="hours"
+                name="servicesHours"
+                onChange={handleChange}
                 id="2.5hours"
                 defaultValue={2.5}
               />
               <span>2.5</span>
             </label>
             <label className="option-label" htmlFor="3hours">
-              <input type="radio" name="hours" id="3hours" defaultValue={3} />
+              <input
+                type="radio"
+                name="servicesHours"
+                onChange={handleChange}
+                id="3hours"
+                defaultValue={3}
+              />
               <span>3.0</span>
             </label>
             <label className="option-label" htmlFor="3.5hours">
               <input
                 type="radio"
-                name="hours"
+                name="servicesHours"
+                onChange={handleChange}
                 id="3.5hours"
                 defaultValue={3.5}
               />
               <span>3.5</span>
             </label>
             <label className="option-label" htmlFor="4hours">
-              <input type="radio" name="hours" id="4hours" defaultValue={4} />
+              <input
+                type="radio"
+                name="servicesHours"
+                onChange={handleChange}
+                id="4hours"
+                defaultValue={4}
+              />
               <span>4.0</span>
             </label>
             <label className="option-label" htmlFor="4.5hours">
               <input
                 type="radio"
-                name="hours"
+                name="servicesHours"
+                onChange={handleChange}
                 id="4.5hours"
                 defaultValue={4.5}
               />
               <span>4.5</span>
             </label>
             <label className="option-label" htmlFor="5hours">
-              <input type="radio" name="hours" id="5hours" defaultValue={5} />
+              <input
+                type="radio"
+                name="servicesHours"
+                onChange={handleChange}
+                id="5hours"
+                defaultValue={5}
+              />
               <span>5.0</span>
             </label>
             <label className="option-label" htmlFor="5.5hours">
               <input
                 type="radio"
-                name="hours"
+                name="servicesHours"
+                onChange={handleChange}
                 id="5.5hours"
                 defaultValue={5.5}
               />
               <span>5.5</span>
             </label>
             <label className="option-label" htmlFor="6hours">
-              <input type="radio" name="hours" id="6hours" defaultValue={6} />
+              <input
+                type="radio"
+                name="servicesHours"
+                onChange={handleChange}
+                id="6hours"
+                defaultValue={6}
+              />
               <span>6.0</span>
             </label>
           </div>
@@ -292,9 +417,10 @@ const Cotiza = () => {
               >
                 <input
                   type="radio"
-                  name="select-2"
+                  name="incluirProductos"
+                  onChange={handleChange}
                   id="select-1"
-                  defaultChecked
+                  defaultValue
                 />
 
                 <span>Incluir productos de limpieza (+$10.00)</span>
@@ -304,7 +430,13 @@ const Cotiza = () => {
                 className="option-label option-label-select"
                 htmlFor="select-2"
               >
-                <input type="radio" name="select-2" id="select-2" />
+                <input
+                  type="radio"
+                  name="incluirProductos"
+                  onChange={handleChange}
+                  defaultValue={false}
+                  id="select-2"
+                />
 
                 <span>Yo los prooveré</span>
               </label>

@@ -1,16 +1,33 @@
+import { useNavigate } from 'react-router-dom';
+import { getOrderFromDetalles } from '../../../context/actions';
+import { useAppDispatch } from '../../../context/store';
+import useForm from '../../../hooks/useForm';
+
 const OrderDetails = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { form, handleChange } = useForm({});
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    /* loginUser(dispatch, form); */
+    getOrderFromDetalles(dispatch, form);
+    navigate('/order/pago');
+  };
   return (
     <div className="specifications">
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label className="control-label" htmlFor="postcode">
+          <label className="control-label" htmlFor="email">
             ¿A qué email se enviaran los datos de esta orden?
             <div className="slot">
               <input
                 className="input-text"
-                name="postal-code"
+                name="email"
+                onChange={handleChange}
                 required
-                type="text"
+                type="email"
               />
             </div>
           </label>
@@ -22,6 +39,7 @@ const OrderDetails = () => {
               <input
                 className="input-text"
                 id="nombre"
+                onChange={handleChange}
                 name="nombre"
                 required
                 type="text"
@@ -36,6 +54,7 @@ const OrderDetails = () => {
               <input
                 className="input-text"
                 id="telefono"
+                onChange={handleChange}
                 name="telefono"
                 required
                 type="number"
@@ -50,6 +69,7 @@ const OrderDetails = () => {
               <input
                 className="input-text"
                 id="direccion"
+                onChange={handleChange}
                 name="direccion"
                 required
                 type="text"
@@ -63,8 +83,9 @@ const OrderDetails = () => {
             <div className="slot">
               <input
                 className="input-text"
-                id="comentarios-direccion"
-                name="comentarios-direccion"
+                onChange={handleChange}
+                id="comentariosDeDireccion"
+                name="comentariosDeDireccion"
                 required
                 type="text"
               />
@@ -77,6 +98,7 @@ const OrderDetails = () => {
             <div className="slot">
               <input
                 className="input-text"
+                onChange={handleChange}
                 id="ciudad"
                 name="ciudad"
                 required

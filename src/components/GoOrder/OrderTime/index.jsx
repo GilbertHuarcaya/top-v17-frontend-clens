@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { getOrderFromTiempo } from '../../../context/actions';
+import { useAppDispatch } from '../../../context/store';
+import useForm from '../../../hooks/useForm';
 import './styles.scss';
 
 const OrderTime = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { form, handleChange } = useForm({});
   const [today, setToday] = useState(true);
   const [days, setDays] = useState([]);
   const [week, setWeek] = useState(0);
@@ -19,6 +26,10 @@ const OrderTime = () => {
         dayNumber: new Date(
           new Date().setDate(new Date().getDate() + i),
         ).getDate(),
+        month: new Intl.DateTimeFormat('es', {
+          month: 'long',
+          year: 'numeric',
+        }).format(new Date(new Date().setDate(new Date().getDate() + i))),
       };
       sevenDays.push(day);
     }
@@ -32,7 +43,7 @@ const OrderTime = () => {
 
   useEffect(() => {
     getDays();
-  }, [week]);
+  }, [today, week, month]);
 
   const createMorningToday = () => {
     const Array = [];
@@ -76,7 +87,6 @@ const OrderTime = () => {
     }
     return Array;
   };
-
   const createAfternoon = () => {
     const Array = [];
     for (let i = 13; i < 18; i += 1) {
@@ -87,10 +97,24 @@ const OrderTime = () => {
     }
     return Array;
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    getOrderFromTiempo(dispatch, form);
+    navigate('/order/tu-info');
+  };
+  const handleSelect = (ev, data) => {
+    handleChange({ target: { value: data, name: 'fecha' } });
+    if (Number(ev.target.value) === new Date().getDate()) {
+      setToday(true);
+    }
+    if (Number(ev.target.value) !== new Date().getDate()) {
+      setToday(false);
+    }
+  };
   return (
     <div className="order-time">
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <p>
             ¿Cómo <strong>ingresará</strong> el personal de limpieza al lugar?
@@ -99,17 +123,18 @@ const OrderTime = () => {
             <label className="option-label" htmlFor="home">
               <input
                 type="radio"
-                name="enter-place"
+                name="enterToPlace"
+                onChange={handleChange}
                 id="home"
                 defaultValue="Alguien estará en casa"
-                defaultChecked
               />
               <span> Alguien estará en casa</span>
             </label>
             <label className="option-label" htmlFor="call">
               <input
                 type="radio"
-                name="enter-place"
+                name="enterToPlace"
+                onChange={handleChange}
                 id="call"
                 defaultValue="Llamar a mi número de celular antes"
               />
@@ -118,20 +143,21 @@ const OrderTime = () => {
             <label className="option-label" htmlFor="keys">
               <input
                 type="radio"
-                name="enter-place"
+                name="enterToPlace"
+                onChange={handleChange}
                 id="keys"
                 defaultValue="Se le dejara la llave de acceso"
               />
               <span>Se le dejara la llave de acceso</span>
             </label>
           </div>
-          <label className="control-label" htmlFor="postcode">
+          <label className="control-label" htmlFor="infoHome">
             Comentarios (opcional):
             <div className="slot">
               <input
                 className="input-text"
-                name="postal-code"
-                required
+                name="infoHome"
+                onChange={handleChange}
                 type="text"
               />
             </div>
@@ -171,17 +197,18 @@ const OrderTime = () => {
             </div>
             <div className="slot slot-days">
               {days.map((e) => (
-                <label className="option-label" htmlFor={e.dayNumber} key={e}>
+                <label
+                  className="option-label"
+                  htmlFor={e.dayNumber}
+                  key={e.dayNumber}
+                >
                   <input
                     type="radio"
-                    name="days"
+                    name="day"
                     id={e.dayNumber}
-                    onChange={
-                      e.dayNumber === new Date().getDate()
-                        ? () => setToday(true)
-                        : () => setToday(false)
-                    }
+                    onChange={(ev) => handleSelect(ev, e)}
                     defaultChecked={e === new Date().getDate()}
+                    defaultValue={e.dayNumber}
                   />
                   <span>{e.day}</span>
                 </label>
@@ -199,10 +226,11 @@ const OrderTime = () => {
                       >
                         <input
                           type="radio"
-                          name="hours"
+                          name="horaLlegada"
                           id={e.hora}
+                          onChange={handleChange}
                           disabled={e.disabled}
-                          checked={!e.disabled}
+                          defaultValue={e.hora}
                         />
                         <span>{e.hora}</span>
                       </label>
@@ -215,10 +243,11 @@ const OrderTime = () => {
                       >
                         <input
                           type="radio"
-                          name="hours"
+                          name="horaLlegada"
                           id={e.hora}
+                          onChange={handleChange}
                           disabled={e.disabled}
-                          checked={!e.disabled}
+                          defaultValue={e.hora}
                         />
                         <span>{e.hora}</span>
                       </label>
@@ -236,10 +265,11 @@ const OrderTime = () => {
                       >
                         <input
                           type="radio"
-                          name="hours"
+                          name="horaLlegada"
                           id={e.hora}
                           disabled={e.disabled}
-                          checked={!e.disabled}
+                          onChange={handleChange}
+                          defaultValue={e.hora}
                         />
                         <span>{e.hora}</span>
                       </label>
@@ -253,10 +283,11 @@ const OrderTime = () => {
                       >
                         <input
                           type="radio"
-                          name="hours"
+                          name="horaLlegada"
                           id={e.hora}
+                          onChange={handleChange}
                           disabled={e.disabled}
-                          checked={!e.disabled}
+                          defaultValue={e.hora}
                         />
                         <span>{e.hora}</span>
                       </label>

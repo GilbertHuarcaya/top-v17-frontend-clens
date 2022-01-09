@@ -9,10 +9,35 @@ import {
   GET_USER_FROM_LOCALSTORAGE,
   REGISTER_USER,
   GET_ALL_REVIEWS,
+  GET_ORDER_FROM_DETALLES,
+  GET_ORDER_FROM_TIEMPO,
+  GET_ORDER_FROM_COTIZAR,
 } from './constants';
 
 import authService from '../services/auth';
 import reviewService from '../services/review';
+
+export const getOrderFromDetalles = (dispatch, form) => {
+  const fullOrder = form;
+  if (fullOrder) {
+    dispatch({ type: GET_ORDER_FROM_DETALLES, payload: fullOrder });
+  }
+};
+export const getOrderFromTiempo = (dispatch, form) => {
+  const fullOrder = form;
+  if (fullOrder) {
+    dispatch({ type: GET_ORDER_FROM_TIEMPO, payload: fullOrder });
+  }
+};
+export const getOrderFromCotizar = (
+  dispatch,
+  form = { cocina: 0, habitaciones: 0, baño: 0, sala: 0 },
+) => {
+  const fullOrder = { cocina: 0, habitacion: 0, baño: 0, sala: 0, ...form };
+  if (fullOrder) {
+    dispatch({ type: GET_ORDER_FROM_COTIZAR, payload: fullOrder });
+  }
+};
 
 export const getUserFromLocalStorage = (dispatch) => {
   const token = localStorage.getItem('token');
