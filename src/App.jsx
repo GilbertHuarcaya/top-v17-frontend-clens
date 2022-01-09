@@ -10,6 +10,11 @@ import Layout from './pages/Layout/Layout';
 import Services from './components/Services';
 import Page404 from './pages/Page404';
 import Cart from './components/Cart';
+import GoOrder from './components/GoOrder';
+import Cotiza from './components/GoOrder/Cotiza';
+import OrderTime from './components/GoOrder/OrderTime';
+import OrderDetails from './components/GoOrder/OrderDetails';
+import Pay from './components/GoOrder/Pay';
 
 import './index.scss';
 
@@ -23,6 +28,12 @@ const App = () => (
         <Route path="services" element={<Services />} />
         <Route path="mi-historial" element={<Historial />} />
         <Route path="mi-carrito" element={<Cart />} />
+      </Route>
+      <Route path="/order/" element={<GoOrder />}>
+        <Route path="cotiza" element={<Cotiza />} />
+        <Route path="tiempo" element={<OrderTime />} />
+        <Route path="tu-info" element={<OrderDetails />} />
+        <Route path="pago" element={<Pay />} />
       </Route>
       <Route path="*" element={<Page404 />} />
       <Route path="/login" element={<LoginForm />} />
