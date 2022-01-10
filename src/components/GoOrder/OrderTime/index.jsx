@@ -105,7 +105,7 @@ const OrderTime = () => {
             <label className="option-label" htmlFor="call">
               <input
                 type="radio"
-                name="enterToPlace"
+                name="ingresoAlLugar"
                 onChange={handleChange}
                 id="call"
                 defaultValue="Llamar a mi número de celular antes"
@@ -117,7 +117,7 @@ const OrderTime = () => {
             <label className="option-label" htmlFor="keys">
               <input
                 type="radio"
-                name="enterToPlace"
+                name="ingresoAlLugar"
                 onChange={handleChange}
                 id="keys"
                 defaultValue="Se le dejara la llave de acceso"
@@ -294,7 +294,12 @@ const OrderTime = () => {
         >
           Continuar
         </button>
-        <button className="btn btn-primary" id="btn-back" type="button">
+        <button
+          className="btn btn-primary"
+          id="btn-back"
+          type="button"
+          onClick={() => navigate('/order/cotiza')}
+        >
           Volver
         </button>
       </form>

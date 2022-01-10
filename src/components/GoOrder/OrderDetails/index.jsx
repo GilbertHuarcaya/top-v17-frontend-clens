@@ -131,7 +131,12 @@ const OrderDetails = () => {
         >
           Continuar
         </button>
-        <button className="btn btn-primary" id="btn-back" type="button">
+        <button
+          className="btn btn-primary"
+          id="btn-back"
+          type="button"
+          onClick={() => navigate('/order/tiempo')}
+        >
           Volver
         </button>
       </form>

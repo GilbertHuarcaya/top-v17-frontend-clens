@@ -189,7 +189,11 @@ const Cotiza = () => {
                   selectedCocina > 1 ? 'cocinas' : 'cocina'
                 }`}</span> */}
                 <select
-                  className="number-input-select"
+                  className={
+                    form.cocina > 0
+                      ? 'number-input-select number-input-selected'
+                      : 'number-input-select'
+                  }
                   name="cocina"
                   id="cocina"
                   onChange={(evt) => getServiceAmount(evt)}
@@ -226,7 +230,11 @@ const Cotiza = () => {
                 </button>
 
                 <select
-                  className="number-input-select"
+                  className={
+                    form.habitacion > 0
+                      ? 'number-input-select number-input-selected'
+                      : 'number-input-select'
+                  }
                   name="habitacion"
                   id="habitacion"
                   onChange={(evt) => getServiceAmount(evt)}
@@ -262,7 +270,11 @@ const Cotiza = () => {
                 </button>
 
                 <select
-                  className="number-input-select"
+                  className={
+                    form.baño > 0
+                      ? 'number-input-select number-input-selected'
+                      : 'number-input-select'
+                  }
                   name="baño"
                   id="baño"
                   onChange={(evt) => getServiceAmount(evt)}
@@ -299,7 +311,11 @@ const Cotiza = () => {
                 </button>
 
                 <select
-                  className="number-input-select"
+                  className={
+                    form.sala > 0
+                      ? 'number-input-select number-input-selected'
+                      : 'number-input-select'
+                  }
                   name="sala"
                   id="sala"
                   onChange={(evt) => getServiceAmount(evt)}

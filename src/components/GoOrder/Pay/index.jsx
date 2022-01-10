@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+
 const Pay = () => {
+  const navigate = useNavigate();
   return (
     <div className="specifications">
       <form action="">
@@ -106,7 +109,12 @@ const Pay = () => {
         <button className="btn btn-primary" id="btn-continue" type="submit">
           Completar
         </button>
-        <button className="btn btn-primary" id="btn-back" type="button">
+        <button
+          className="btn btn-primary"
+          id="btn-back"
+          type="button"
+          onClick={() => navigate('/order/tu-info')}
+        >
           Volver
         </button>
       </form>
