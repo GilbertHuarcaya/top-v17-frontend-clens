@@ -33,6 +33,7 @@
       font-size: 1.8rem;
       padding: 0 0 0 1rem;
       margin: 0;
+      background-color: #e2e2e2;
     }
 
     .number-input {
@@ -45,7 +46,7 @@
         border-right: none;
         text-align: center;
         color: #77c6ca;
-        background-color: #e2e2e2;
+        background-color: transparent;
         display: flex;
         align-items: center;
         text-transform: capitalize;
