@@ -347,7 +347,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="2.5hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="2.5hours"
                 defaultValue={2.5}
@@ -359,7 +359,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="3hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="3hours"
                 defaultValue={3}
@@ -371,7 +371,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="3.5hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="3.5hours"
                 defaultValue={3.5}
@@ -383,7 +383,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="4hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="4hours"
                 defaultValue={4}
@@ -395,7 +395,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="4.5hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="4.5hours"
                 defaultValue={4.5}
@@ -407,7 +407,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="5hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="5hours"
                 defaultValue={5}
@@ -419,7 +419,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="5.5hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="5.5hours"
                 defaultValue={5.5}
@@ -431,7 +431,7 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="6hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="6hours"
                 defaultValue={6}
