@@ -123,7 +123,7 @@ const GoOrder = () => {
                 <p>+ ${precioPorTiempoServicio.toFixed(2)}</p>
               </div>
             ) : null}
-            {orderCotizada.incluirProductos === 'true' ? (
+            {orderCotizada.incluirProductos === 'si' ? (
               <div className="order__resumen__info">
                 <p>Incluir productos</p>
                 <p>+ $10.00</p>
