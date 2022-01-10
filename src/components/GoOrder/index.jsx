@@ -18,7 +18,7 @@ const GoOrder = () => {
       (orderCotizada.sala === undefined ? 0 : Number(orderCotizada.sala))) *
     50;
 
-  const precioPorTiempoServicio = orderCotizada.servicesHours
+  const precioPorTiempoServicio = orderCotizada.horasPorSevicio
     ? (((orderCotizada.cocina === undefined
         ? 0
         : Number(orderCotizada.cocina)) +
@@ -27,7 +27,7 @@ const GoOrder = () => {
           : Number(orderCotizada.habitacion)) +
         (orderCotizada.baño === undefined ? 0 : Number(orderCotizada.baño)) +
         (orderCotizada.sala === undefined ? 0 : Number(orderCotizada.sala))) *
-        orderCotizada.servicesHours) /
+        orderCotizada.horasPorSevicio) /
       5
     : 0;
   const precioPorProductoIncluido =
@@ -117,9 +117,9 @@ const GoOrder = () => {
               <p>+ ${precioPorServicios.toFixed(2)}</p>
             </div>
 
-            {orderCotizada.servicesHours ? (
+            {orderCotizada.horasPorSevicio ? (
               <div className="order__resumen__info">
-                <p>{orderCotizada.servicesHours} Horas por servicio</p>
+                <p>{orderCotizada.horasPorSevicio} Horas por servicio</p>
                 <p>+ ${precioPorTiempoServicio.toFixed(2)}</p>
               </div>
             ) : null}
