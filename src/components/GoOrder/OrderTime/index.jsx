@@ -2,6 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getOrderFromTiempo } from '../../../context/actions';
 import { useAppDispatch } from '../../../context/store';
+import {
+  createMorningToday,
+  createMorning,
+  createAfternoonToday,
+  createAfternoon,
+} from './service';
 import useForm from '../../../hooks/useForm';
 import './styles.scss';
 
@@ -13,6 +19,7 @@ const OrderTime = () => {
   const [days, setDays] = useState([]);
   const [week, setWeek] = useState(0);
   const [month, setMonth] = useState();
+  const [formOk, setFormOk] = useState(false);
 
   const getDays = (e = week) => {
     const sevenDays = [];
@@ -40,63 +47,6 @@ const OrderTime = () => {
     setMonth(monthYear);
     setDays(sevenDays);
   };
-
-  useEffect(() => {
-    getDays();
-  }, [today, week, month]);
-
-  const createMorningToday = () => {
-    const Array = [];
-    for (let i = 7; i < 12; i += 1) {
-      const hora = {
-        hora: `${i}:00 - ${i}:30`,
-        disabled: i < new Date().getHours(),
-      };
-      const nextHora = {
-        hora: `${i}:30 - ${i + 1}:00`,
-        disabled: i < new Date().getHours(),
-      };
-      Array.push(hora);
-      Array.push(nextHora);
-    }
-    return Array;
-  };
-  const createAfternoonToday = () => {
-    const Array = [];
-    for (let i = 13; i < 18; i += 1) {
-      const hora = {
-        hora: `${i}:00 - ${i}:30`,
-        disabled: i < new Date().getHours(),
-      };
-      const nextHora = {
-        hora: `${i}:30 - ${i + 1}:00`,
-        disabled: i < new Date().getHours(),
-      };
-      Array.push(hora);
-      Array.push(nextHora);
-    }
-    return Array;
-  };
-  const createMorning = () => {
-    const Array = [];
-    for (let i = 7; i < 12; i += 1) {
-      const hora = { hora: `${i}:00 - ${i}:30`, disabled: false };
-      const nextHora = { hora: `${i}:30 - ${i + 1}:00`, disabled: false };
-      Array.push(hora);
-      Array.push(nextHora);
-    }
-    return Array;
-  };
-  const createAfternoon = () => {
-    const Array = [];
-    for (let i = 13; i < 18; i += 1) {
-      const hora = { hora: `${i}:00 - ${i}:30`, disabled: false };
-      const nextHora = { hora: `${i}:30 - ${i + 1}:00`, disabled: false };
-      Array.push(hora);
-      Array.push(nextHora);
-    }
-    return Array;
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -104,14 +54,35 @@ const OrderTime = () => {
     navigate('/order/tu-info');
   };
   const handleSelect = (ev, data) => {
+    console.log(data.month);
     handleChange({ target: { value: data, name: 'fecha' } });
     if (Number(ev.target.value) === new Date().getDate()) {
       setToday(true);
     }
     if (Number(ev.target.value) !== new Date().getDate()) {
       setToday(false);
+      setMonth(data.month);
     }
   };
+
+  useEffect(() => {
+    getDays();
+  }, [week]);
+
+  useEffect(() => {
+    const validateForm = () => {
+      try {
+        if (Object.keys(form).length >= 3) {
+          setFormOk(true);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+    validateForm();
+  }, [handleChange]);
+
   return (
     <div className="order-time">
       <form onSubmit={handleSubmit}>
@@ -123,12 +94,14 @@ const OrderTime = () => {
             <label className="option-label" htmlFor="home">
               <input
                 type="radio"
-                name="enterToPlace"
+                name="ingresoAlLugar"
                 onChange={handleChange}
                 id="home"
                 defaultValue="Alguien estará en casa"
               />
-              <span> Alguien estará en casa</span>
+              <div className="option-label__text">
+                <p>Alguien estará en casa</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="call">
               <input
@@ -138,7 +111,9 @@ const OrderTime = () => {
                 id="call"
                 defaultValue="Llamar a mi número de celular antes"
               />
-              <span>Llamar a mi número de celular antes</span>
+              <div className="option-label__text">
+                <p>Llamar a mi número de celular antes</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="keys">
               <input
@@ -148,7 +123,9 @@ const OrderTime = () => {
                 id="keys"
                 defaultValue="Se le dejara la llave de acceso"
               />
-              <span>Se le dejara la llave de acceso</span>
+              <div className="option-label__text">
+                <p>Se le dejara la llave de acceso</p>
+              </div>
             </label>
           </div>
           <label className="control-label" htmlFor="infoHome">
@@ -210,93 +187,112 @@ const OrderTime = () => {
                     defaultChecked={e === new Date().getDate()}
                     defaultValue={e.dayNumber}
                   />
-                  <span>{e.day}</span>
+                  <div className="option-label__text">
+                    <p>{e.day}</p>
+                  </div>
                 </label>
               ))}
             </div>
             <div className="slot-select">
-              <div className="option-label option-label-select-hour">
-                <p>Mañana</p>
-                {today
-                  ? createMorningToday().map((e) => (
-                      <label
-                        className="option-label btn-time-slot"
-                        htmlFor={e.hora}
-                        key={e.hora}
-                      >
-                        <input
-                          type="radio"
-                          name="horaLlegada"
-                          id={e.hora}
-                          onChange={handleChange}
+              {form.fecha ? (
+                <div className="option-label option-label-select-hour">
+                  <p>Mañana</p>
+                  {today
+                    ? createMorningToday().map((e) => (
+                        <label
+                          className="option-label btn-time-slot"
+                          htmlFor={e.hora}
+                          key={e.hora}
+                        >
+                          <input
+                            type="radio"
+                            name="horaLlegada"
+                            id={e.hora}
+                            onChange={handleChange}
+                            disabled={e.disabled}
+                            defaultValue={e.hora}
+                          />
+                          <div className="option-label__text">
+                            <p>{e.hora}</p>
+                          </div>
+                        </label>
+                      ))
+                    : createMorning().map((e) => (
+                        <label
+                          className="option-label btn-time-slot"
+                          htmlFor={e.hora}
+                          key={e.hora}
+                        >
+                          <input
+                            type="radio"
+                            name="horaLlegada"
+                            id={e.hora}
+                            onChange={handleChange}
+                            disabled={e.disabled}
+                            defaultValue={e.hora}
+                          />
+                          <div className="option-label__text">
+                            <p>{e.hora}</p>
+                          </div>
+                        </label>
+                      ))}
+                </div>
+              ) : null}
+              {form.fecha ? (
+                <div className="option-label option-label-select-hour">
+                  <p className="mb-5 text-center strong">Tarde</p>
+                  {today
+                    ? createAfternoonToday().map((e) => (
+                        <label
+                          className="option-label btn-time-slot"
+                          htmlFor={e.hora}
+                          key={e.hora}
                           disabled={e.disabled}
-                          defaultValue={e.hora}
-                        />
-                        <span>{e.hora}</span>
-                      </label>
-                    ))
-                  : createMorning().map((e) => (
-                      <label
-                        className="option-label btn-time-slot"
-                        htmlFor={e.hora}
-                        key={e.hora}
-                      >
-                        <input
-                          type="radio"
-                          name="horaLlegada"
-                          id={e.hora}
-                          onChange={handleChange}
+                        >
+                          <input
+                            type="radio"
+                            name="horaLlegada"
+                            id={e.hora}
+                            disabled={e.disabled}
+                            onChange={handleChange}
+                            defaultValue={e.hora}
+                          />
+                          <div className="option-label__text">
+                            <p>{e.hora}</p>
+                          </div>
+                        </label>
+                      ))
+                    : createAfternoon().map((e) => (
+                        <label
+                          className="option-label btn-time-slot"
+                          htmlFor={e.hora}
+                          key={e.hora}
                           disabled={e.disabled}
-                          defaultValue={e.hora}
-                        />
-                        <span>{e.hora}</span>
-                      </label>
-                    ))}
-              </div>
-              <div className="option-label option-label-select-hour">
-                <p className="mb-5 text-center strong">Tarde</p>
-                {today
-                  ? createAfternoonToday().map((e) => (
-                      <label
-                        className="option-label btn-time-slot"
-                        htmlFor={e.hora}
-                        key={e.hora}
-                        disabled={e.disabled}
-                      >
-                        <input
-                          type="radio"
-                          name="horaLlegada"
-                          id={e.hora}
-                          disabled={e.disabled}
-                          onChange={handleChange}
-                          defaultValue={e.hora}
-                        />
-                        <span>{e.hora}</span>
-                      </label>
-                    ))
-                  : createAfternoon().map((e) => (
-                      <label
-                        className="option-label btn-time-slot"
-                        htmlFor={e.hora}
-                        key={e.hora}
-                        disabled={e.disabled}
-                      >
-                        <input
-                          type="radio"
-                          name="horaLlegada"
-                          id={e.hora}
-                          onChange={handleChange}
-                          disabled={e.disabled}
-                          defaultValue={e.hora}
-                        />
-                        <span>{e.hora}</span>
-                      </label>
-                    ))}
-              </div>
+                        >
+                          <input
+                            type="radio"
+                            name="horaLlegada"
+                            id={e.hora}
+                            onChange={handleChange}
+                            disabled={e.disabled}
+                            defaultValue={e.hora}
+                          />
+                          <div className="option-label__text">
+                            <p>{e.hora}</p>
+                          </div>
+                        </label>
+                      ))}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
-        <button className="btn btn-primary" id="btn-continue" type="submit">
+        <button
+          className="btn btn-primary"
+          id="btn-continue"
+          type="submit"
+          disabled={!formOk}
+        >
           Continuar
         </button>
         <button className="btn btn-primary" id="btn-back" type="button">

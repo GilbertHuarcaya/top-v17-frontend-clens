@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getOrderFromDetalles } from '../../../context/actions';
 import { useAppDispatch } from '../../../context/store';
@@ -7,6 +8,7 @@ const OrderDetails = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { form, handleChange } = useForm({});
+  const [formOk, setFormOk] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +17,20 @@ const OrderDetails = () => {
     getOrderFromDetalles(dispatch, form);
     navigate('/order/pago');
   };
+
+  useEffect(() => {
+    const validateForm = () => {
+      try {
+        if (Object.keys(form).length >= 5) {
+          setFormOk(true);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+    validateForm();
+  }, [handleChange]);
   return (
     <div className="specifications">
       <form onSubmit={handleSubmit}>
@@ -86,7 +102,6 @@ const OrderDetails = () => {
                 onChange={handleChange}
                 id="comentariosDeDireccion"
                 name="comentariosDeDireccion"
-                required
                 type="text"
               />
             </div>
@@ -108,7 +123,12 @@ const OrderDetails = () => {
           </label>
         </div>
 
-        <button className="btn btn-primary" id="btn-continue" type="submit">
+        <button
+          className="btn btn-primary"
+          id="btn-continue"
+          type="submit"
+          disabled={!formOk}
+        >
           Continuar
         </button>
         <button className="btn btn-primary" id="btn-back" type="button">

@@ -29,11 +29,8 @@ export const getOrderFromTiempo = (dispatch, form) => {
     dispatch({ type: GET_ORDER_FROM_TIEMPO, payload: fullOrder });
   }
 };
-export const getOrderFromCotizar = (
-  dispatch,
-  form = { cocina: 0, habitaciones: 0, baño: 0, sala: 0 },
-) => {
-  const fullOrder = { cocina: 0, habitacion: 0, baño: 0, sala: 0, ...form };
+export const getOrderFromCotizar = (dispatch, form) => {
+  const fullOrder = form;
   if (fullOrder) {
     dispatch({ type: GET_ORDER_FROM_COTIZAR, payload: fullOrder });
   }

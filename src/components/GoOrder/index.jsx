@@ -10,21 +10,30 @@ const GoOrder = () => {
     useAppState();
 
   const precioPorServicios =
-    (Number(orderCotizada.cocina) +
-      Number(orderCotizada.habitacion) +
-      Number(orderCotizada.baño) +
-      Number(orderCotizada.sala)) *
+    ((orderCotizada.cocina === undefined ? 0 : Number(orderCotizada.cocina)) +
+      (orderCotizada.habitacion === undefined
+        ? 0
+        : Number(orderCotizada.habitacion)) +
+      (orderCotizada.baño === undefined ? 0 : Number(orderCotizada.baño)) +
+      (orderCotizada.sala === undefined ? 0 : Number(orderCotizada.sala))) *
     50;
+
+  console.log(precioPorServicios);
+
   const precioPorTiempoServicio = orderCotizada.servicesHours
-    ? ((Number(orderCotizada.cocina) +
-        Number(orderCotizada.habitacion) +
-        Number(orderCotizada.baño) +
-        Number(orderCotizada.sala)) *
+    ? (((orderCotizada.cocina === undefined
+        ? 0
+        : Number(orderCotizada.cocina)) +
+        (orderCotizada.habitacion === undefined
+          ? 0
+          : Number(orderCotizada.habitacion)) +
+        (orderCotizada.baño === undefined ? 0 : Number(orderCotizada.baño)) +
+        (orderCotizada.sala === undefined ? 0 : Number(orderCotizada.sala))) *
         orderCotizada.servicesHours) /
       5
     : 0;
   const precioPorProductoIncluido =
-    orderCotizada.incluirProductos === 'true' ? 10 : 0;
+    orderCotizada.incluirProductos === 'si' ? 10 : 0;
 
   const Total = (
     precioPorTiempoServicio +
@@ -41,7 +50,11 @@ const GoOrder = () => {
             <li>
               <NavLink
                 to="/order/cotiza"
-                className={`step ${orderCotizada ? 'step-complete' : null}`}
+                className={`step ${
+                  Object.keys(orderCotizada).length >= 4
+                    ? 'step-complete'
+                    : null
+                }`}
               >
                 <div className="step-bullet" />
                 <span className="visible-inline">Cotizar</span>
@@ -89,10 +102,18 @@ const GoOrder = () => {
 
             <div className="order__resumen__info">
               <p>
-                {Number(orderCotizada.cocina) +
-                  Number(orderCotizada.habitacion) +
-                  Number(orderCotizada.baño) +
-                  Number(orderCotizada.sala)}{' '}
+                {(orderCotizada.cocina === undefined
+                  ? 0
+                  : Number(orderCotizada.cocina)) +
+                  (orderCotizada.habitacion === undefined
+                    ? 0
+                    : Number(orderCotizada.habitacion)) +
+                  (orderCotizada.baño === undefined
+                    ? 0
+                    : Number(orderCotizada.baño)) +
+                  (orderCotizada.sala === undefined
+                    ? 0
+                    : Number(orderCotizada.sala))}{' '}
                 servicios
               </p>
               <p>+ ${precioPorServicios.toFixed(2)}</p>

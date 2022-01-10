@@ -6,20 +6,33 @@
 }
 
 .slot-days {
-  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin: 0;
+  gap: 0.5rem;
 
-  li {
-    width: 6rem;
+  .option-label {
+    width: 100%;
 
-    .btn-day {
+    &__text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: capitalize;
       border: 2px solid #77c6ca;
+      padding: 0;
       width: 100%;
       min-height: 5rem;
       background-color: transparent;
       color: #77c6ca;
       cursor: pointer;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       border-radius: 5px;
+    }
+    p {
+      padding: 0;
+      margin: 0;
+      text-align: center;
     }
   }
 }
@@ -33,7 +46,7 @@
   .btn-time-slot {
     width: 100%;
     margin: 0.5rem;
-    input:disabled + span {
+    input:disabled + .option-label__text {
       color: rgb(172, 172, 172);
       border: 2px solid rgb(172, 172, 172);
     }

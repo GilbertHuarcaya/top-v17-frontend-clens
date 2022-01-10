@@ -14,6 +14,7 @@ const Cotiza = () => {
   const [selectedHabitacion, setSelectedHabitacion] = useState(0);
   const [selectedBaño, setSelectedBaño] = useState(0);
   const [selectedSala, setSelectedSala] = useState(0);
+  const [formOk, setFormOk] = useState(false);
 
   const getServiceAmount = (e) => {
     switch (e.target.name) {
@@ -132,13 +133,30 @@ const Cotiza = () => {
     getOrderFromCotizar(dispatch, form);
   }, [form]);
 
+  useEffect(() => {
+    const validateForm = () => {
+      try {
+        if (Object.keys(form).length >= 4) {
+          setFormOk(true);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+    validateForm();
+  }, [handleChange]);
+
   return (
     <div className="cotiza">
       <form onSubmit={handleSubmit}>
         <h2 className="headline">Personaliza tu limpieza</h2>
         <div className="form-group">
           <label className="control-label" htmlFor="distrito">
-            <span> ¿En qué distrito vives? </span>
+            <span>
+              {' '}
+              ¿En qué <strong>distrito</strong> vives?{' '}
+            </span>
             <div className="slot">
               <input
                 className="input-text"
@@ -154,8 +172,7 @@ const Cotiza = () => {
         <div className="form-group">
           <div className="control-label">
             <p>
-              ¿Cuántas <strong>habitaciones por servicio</strong> necesitas
-              limpiar?
+              ¿Cuántas <strong>cuartos por servicio</strong> necesitas limpiar?
             </p>
             <label htmlFor="cocinas">
               <span>cocina</span>
@@ -318,12 +335,14 @@ const Cotiza = () => {
             <label className="option-label" htmlFor="2hours">
               <input
                 type="radio"
-                name="servicesHours"
+                name="horasPorServicio"
                 onChange={handleChange}
                 id="2hours"
                 defaultValue={2}
               />
-              <span>2.0</span>
+              <div className="option-label__text">
+                <p>2.0</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="2.5hours">
               <input
@@ -333,7 +352,9 @@ const Cotiza = () => {
                 id="2.5hours"
                 defaultValue={2.5}
               />
-              <span>2.5</span>
+              <div className="option-label__text">
+                <p>2.5</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="3hours">
               <input
@@ -343,7 +364,9 @@ const Cotiza = () => {
                 id="3hours"
                 defaultValue={3}
               />
-              <span>3.0</span>
+              <div className="option-label__text">
+                <p>3.0</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="3.5hours">
               <input
@@ -353,7 +376,9 @@ const Cotiza = () => {
                 id="3.5hours"
                 defaultValue={3.5}
               />
-              <span>3.5</span>
+              <div className="option-label__text">
+                <p>3.5</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="4hours">
               <input
@@ -363,7 +388,9 @@ const Cotiza = () => {
                 id="4hours"
                 defaultValue={4}
               />
-              <span>4.0</span>
+              <div className="option-label__text">
+                <p>4.0</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="4.5hours">
               <input
@@ -373,7 +400,9 @@ const Cotiza = () => {
                 id="4.5hours"
                 defaultValue={4.5}
               />
-              <span>4.5</span>
+              <div className="option-label__text">
+                <p>4.5</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="5hours">
               <input
@@ -383,7 +412,9 @@ const Cotiza = () => {
                 id="5hours"
                 defaultValue={5}
               />
-              <span>5.0</span>
+              <div className="option-label__text">
+                <p>5.0</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="5.5hours">
               <input
@@ -393,7 +424,9 @@ const Cotiza = () => {
                 id="5.5hours"
                 defaultValue={5.5}
               />
-              <span>5.5</span>
+              <div className="option-label__text">
+                <p>5.5</p>
+              </div>
             </label>
             <label className="option-label" htmlFor="6hours">
               <input
@@ -403,7 +436,9 @@ const Cotiza = () => {
                 id="6hours"
                 defaultValue={6}
               />
-              <span>6.0</span>
+              <div className="option-label__text">
+                <p>6.0</p>
+              </div>
             </label>
           </div>
         </div>
@@ -420,10 +455,12 @@ const Cotiza = () => {
                   name="incluirProductos"
                   onChange={handleChange}
                   id="select-1"
-                  defaultValue
+                  defaultValue="si"
                 />
 
-                <span>Incluir productos de limpieza (+$10.00)</span>
+                <div className="option-label__text">
+                  <p>Incluir productos de limpieza (+$10.00)</p>
+                </div>
               </label>
 
               <label
@@ -434,11 +471,12 @@ const Cotiza = () => {
                   type="radio"
                   name="incluirProductos"
                   onChange={handleChange}
-                  defaultValue={false}
+                  defaultValue="no"
                   id="select-2"
                 />
-
-                <span>Yo los prooveré</span>
+                <div className="option-label__text">
+                  <p>Yo los prooveré</p>
+                </div>
               </label>
             </div>
           </div>
@@ -448,7 +486,12 @@ const Cotiza = () => {
             otros productos pesados.
           </p>
         </div>
-        <button className="btn btn-primary" id="btn-continue" type="submit">
+        <button
+          className="btn btn-primary"
+          id="btn-continue"
+          type="submit"
+          disabled={!formOk}
+        >
           Continuar
         </button>
       </form>

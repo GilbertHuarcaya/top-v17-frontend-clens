@@ -82,24 +82,24 @@ const Pay = () => {
               className="ng-dirty ng-touched ng-valid"
             />
             <span>
-              I accept the{' '}
+              Acepto los{' '}
               <a
                 href="https://housekeep.com/footer/terms-conditions/"
                 target="_blank"
                 rel="noreferrer"
               >
-                terms and conditions
+                términos y condiciones
               </a>
-              , have read the{' '}
+              , he leído la{' '}
               <a
                 href="https://housekeep.com/footer/privacy/"
                 target="_blank"
                 rel="noreferrer"
               >
-                privacy policy
+                política de privacidad
               </a>{' '}
-              and authorise Housekeep to charge my payment card in accordance
-              with these terms.
+              y autorizo a Clens a cargar mi tarjeta de pago de acuerdo con
+              estos términos.
             </span>
           </label>
         </div>
