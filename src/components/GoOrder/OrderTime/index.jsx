@@ -54,7 +54,6 @@ const OrderTime = () => {
     navigate('/order/tu-info');
   };
   const handleSelect = (ev, data) => {
-    console.log(data.month);
     handleChange({ target: { value: data, name: 'fecha' } });
     if (Number(ev.target.value) === new Date().getDate()) {
       setToday(true);
