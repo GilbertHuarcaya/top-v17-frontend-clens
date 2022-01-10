@@ -18,8 +18,6 @@ const GoOrder = () => {
       (orderCotizada.sala === undefined ? 0 : Number(orderCotizada.sala))) *
     50;
 
-  console.log(precioPorServicios);
-
   const precioPorTiempoServicio = orderCotizada.servicesHours
     ? (((orderCotizada.cocina === undefined
         ? 0
