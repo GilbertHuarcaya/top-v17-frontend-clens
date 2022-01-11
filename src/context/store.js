@@ -7,6 +7,9 @@ import {
   LOGOUT_USER,
   REGISTER_USER,
   GET_ALL_REVIEWS,
+  GET_ORDER_FROM_DETALLES,
+  GET_ORDER_FROM_TIEMPO,
+  GET_ORDER_FROM_COTIZAR,
 } from './constants';
 
 const AppStateContext = createContext();
@@ -16,7 +19,10 @@ const initialState = {
   isLoading: false,
   services: [],
   reviews: [],
-  orderDetail: {},
+  orderDetalles: null,
+  orderCotizada: {},
+  orderTiempo: null,
+  orderPago: null,
   orders: [],
   user: null,
 };
@@ -44,6 +50,24 @@ function AppReducer(state, action) {
       return {
         ...state,
         user: action.payload,
+      };
+    }
+    case GET_ORDER_FROM_DETALLES: {
+      return {
+        ...state,
+        orderDetalles: action.payload,
+      };
+    }
+    case GET_ORDER_FROM_TIEMPO: {
+      return {
+        ...state,
+        orderTiempo: action.payload,
+      };
+    }
+    case GET_ORDER_FROM_COTIZAR: {
+      return {
+        ...state,
+        orderCotizada: action.payload,
       };
     }
     case REGISTER_USER: {

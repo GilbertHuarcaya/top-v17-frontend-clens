@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CartService from './CartService';
 import getAllServices from './services';
@@ -5,6 +6,7 @@ import getAllServices from './services';
 import './styles.scss';
 
 const FloatCart = () => {
+  const navigate = useNavigate();
   const [servicesAdded, setServicesAdded] = useState([]);
   const [subTotal, setSubTotal] = useState();
 
@@ -27,6 +29,7 @@ const FloatCart = () => {
   function proceedToCheckout() {
     // eslint-disable-next-line no-console
     console.log('ir a comprar!');
+    navigate('/order/cotiza');
   }
 
   const removeProduct = (product) => {
@@ -121,7 +124,7 @@ const FloatCart = () => {
               onClick={() => proceedToCheckout()}
               className="buy-btn"
             >
-              A comprar
+              Cotiza segun tu ubicación
             </button>
           </div>
         </div>

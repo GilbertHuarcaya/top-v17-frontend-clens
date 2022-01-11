@@ -7,3 +7,7 @@ export const GET_ALL_ORDERS = '@clens/all-orders';
 export const GET_ALL_REVIEWS = '@clens/all-reviews';
 export const GET_ORDER = '@clens/get-order';
 export const SET_LOADING = '@clens/loading';
+export const GET_ORDER_FROM_GO_ORDER = '@clens/get-form-from-go-order';
+export const GET_ORDER_FROM_DETALLES = '@clens/get-form-from-detalles';
+export const GET_ORDER_FROM_TIEMPO = '@clens/get-form-from-tiempo';
+export const GET_ORDER_FROM_COTIZAR = '@clens/get-form-from-cotizar';

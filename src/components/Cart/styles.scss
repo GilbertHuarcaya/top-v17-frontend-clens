@@ -4,7 +4,6 @@
   justify-content: center;
   flex-wrap: wrap;
   width: auto;
-  width: auto;
   height: auto;
   background-color: rgb(119, 198, 201);
 
@@ -54,8 +53,6 @@
   &__shelf-container {
     position: relative;
     min-height: 280px;
-    max-height: 60vh;
-    overflow: auto;
 
     .shelf-empty {
       color: #ececec;
@@ -155,6 +152,9 @@
         }
       }
     }
+    .shelf-item:nth-last-child(1) {
+      border: none;
+    }
   }
 
   &__footer {
@@ -219,17 +219,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
     width: auto;
-    height: calc(100% - 18.5rem);
-    min-height: 45rem;
+    flex-grow: 1;
+    height: auto;
+    min-height: 55rem;
     background-color: rgb(119, 198, 201);
     padding-bottom: 3rem;
 
     &__content {
       display: flex;
-      align-items: center;
-      justify-content: space-around;
+      justify-content: center;
+      gap: 5vw;
       flex-wrap: wrap;
       width: 100%;
     }
@@ -237,7 +237,7 @@
     &__header {
       color: #ececec;
       box-sizing: border-box;
-      text-align: left;
+      text-align: center;
       padding: 0 50px;
       margin-bottom: 20px;
       width: 90vw;
@@ -248,8 +248,7 @@
       min-height: 40rem;
       height: auto;
       width: 50vw;
-      max-width: 50rem;
-      overflow: auto;
+      max-width: 40rem;
       background-color: rgba(255, 255, 255, 0.15);
       padding: 2rem;
     }
@@ -270,6 +269,8 @@
     }
 
     &__footer {
+      position: sticky;
+      top: 5rem;
       display: flex;
       align-items: center;
       justify-content: center;
