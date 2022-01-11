@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import useForm from '../../hooks/useForm';
+import { loginUser } from '../../context/actions';
+import { useAppDispatch } from '../../context/store';
 
 import './LoginForm.scss';
 import gmailLogo from '../../img/icons/Google__G__Logo.svg';
@@ -7,16 +10,32 @@ import facebookLogo from '../../img/icons/facebook.png';
 import logo from '../../img/logo-clens.jpg';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { form, handleChange } = useForm({});
+  const [formOk, setFormOk] = useState(0);
 
-  function validateForm() {
-    return email.length > 0 && password.length > 5;
-  }
+  useEffect(() => {
+    const validateForm = () => {
+      try {
+        if (form?.password !== undefined) {
+          const data = form?.password.length > 5;
+          setFormOk(data);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+    validateForm();
+  }, [handleChange]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    loginUser(dispatch, form);
+    navigate('/');
+  };
 
   return (
     <form className="form_login" onSubmit={handleSubmit}>
@@ -30,24 +49,28 @@ const LoginForm = () => {
       </div>
       <div className="form_login__item">
         <input
+          name="email"
           type="email"
           placeholder="correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={undefined}
+          onChange={handleChange}
+          required
         />
       </div>
       <div className="form_login__item">
         <input
+          name="password"
           type="password"
+          value={undefined}
           placeholder="contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChange}
+          required
         />
       </div>
       <button
         className="form_login__button__login"
         type="submit"
-        disabled={!validateForm()}
+        disabled={!formOk}
       >
         Ingresa
       </button>

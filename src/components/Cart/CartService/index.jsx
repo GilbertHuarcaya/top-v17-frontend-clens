@@ -1,22 +1,10 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const CartService = (props) => {
-  const { service, value, removeProduct, subTotalPlus, subTotalMinus } = props;
-  const [ownquantity, setOwnQuantity] = useState(1);
-
-  function handleOnDecrease() {
-    subTotalMinus(service);
-
-    setOwnQuantity(ownquantity + 1);
-  }
-  function handleOnIncrease() {
-    subTotalPlus(service);
-    setOwnQuantity(ownquantity + 1);
-  }
+  const { service, removeProduct, subTotalPlus, subTotalMinus } = props;
 
   return (
-    <div className="shelf-item" key={value}>
+    <div className="shelf-item" id={service.title}>
       <button
         className="shelf-item__del"
         onClick={() => removeProduct(service)}
@@ -36,7 +24,7 @@ const CartService = (props) => {
         <div>
           <button
             type="button"
-            onClick={handleOnDecrease}
+            onClick={() => subTotalMinus(service)}
             disabled={service.quantity === 1}
             className="change-product-button"
           >
@@ -44,7 +32,7 @@ const CartService = (props) => {
           </button>
           <button
             type="button"
-            onClick={handleOnIncrease}
+            onClick={() => subTotalPlus(service)}
             className="change-product-button"
           >
             +
@@ -57,7 +45,6 @@ const CartService = (props) => {
 
 CartService.propTypes = {
   service: PropTypes.objectOf(PropTypes.any),
-  value: PropTypes.objectOf(PropTypes.string),
   removeProduct: PropTypes.func,
   subTotalPlus: PropTypes.func,
   subTotalMinus: PropTypes.func,
@@ -65,7 +52,6 @@ CartService.propTypes = {
 
 CartService.defaultProps = {
   service: {},
-  value: {},
   removeProduct: () => {},
   subTotalPlus: () => {},
   subTotalMinus: () => {},

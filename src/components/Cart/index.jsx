@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CartService from './CartService';
 import getAllServices from './services';
@@ -5,21 +6,9 @@ import getAllServices from './services';
 import './styles.scss';
 
 const FloatCart = () => {
+  const navigate = useNavigate();
   const [servicesAdded, setServicesAdded] = useState([]);
   const [subTotal, setSubTotal] = useState();
-
-  function subTotalSum() {
-    const total = setSubTotal(
-      servicesAdded.reduce(
-        (sum, value) =>
-          typeof value.quantity === 'number'
-            ? sum + value.quantity * value.price
-            : sum,
-        0,
-      ),
-    );
-    return total;
-  }
 
   useEffect(() => {
     const getServices = async () => {
@@ -37,16 +26,10 @@ const FloatCart = () => {
     getServices();
   }, []);
 
-  useEffect(() => {
-    const totalCount = () => {
-      subTotalSum();
-    };
-    totalCount();
-  });
-
   function proceedToCheckout() {
     // eslint-disable-next-line no-console
     console.log('ir a comprar!');
+    navigate('/order/cotiza');
   }
 
   const removeProduct = (product) => {
@@ -59,14 +42,25 @@ const FloatCart = () => {
     }
   };
 
+  function subTotalSum() {
+    const total = setSubTotal(
+      servicesAdded.reduce(
+        (sum, value) =>
+          typeof value.quantity === 'number'
+            ? sum + value.quantity * value.price
+            : sum,
+        0,
+      ),
+    );
+    return total;
+  }
   const subTotalPlus = (service) => {
     const index = servicesAdded.findIndex(
       (p) => p.serviceid === service.serviceid,
     );
     if (index >= 0) {
       servicesAdded[index].quantity += 1;
-      const total = subTotalSum();
-      setSubTotal(total);
+      subTotalSum();
       setServicesAdded(servicesAdded);
     }
   };
@@ -77,23 +71,28 @@ const FloatCart = () => {
     );
     if (index >= 0) {
       servicesAdded[index].quantity -= 1;
-      const total = subTotalSum();
-      setSubTotal(total);
+      subTotalSum();
       setServicesAdded(servicesAdded);
     }
   };
 
-  return (
-    <div className="float-cart">
-      <div className="float-cart__content">
-        <div className="float-cart__header">
-          <span className="bag">
-            <span className="bag__quantity">{servicesAdded.length}</span>
-          </span>
-          <span className="header-title">Carrito</span>
-        </div>
+  useEffect(() => {
+    const totalCount = () => {
+      subTotalSum();
+    };
+    totalCount();
+  }, [subTotalPlus, subTotalMinus]);
 
-        <div className="float-cart__shelf-container">
+  return (
+    <div className="cart">
+      <div className="cart__header">
+        <span className="bag">
+          <span className="bag__quantity">{servicesAdded.length}</span>
+        </span>
+        <span className="header-title">Carrito</span>
+      </div>
+      <div className="cart__content">
+        <div className="cart__shelf-container">
           {servicesAdded.length > 0 ? (
             servicesAdded.map((p) => {
               return (
@@ -114,11 +113,10 @@ const FloatCart = () => {
           )}
         </div>
 
-        <div className="float-cart__footer">
+        <div className="cart__footer">
           <div className="sub">SUBTOTAL</div>
           <div className="sub-price">
             <p className="sub-price__val">{`$${subTotal}`}</p>
-            <small className="sub-price__installment" />
           </div>
           <div className="buy">
             <button
@@ -126,7 +124,7 @@ const FloatCart = () => {
               onClick={() => proceedToCheckout()}
               className="buy-btn"
             >
-              A comprar
+              Cotiza segun tu ubicación
             </button>
           </div>
         </div>

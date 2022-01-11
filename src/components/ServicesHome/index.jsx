@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import MinititleTitle from '../MinititleTitle';
-import CardsServices from '../CardsServices';
+import CardsServices from './CardsServices';
 import './styles.scss';
 import getAllServices from './services';
 

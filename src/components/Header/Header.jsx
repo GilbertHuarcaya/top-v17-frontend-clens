@@ -1,25 +1,102 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { getUserFromLocalStorage, logout } from '../../context/actions';
+import { useAppState, useAppDispatch } from '../../context/store';
+
 import './Header.scss';
 import logo from '../../img/logo-clens.jpg';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const { user, isLoading } = useAppState();
+  const dispatch = useAppDispatch();
   const [toggleClassBtnMenu, setToggleCLassBtn] = useState('false');
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const [toggleClassBtnCart, setToggleClassBtnCart] = useState('false');
 
+  const url = window.location.pathname.split('/').pop();
+
+  let prevScrollpos = window.pageYOffset;
+  window.onscroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    if (prevScrollpos !== currentScrollPos) {
+      setToggleCLassBtn(true);
+      setToggleCLassBtnUser(true);
+    }
+    prevScrollpos = currentScrollPos;
+  };
+
+  useEffect(() => {
+    setToggleCLassBtnUser(true);
+    setToggleClassBtnCart(true);
+    setToggleCLassBtn(true);
+    window.scrollTo(0, 0);
+  }, [url]);
+
+  useEffect(() => {
+    getUserFromLocalStorage(dispatch);
+  }, []);
+
   const handleClick = () => {
     if (!toggleClassBtnMenu) return setToggleCLassBtn(true);
+    setToggleCLassBtnUser(true);
     return setToggleCLassBtn(false);
   };
   const handlerMenuUser = () => {
-    if (!toggleClassBtnUser) return setToggleCLassBtnUser(true);
+    if (!toggleClassBtnUser) {
+      return setToggleCLassBtnUser(true);
+    }
+    setToggleCLassBtn(true);
     return setToggleCLassBtnUser(false);
   };
   const handlerCart = () => {
     if (!toggleClassBtnCart) return setToggleClassBtnCart(true);
     return setToggleClassBtnCart(false);
   };
+
+  const handleCloseSession = () => {
+    logout(dispatch);
+    navigate('/');
+    handlerMenuUser();
+  };
+
+  let buttons;
+
+  if (!isLoading) {
+    buttons = user ? (
+      <div className="header__user">
+        <Link className="header__user__linkto-cart" to="/mi-carrito">
+          <button
+            className="header__user--cart"
+            type="button"
+            aria-label="foto-carrito"
+            onClick={handlerCart}
+          />
+          {!isLoading ? (
+            <span className="header__user--cart__quantity">{0}</span>
+          ) : null}
+        </Link>
+        <button
+          className="header__user--user"
+          type="button"
+          aria-label="foto-perfil"
+          onClick={handlerMenuUser}
+        />
+      </div>
+    ) : (
+      <>
+        <Link className="header__login" to="./login">
+          Ingresa
+        </Link>
+        <Link className="header__register" to="./register">
+          Registrate
+        </Link>
+      </>
+    );
+  } else {
+    buttons = <span>is Loading...</span>;
+  }
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -27,20 +104,6 @@ const Header = () => {
           <img className="header__img" src={logo} alt="logo-clens" />
         </Link>
       </div>
-      <button
-        type="button"
-        className={
-          toggleClassBtnMenu
-            ? 'header__btn-menu'
-            : 'header__btn-menu change-menu'
-        }
-        id="btn-menu-id"
-        onClick={handleClick}
-      >
-        <div className="header__btn-menu--1" />
-        <div className="header__btn-menu--2" />
-        <div className="header__btn-menu--3" />
-      </button>
       <div
         className={
           toggleClassBtnMenu ? 'header__menu' : 'header__menu is-active'
@@ -59,41 +122,11 @@ const Header = () => {
         <Link className="header__a" to="/reseñas">
           Reseñas
         </Link>
-        <Link className="header__a" to="/cotiza">
+        <Link className="header__a" to="/order/cotiza">
           Cotiza
         </Link>
         <Link className="header__a" to="/postula">
           Postula
-        </Link>
-        <Link className="header__a" to="./register">
-          Registrate
-        </Link>
-        <Link className="header__a" to="./login">
-          Ingresa
-        </Link>
-      </div>
-      <div
-        className={
-          toggleClassBtnUser
-            ? 'header__perfil'
-            : 'header__perfil is-active-menu-perfil'
-        }
-        id="menu-perfil"
-      >
-        <Link className="header__perfil__a" to="/info-cuenta">
-          Mi Perfil
-        </Link>
-        <Link className="header__perfil__a" to="/mis-servicios">
-          Mis servicios
-        </Link>
-        <Link className="header__perfil__a" to="/mi-historial">
-          Mi historial
-        </Link>
-        <Link className="header__perfil__a" to="/mi-carrito">
-          Ir al carrito
-        </Link>
-        <Link className="header__perfil__a" to="/">
-          Cerrar sesion
         </Link>
       </div>
       {/* <div
@@ -108,22 +141,68 @@ const Header = () => {
           Ir al carrito
         </Link>
       </div> */}
-      <div className="header__user">
-        <Link className="header__perfil__linkto-cart" to="/mi-carrito">
-          <button
-            className="header__user--cart"
+      {buttons}
+      {user ? (
+        <div
+          className={
+            toggleClassBtnUser
+              ? 'header__perfil'
+              : 'header__perfil is-active-menu-perfil'
+          }
+          id="menu-perfil"
+        >
+          <Link
+            onClick={handlerMenuUser}
+            className="header__perfil__a"
+            to="/info-cuenta"
+          >
+            Mi Perfil
+          </Link>
+          <Link
+            onClick={handlerMenuUser}
+            className="header__perfil__a"
+            to="/mis-servicios"
+          >
+            Mis servicios
+          </Link>
+          <Link
+            onClick={handlerMenuUser}
+            className="header__perfil__a"
+            to="/mi-historial"
+          >
+            Mi historial
+          </Link>
+          <Link
+            onClick={handlerMenuUser}
+            className="header__perfil__a"
+            to="/mi-carrito"
+          >
+            Ir al carrito
+          </Link>
+          <Link
+            onClick={handleCloseSession}
             type="button"
-            aria-label="foto-carrito"
-            onClick={handlerCart}
-          />
-        </Link>
-        <button
-          className="header__user--user"
-          type="button"
-          aria-label="foto-perfil"
-          onClick={handlerMenuUser}
-        />
-      </div>
+            className="header__perfil__a"
+            to="/"
+          >
+            Cerrar sesion
+          </Link>
+        </div>
+      ) : null}
+      <button
+        type="button"
+        className={
+          toggleClassBtnMenu
+            ? 'header__btn-menu'
+            : 'header__btn-menu change-menu'
+        }
+        id="btn-menu-id"
+        onClick={handleClick}
+      >
+        <div className="header__btn-menu--1" />
+        <div className="header__btn-menu--2" />
+        <div className="header__btn-menu--3" />
+      </button>
     </header>
   );
 };

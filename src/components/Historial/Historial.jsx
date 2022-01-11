@@ -29,7 +29,8 @@ const OrdersContainer = styled.div`
   align-items: center;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color: white;
-  height: 100%;
+  height: auto;
+  min-height: 20rem;
   width: 90vw;
   max-width: 1300px;
   margin: -45px auto 20px auto;

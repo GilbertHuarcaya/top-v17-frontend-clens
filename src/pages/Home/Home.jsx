@@ -4,13 +4,15 @@ import ServicesHome from '../../components/ServicesHome';
 import BtnSolicita from '../../components/BtnSolicita';
 import ReviewsHome from '../../components/ReviewsHome';
 
-const App = () => (
-  <>
-    <HeroSection />
-    <HowItWorks />
-    <ServicesHome />
-    <ReviewsHome />
-    <BtnSolicita />
-  </>
-);
+const App = () => {
+  return (
+    <>
+      <HeroSection />
+      <HowItWorks />
+      <ServicesHome />
+      <ReviewsHome />
+      <BtnSolicita />
+    </>
+  );
+};
 export default App;

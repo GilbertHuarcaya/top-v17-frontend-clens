@@ -43,11 +43,12 @@
     height: 50rem;
 
     &__title {
-      font-size: 6rem;
+      font-size: 5rem;
       letter-spacing: -2px;
     }
 
     &__button {
+      position: absolute;
       width: 140px;
       height: 70px;
       margin: 5rem auto;
