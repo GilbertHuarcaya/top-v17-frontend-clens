@@ -11,3 +11,5 @@ export const GET_ORDER_FROM_GO_ORDER = '@clens/get-form-from-go-order';
 export const GET_ORDER_FROM_DETALLES = '@clens/get-form-from-detalles';
 export const GET_ORDER_FROM_TIEMPO = '@clens/get-form-from-tiempo';
 export const GET_ORDER_FROM_COTIZAR = '@clens/get-form-from-cotizar';
+
+export const GET_ORDERS_FROM_USER = '@clens/get-orders-from-user';

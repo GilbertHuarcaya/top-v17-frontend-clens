@@ -9,6 +9,7 @@ import {
   GET_USER_FROM_LOCALSTORAGE,
   REGISTER_USER,
   GET_ALL_REVIEWS,
+  GET_ORDERS_FROM_USER,
   GET_ORDER_FROM_DETALLES,
   GET_ORDER_FROM_TIEMPO,
   GET_ORDER_FROM_COTIZAR,
@@ -16,6 +17,7 @@ import {
 
 import authService from '../services/auth';
 import reviewService from '../services/review';
+import orderService from '../services/order';
 
 export const getOrderFromDetalles = (dispatch, form) => {
   const fullOrder = form;
@@ -95,6 +97,24 @@ export const getReviewsFromDB = async (dispatch) => {
 
     if (response.ok) {
       dispatch({ type: GET_ALL_REVIEWS, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const getUserOrdersFromDB = async (dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderService.getUserOrders();
+
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: GET_ORDERS_FROM_USER, payload: data });
     }
   } catch (error) {
     // eslint-disable-next-line no-console

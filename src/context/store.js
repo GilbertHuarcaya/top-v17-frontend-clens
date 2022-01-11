@@ -10,6 +10,7 @@ import {
   GET_ORDER_FROM_DETALLES,
   GET_ORDER_FROM_TIEMPO,
   GET_ORDER_FROM_COTIZAR,
+  GET_ORDERS_FROM_USER,
 } from './constants';
 
 const AppStateContext = createContext();
@@ -24,6 +25,7 @@ const initialState = {
   orderTiempo: null,
   orderPago: null,
   orders: [],
+  userOrders: [],
   user: null,
 };
 
@@ -80,6 +82,12 @@ function AppReducer(state, action) {
       return {
         ...state,
         reviews: action.payload,
+      };
+    }
+    case GET_ORDERS_FROM_USER: {
+      return {
+        ...state,
+        userOrders: action.payload,
       };
     }
     default:
