@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserFromLocalStorage, logout } from '../../store/actions';
 
+import Loader from '../Loader';
 import './Header.scss';
 import logo from '../../img/logo-clens.jpg';
 
@@ -101,7 +102,7 @@ const Header = () => {
       </>
     );
   } else {
-    buttons = <span>is Loading...</span>;
+    buttons = <Loader />;
   }
 
   return (

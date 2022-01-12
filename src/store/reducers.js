@@ -12,7 +12,7 @@ import {
 const initialState = {
   isLoading: false,
   services: [],
-  reviews: [],
+  reviews: null,
   orderDetails: {},
   orders: [],
   userOrders: [],

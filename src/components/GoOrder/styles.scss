@@ -30,6 +30,7 @@
         padding-bottom: 3px;
         border-bottom: #77c6ca solid 2px;
         color: #77c6ca;
+        cursor: pointer;
 
         .step-bullet {
           border: #77c6ca solid 2px;
@@ -37,6 +38,7 @@
       }
       .step-complete {
         color: #b3d4d6;
+        cursor: pointer;
 
         .step-bullet {
           background-image: url(../../img/icons/checkceleste.svg);
