@@ -1,15 +1,11 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-// import getAllOrders from './Orders';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserOrdersFromDB  } from '../../store/actions';
-import Loader from '../Loader'
-import DownloadInvoice from './Descarga'
+import easyinvoice from 'easyinvoice';
+import { getUserOrdersFromDB } from '../../store/actions';
+import Loader from '../Loader';
 import bathroom from '../../img/services/bathroom.jpg';
 import kitchen from '../../img/services/cocinas.jpg';
 import bedroom from '../../img/services/habitaciones.jpg';
@@ -42,7 +38,8 @@ const OrdersContainer = styled.div`
 `;
 
 const View = styled.div`
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   width: 96%;
   height: 96%;
   margin: auto;
@@ -84,7 +81,7 @@ const Service = styled.div`
 `;
 
 const Img = styled.img`
-  border-radius: "50px";
+  border-radius: '50px';
   width: 110px;
   height: 110px;
 `;
@@ -97,17 +94,10 @@ const Nombre = styled.p`
 `;
 
 const imgs = {
-  'Baño': bathroom,
-  'Cocina': kitchen,
-  'Sala': livingroom,
-  'Cuarto': bedroom,
-};
-
-const serviceName = {
-  'bathroom': 'Baño',
-  'kitchen': 'Cocina',
-  'livingroom': 'Sala',
-  'bedroom': 'Cuarto',
+  Baño: bathroom,
+  Cocina: kitchen,
+  Sala: livingroom,
+  Cuarto: bedroom,
 };
 
 const Scroll = styled.div`
@@ -141,7 +131,7 @@ const Detail = styled.div`
   /* border: 1px solid green; */
   @media screen and (min-width: 769px) {
     min-width: 50%;
-    margin-left: 10px
+    margin-left: 10px;
   }
   @media screen and (min-width: 1025px) {
     min-width: 39%;
@@ -182,39 +172,89 @@ const Historial = () => {
   const userOrders = useSelector((state) => state.userOrders);
   const isLoading = useSelector((state) => state.isLoading);
   const [ordersToShow, setOrdersToShow] = useState([]);
-  const [orders, setOrders] = useState([]);
 
   const onHandleMore = () => {
     count += 2;
-    setOrdersToShow(orders.slice(0, count))
-  }
-
-  const setUserOders = async () => {
-    try {
-      setTimeout(() => {
-        setOrders(userOrders);
-        setOrdersToShow(userOrders.slice(0, count))
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    setOrdersToShow(userOrders.slice(0, count));
+  };
 
   useEffect(() => {
     const getUserOrders = async () => {
       try {
         if (userOrders.length < 1) {
-      getUserOrdersFromDB(dispatch);
+          getUserOrdersFromDB(dispatch);
         }
-
       } catch (error) {
         console.log(error);
       }
     };
     getUserOrders();
-  }, []);
+    setOrdersToShow(userOrders.slice(0, count));
+  }, [userOrders]);
 
-  setUserOders()
+  // const prueba = (id) => {
+  //   const a = userOrders.filter((userOrder) => userOrder._id === id);
+  //   const b = a[0].service.forEach((s) => console.log(s));
+  //   console.log(b);
+  // };
+
+  const getSampleData = (id) => {
+    const order = userOrders.filter((userOrder) => userOrder._id === id);
+    const services = order[0].service;
+    const orderDate = order[0].createdAt;
+    console.log(orderDate.slice(0, 10));
+    return {
+      documentTitle: 'Recibo',
+      locale: 'es-PE',
+      currency: 'USD',
+      taxNotation: 'vat',
+      marginTop: 50,
+      marginRight: 50,
+      marginLeft: 50,
+      marginBottom: 25,
+      logo: 'https://public.easyinvoice.cloud/img/logo_en_original.png',
+      sender: {
+        company: 'Clens',
+        address: '4565 N Stelling Rd',
+        zip: '1234',
+        city: 'Lima',
+        country: 'Peru',
+      },
+      client: {
+        company: 'Thomas Robertson',
+        address: '8109 Wycliff Ave',
+        zip: '4567',
+        city: 'Lima',
+        country: 'Peru',
+      },
+      invoiceNumber: '2021.0001',
+      invoiceDate: `${order[0].createdAt.slice(0, 10)}`,
+      products: services.map((service) => {
+        return {
+          quantity: `${service.cantidad}`,
+          description: `${service.name}`,
+          tax: 18,
+          price: `${service.precio}`,
+        };
+      }),
+      bottomNotice: 'Muchas gracias por confiar en nuestro servicio.',
+      translate: {
+        invoiceNumber: 'Numero de Recibo',
+        invoiceDate: 'Fecha de Recibo',
+        products: 'Servicios',
+        quantity: 'Cantidad',
+        price: 'Precio',
+        //     "subtotal": "Subtotaal",
+        //     "total": "Totaal"
+      },
+    };
+  };
+  const DownloadInvoice = async (id) => {
+    // See documentation for all data properties
+    const data = getSampleData(id);
+    const result = await easyinvoice.createInvoice(data);
+    easyinvoice.download('myInvoice.pdf', result.pdf);
+  };
 
   return (
     <>
@@ -222,29 +262,32 @@ const Historial = () => {
         <Title>Historial de ordenes</Title>
       </TitleContainer>
       <OrdersContainer>
-        {ordersToShow.length > 0 ? (
-          ordersToShow.map(order => {
-            const cantidadTotal = order.service.reduce((sum, current) => sum + current.cantidad, 0)
+        {!isLoading ? (
+          ordersToShow.map((order) => {
+            const cantidadTotal = order.service.reduce(
+              (sum, current) => sum + current.cantidad,
+              0,
+            );
             return (
-              <View key={order._id} order={order} >
-              <Services>
-                <Scroll>
-                  {order.service.map(services => {
-                    return (
-                      <Service key={services._id} services={services}>
-                        <Img src={imgs[services.name]} />
-                        <Nombre>{services.name} - {services.cantidad}</Nombre>
-                      </Service>
-                    )
-                  })}
-                </Scroll>
-                <Dots>
-                  {order.service.map(total => {
-                    return (
-                      <Dot key={total._id} total={total}/>
-                    )
-                  })}
-                </Dots>
+              <View key={order._id} order={order}>
+                <Services>
+                  <Scroll>
+                    {order.service.map((services) => {
+                      return (
+                        <Service key={services._id} services={services}>
+                          <Img src={imgs[services.name]} />
+                          <Nombre>
+                            {services.name} - {services.cantidad}
+                          </Nombre>
+                        </Service>
+                      );
+                    })}
+                  </Scroll>
+                  <Dots>
+                    {order.service.map((total) => {
+                      return <Dot key={total._id} total={total} />;
+                    })}
+                  </Dots>
                 </Services>
                 <Detail>
                   <Number>#{order.number}</Number>
@@ -257,7 +300,10 @@ const Historial = () => {
                     <Button color="white" border="none" bgColor="#4CAF50">
                       Ver resumen
                     </Button>
-                    <Button onClick={DownloadInvoice} >
+                    <Button
+                      id={order._id}
+                      onClick={(e) => DownloadInvoice(e.target.id)}
+                    >
                       Descargar Comprobante
                     </Button>
                   </Buttons>
@@ -265,16 +311,21 @@ const Historial = () => {
               </View>
             );
           })
-        ): (
+        ) : (
           <Loader />
         )}
-        {ordersToShow.length === orders.length ?
-          null : ordersToShow.length > 0 &&
-          <Button margin="20px" type="button" width="150px" onClick={onHandleMore}>
-            VER MAS
-          </Button>
-      }
-
+        {ordersToShow.length === userOrders.length
+          ? null
+          : ordersToShow.length > 0 && (
+              <Button
+                margin="20px"
+                type="button"
+                width="150px"
+                onClick={onHandleMore}
+              >
+                VER MAS
+              </Button>
+            )}
       </OrdersContainer>
     </>
   );
