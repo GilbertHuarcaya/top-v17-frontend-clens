@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 // import getAllOrders from './Orders';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserOrdersFromDB  } from '../../store/actions';
 import DownloadInvoice from './Descarga'
 import bathroom from '../../img/services/bathroom.jpg';
 import kitchen from '../../img/services/cocinas.jpg';
 import bedroom from '../../img/services/habitaciones.jpg';
 import livingroom from '../../img/services/salas.jpg';
-import { getUserOrdersFromDB } from '../../context/actions';
-import { useAppState, useAppDispatch } from '../../context/store';
 
 const TitleContainer = styled.div`
   background-color: #77c6ca;
@@ -177,8 +177,9 @@ const Button = styled.button`
 
 let count = 2;
 const Historial = () => {
-  const dispatch = useAppDispatch();
-  const { userOrders, isLoading } = useAppState();
+  const dispatch = useDispatch();
+  const userOrders = useSelector((state) => state.userOrders);
+  const isLoading = useSelector((state) => state.isLoading);
   const [ordersToShow, setOrdersToShow] = useState([]);
   const [orders, setOrders] = useState([]);
 
@@ -264,10 +265,10 @@ const Historial = () => {
           <h1>Loading ...</h1>
         )}
         {ordersToShow.length === orders.length ?
-         null : ordersToShow.length > 0 &&
-         <Button margin="20px" type="button" width="150px" onClick={onHandleMore}>
-          VER MAS
-         </Button>
+          null : ordersToShow.length > 0 &&
+          <Button margin="20px" type="button" width="150px" onClick={onHandleMore}>
+            VER MAS
+          </Button>
       }
 
       </OrdersContainer>

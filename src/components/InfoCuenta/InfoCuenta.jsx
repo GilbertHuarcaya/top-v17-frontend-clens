@@ -2,14 +2,14 @@ import './InfoCuenta.scss';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faImage } from '@fortawesome/free-solid-svg-icons';
-import { useAppState } from '../../context/store';
+import { useSelector } from 'react-redux';
 import info from '../../img/info-cuenta.png';
 
 const image = <FontAwesomeIcon icon={faImage} />;
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 const InfoCuenta = () => {
-  const { user } = useAppState();
+  const user = useSelector((state) => state.user);
   const [actualPasswordShown, setActualPasswordShown] = useState(false);
   const toggleActualPasswordVisiblity = () => {
     setActualPasswordShown(!actualPasswordShown);

@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getOrderFromCotizar } from '../../../context/actions';
-import { useAppState, useAppDispatch } from '../../../context/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrderForm } from '../../../store/actions';
 import useForm from '../../../hooks/useForm';
 import './styles.scss';
 
 const Cotiza = () => {
-  const { orderCotizada } = useAppState();
+  const orderDetails = useSelector((state) => state.orderDetails);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const prefilledForm =
-    Object.keys(orderCotizada).length >= 4
-      ? orderCotizada
+    Object.keys(orderDetails).length >= 4
+      ? orderDetails
       : {
           horasPorServicio: '2',
           incluirProductos: 'si',
@@ -133,12 +133,12 @@ const Cotiza = () => {
     e.preventDefault();
 
     /* loginUser(dispatch, form); */
-    getOrderFromCotizar(dispatch, form);
+    getOrderForm(dispatch, { ...orderDetails, ...form });
     navigate('/order/tiempo');
   };
 
   useEffect(() => {
-    getOrderFromCotizar(dispatch, form);
+    getOrderForm(dispatch, form);
   }, [form]);
 
   useEffect(() => {
@@ -173,7 +173,7 @@ const Cotiza = () => {
                 type="text"
                 id="distrito"
                 onChange={handleChange}
-                defaultValue={orderCotizada.distrito || ''}
+                defaultValue={orderDetails.distrito || ''}
               />
             </div>
           </label>
@@ -203,7 +203,7 @@ const Cotiza = () => {
                   name="cocina"
                   id="cocina"
                   onChange={(evt) => getServiceAmount(evt)}
-                  value={orderCotizada.cocina || selectedCocina}
+                  value={orderDetails.cocina || selectedCocina}
                 >
                   <option value={0}> 0 cocinas </option>
                   <option value={1}>1 cocina</option>
@@ -244,7 +244,7 @@ const Cotiza = () => {
                   name="habitacion"
                   id="habitacion"
                   onChange={(evt) => getServiceAmount(evt)}
-                  value={orderCotizada.habitacion || selectedHabitacion}
+                  value={orderDetails.habitacion || selectedHabitacion}
                 >
                   <option value="0"> 0 habitaciones </option>
                   <option value="1"> 1 habitación </option>
@@ -284,7 +284,7 @@ const Cotiza = () => {
                   name="baño"
                   id="baño"
                   onChange={(evt) => getServiceAmount(evt)}
-                  value={orderCotizada.baño || selectedBaño}
+                  value={orderDetails.baño || selectedBaño}
                 >
                   <option value="0"> 0 baños </option>
                   <option value="1"> 1 baño </option>
@@ -325,7 +325,7 @@ const Cotiza = () => {
                   name="sala"
                   id="sala"
                   onChange={(evt) => getServiceAmount(evt)}
-                  value={orderCotizada.sala || selectedSala}
+                  value={orderDetails.sala || selectedSala}
                 >
                   <option value="0"> 0 salas </option>
                   <option value="1"> 1 sala </option>
@@ -362,8 +362,8 @@ const Cotiza = () => {
                 id="2hours"
                 defaultValue="2"
                 defaultChecked={
-                  orderCotizada.horasPorServicio
-                    ? orderCotizada.horasPorServicio === '2' || false
+                  orderDetails.horasPorServicio
+                    ? orderDetails.horasPorServicio === '2' || false
                     : true
                 }
               />
@@ -379,7 +379,7 @@ const Cotiza = () => {
                 id="2.5hours"
                 defaultValue="2.5"
                 defaultChecked={
-                  orderCotizada.horasPorServicio === '2.5' || false
+                  orderDetails.horasPorServicio === '2.5' || false
                 }
               />
               <div className="option-label__text">
@@ -393,7 +393,7 @@ const Cotiza = () => {
                 onChange={handleChange}
                 id="3hours"
                 defaultValue="3"
-                defaultChecked={orderCotizada.horasPorServicio === '3' || false}
+                defaultChecked={orderDetails.horasPorServicio === '3' || false}
               />
               <div className="option-label__text">
                 <p>3.0</p>
@@ -407,7 +407,7 @@ const Cotiza = () => {
                 id="3.5hours"
                 defaultValue="3.5"
                 defaultChecked={
-                  orderCotizada.horasPorServicio === '3.5' || false
+                  orderDetails.horasPorServicio === '3.5' || false
                 }
               />
               <div className="option-label__text">
@@ -421,7 +421,7 @@ const Cotiza = () => {
                 onChange={handleChange}
                 id="4hours"
                 defaultValue="4"
-                defaultChecked={orderCotizada.horasPorServicio === '4' || false}
+                defaultChecked={orderDetails.horasPorServicio === '4' || false}
               />
               <div className="option-label__text">
                 <p>4.0</p>
@@ -435,7 +435,7 @@ const Cotiza = () => {
                 id="4.5hours"
                 defaultValue="4.5"
                 defaultChecked={
-                  orderCotizada.horasPorServicio === '4.5' || false
+                  orderDetails.horasPorServicio === '4.5' || false
                 }
               />
               <div className="option-label__text">
@@ -449,7 +449,7 @@ const Cotiza = () => {
                 onChange={handleChange}
                 id="5hours"
                 defaultValue="5"
-                defaultChecked={orderCotizada.horasPorServicio === '5' || false}
+                defaultChecked={orderDetails.horasPorServicio === '5' || false}
               />
               <div className="option-label__text">
                 <p>5.0</p>
@@ -463,7 +463,7 @@ const Cotiza = () => {
                 id="5.5hours"
                 defaultValue="5.5"
                 defaultChecked={
-                  orderCotizada.horasPorServicio === '5.5' || false
+                  orderDetails.horasPorServicio === '5.5' || false
                 }
               />
               <div className="option-label__text">
@@ -477,7 +477,7 @@ const Cotiza = () => {
                 onChange={handleChange}
                 id="6hours"
                 defaultValue="6"
-                defaultChecked={orderCotizada.horasPorServicio === '6' || false}
+                defaultChecked={orderDetails.horasPorServicio === '6' || false}
               />
               <div className="option-label__text">
                 <p>6.0</p>
@@ -500,8 +500,8 @@ const Cotiza = () => {
                   id="select-1"
                   defaultValue="si"
                   defaultChecked={
-                    orderCotizada.incluirProductos
-                      ? orderCotizada.incluirProductos === 'si' || false
+                    orderDetails.incluirProductos
+                      ? orderDetails.incluirProductos === 'si' || false
                       : true
                   }
                 />
@@ -522,7 +522,7 @@ const Cotiza = () => {
                   defaultValue="no"
                   id="select-2"
                   defaultChecked={
-                    orderCotizada.incluirProductos === 'no' || false
+                    orderDetails.incluirProductos === 'no' || false
                   }
                 />
                 <div className="option-label__text">

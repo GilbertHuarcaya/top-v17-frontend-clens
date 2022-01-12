@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getUserFromLocalStorage, logout } from '../../context/actions';
-import { useAppState, useAppDispatch } from '../../context/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserFromLocalStorage, logout } from '../../store/actions';
 
 import './Header.scss';
 import logo from '../../img/logo-clens.jpg';
 
 const Header = () => {
+  const user = useSelector((state) => state.user);
+  const isLoading = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
-  const { user, isLoading } = useAppState();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [toggleClassBtnMenu, setToggleCLassBtn] = useState('false');
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const [toggleClassBtnCart, setToggleClassBtnCart] = useState('false');
 
+  /* url Actual */
   const url = window.location.pathname.split('/').pop();
 
   let prevScrollpos = window.pageYOffset;
@@ -25,7 +27,7 @@ const Header = () => {
     }
     prevScrollpos = currentScrollPos;
   };
-
+  /* Cerrar los menu al cambiar de url */
   useEffect(() => {
     setToggleCLassBtnUser(true);
     setToggleClassBtnCart(true);
@@ -34,7 +36,12 @@ const Header = () => {
   }, [url]);
 
   useEffect(() => {
-    getUserFromLocalStorage(dispatch);
+    const getUser = () => {
+      getUserFromLocalStorage(dispatch);
+    };
+    if (user === null) {
+      getUser();
+    }
   }, []);
 
   const handleClick = () => {

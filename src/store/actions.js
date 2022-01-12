@@ -10,33 +10,12 @@ import {
   REGISTER_USER,
   GET_ALL_REVIEWS,
   GET_ORDERS_FROM_USER,
-  GET_ORDER_FROM_DETALLES,
-  GET_ORDER_FROM_TIEMPO,
-  GET_ORDER_FROM_COTIZAR,
+  GET_ORDER_FORM,
 } from './constants';
 
 import authService from '../services/auth';
 import reviewService from '../services/review';
 import orderService from '../services/order';
-
-export const getOrderFromDetalles = (dispatch, form) => {
-  const fullOrder = form;
-  if (fullOrder) {
-    dispatch({ type: GET_ORDER_FROM_DETALLES, payload: fullOrder });
-  }
-};
-export const getOrderFromTiempo = (dispatch, form) => {
-  const fullOrder = form;
-  if (fullOrder) {
-    dispatch({ type: GET_ORDER_FROM_TIEMPO, payload: fullOrder });
-  }
-};
-export const getOrderFromCotizar = (dispatch, form) => {
-  const fullOrder = form;
-  if (fullOrder) {
-    dispatch({ type: GET_ORDER_FROM_COTIZAR, payload: fullOrder });
-  }
-};
 
 export const getUserFromLocalStorage = (dispatch) => {
   const token = localStorage.getItem('token');
@@ -104,6 +83,10 @@ export const getReviewsFromDB = async (dispatch) => {
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
+};
+
+export const getOrderForm = (dispatch, form) => {
+  dispatch({ type: GET_ORDER_FORM, payload: form });
 };
 
 export const getUserOrdersFromDB = async (dispatch) => {
