@@ -36,7 +36,7 @@ const RegisterForm = () => {
     e.preventDefault();
 
     registerUser(dispatch, form);
-    navigate('/');
+    navigate('/register-success');
   };
 
   return (
@@ -130,7 +130,6 @@ const RegisterForm = () => {
           required
         />
       </div>
-
       <button
         className="form_register__button__register"
         type="submit"
