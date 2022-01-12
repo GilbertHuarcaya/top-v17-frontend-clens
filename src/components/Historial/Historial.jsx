@@ -11,6 +11,8 @@ import bathroom from '../../img/services/bathroom.jpg';
 import kitchen from '../../img/services/cocinas.jpg';
 import bedroom from '../../img/services/habitaciones.jpg';
 import livingroom from '../../img/services/salas.jpg';
+import { getUserOrdersFromDB } from '../../context/actions';
+import { useAppState, useAppDispatch } from '../../context/store';
 
 const TitleContainer = styled.div`
   background-color: #77c6ca;
@@ -175,44 +177,39 @@ const Button = styled.button`
 
 let count = 2;
 const Historial = () => {
-  // const [orders, setOrders] = useState([]);
+  const dispatch = useAppDispatch();
+  const { userOrders, isLoading } = useAppState();
   const [ordersToShow, setOrdersToShow] = useState([]);
   const [orders, setOrders] = useState([]);
-
-  // const getOrders = () => {
-  //   try {
-  //     const data = getAllOrders();
-  //     setTimeout(() => {
-  //       setOrders(data);
-  //       setOrdersToShow(data.slice(0, count))
-  //     }, 1000);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const getServices = async () => {
-    await axios.get('http://localhost:8080/api/orders').then(res => {
-      const { data } = res;
-      setTimeout(() => {
-        setOrdersToShow(data.slice(0, count))
-        setOrders(data);
-      }, 1000);
-      console.log(data.slice(0, count));
-      console.log(data);
-    });
-  };
-
 
   const onHandleMore = () => {
     count += 2;
     setOrdersToShow(orders.slice(0, count))
   }
 
+  const setUserOders = async () => {
+    try {
+      setTimeout(() => {
+        setOrders(userOrders);
+        setOrdersToShow(userOrders.slice(0, count))
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
-    // getOrders();
-    getServices()
+    const getUserOrders = async () => {
+      try {
+        getUserOrdersFromDB(dispatch);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserOrders();
   }, []);
+
+  setUserOders()
 
   return (
     <>
