@@ -24,11 +24,9 @@ const OrderDetails = () => {
       direccion: user.direccion,
     };
   }
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { form, handleChange } = useForm(prefilledForm);
-  console.log(form);
   const [formOk, setFormOk] = useState(false);
 
   const handleSubmit = async (e) => {

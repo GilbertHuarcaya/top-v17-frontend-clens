@@ -24,7 +24,6 @@ const OrderTime = () => {
         ingresoAlLugar: 'Alguien estará en casa',
       };
   const { form, handleChange } = useForm(prefilledForm);
-  console.log(form);
   const [today, setToday] = useState(true);
   const [days, setDays] = useState([]);
   const [week, setWeek] = useState(0);
