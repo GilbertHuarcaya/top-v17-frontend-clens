@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getOrderFromTiempo } from '../../../context/actions';
-import { useAppDispatch } from '../../../context/store';
+import { useAppState, useAppDispatch } from '../../../context/store';
 import {
   createMorningToday,
   createMorning,
@@ -12,9 +12,19 @@ import useForm from '../../../hooks/useForm';
 import './styles.scss';
 
 const OrderTime = () => {
+  const { orderTiempo } = useAppState();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { form, handleChange } = useForm({});
+  const prefilledForm = orderTiempo
+    ? {
+        comentarioIngresoAlLugar: orderTiempo.comentarioIngresoAlLugar,
+        ingresoAlLugar: orderTiempo.ingresoAlLugar,
+      }
+    : {
+        ingresoAlLugar: 'Alguien estará en casa',
+      };
+  const { form, handleChange } = useForm(prefilledForm);
+  console.log(form);
   const [today, setToday] = useState(true);
   const [days, setDays] = useState([]);
   const [week, setWeek] = useState(0);
@@ -97,6 +107,12 @@ const OrderTime = () => {
                 onChange={handleChange}
                 id="home"
                 defaultValue="Alguien estará en casa"
+                defaultChecked={
+                  orderTiempo
+                    ? orderTiempo.ingresoAlLugar === 'Alguien estará en casa' ||
+                      false
+                    : true
+                }
               />
               <div className="option-label__text">
                 <p>Alguien estará en casa</p>
@@ -109,6 +125,12 @@ const OrderTime = () => {
                 onChange={handleChange}
                 id="call"
                 defaultValue="Llamar a mi número de celular antes"
+                defaultChecked={
+                  orderTiempo
+                    ? orderTiempo.ingresoAlLugar ===
+                        'Llamar a mi número de celular antes' || false
+                    : false
+                }
               />
               <div className="option-label__text">
                 <p>Llamar a mi número de celular antes</p>
@@ -121,6 +143,12 @@ const OrderTime = () => {
                 onChange={handleChange}
                 id="keys"
                 defaultValue="Se le dejara la llave de acceso"
+                defaultChecked={
+                  orderTiempo
+                    ? orderTiempo.ingresoAlLugar ===
+                        'Se le dejara la llave de acceso' || false
+                    : false
+                }
               />
               <div className="option-label__text">
                 <p>Se le dejara la llave de acceso</p>
@@ -132,9 +160,12 @@ const OrderTime = () => {
             <div className="slot">
               <input
                 className="input-text"
-                name="infoHome"
+                name="comentarioIngresoAlLugar"
                 onChange={handleChange}
                 type="text"
+                defaultValue={
+                  orderTiempo ? orderTiempo.comentarioIngresoAlLugar || '' : ''
+                }
               />
             </div>
           </label>

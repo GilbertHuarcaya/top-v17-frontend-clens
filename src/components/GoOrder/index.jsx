@@ -8,7 +8,6 @@ import './styles.scss';
 const GoOrder = () => {
   const { orderCotizada, orderDetalles, orderTiempo, orderPago } =
     useAppState();
-
   const precioPorServicios =
     ((orderCotizada.cocina === undefined ? 0 : Number(orderCotizada.cocina)) +
       (orderCotizada.habitacion === undefined
