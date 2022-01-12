@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getOrderFromTiempo } from '../../../context/actions';
-import { useAppState, useAppDispatch } from '../../../context/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrderForm } from '../../../store/actions';
 import {
   createMorningToday,
   createMorning,
@@ -12,13 +12,13 @@ import useForm from '../../../hooks/useForm';
 import './styles.scss';
 
 const OrderTime = () => {
-  const { orderTiempo } = useAppState();
+  const orderDetails = useSelector((state) => state.orderDetails);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const prefilledForm = orderTiempo
+  const dispatch = useDispatch();
+  const prefilledForm = orderDetails
     ? {
-        comentarioIngresoAlLugar: orderTiempo.comentarioIngresoAlLugar,
-        ingresoAlLugar: orderTiempo.ingresoAlLugar,
+        comentarioIngresoAlLugar: orderDetails.comentarioIngresoAlLugar,
+        ingresoAlLugar: orderDetails.ingresoAlLugar,
       }
     : {
         ingresoAlLugar: 'Alguien estará en casa',
@@ -59,7 +59,7 @@ const OrderTime = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    getOrderFromTiempo(dispatch, form);
+    getOrderForm(dispatch, { ...orderDetails, ...form });
     navigate('/order/tu-info');
   };
   const handleSelect = (ev, data) => {
@@ -107,9 +107,9 @@ const OrderTime = () => {
                 id="home"
                 defaultValue="Alguien estará en casa"
                 defaultChecked={
-                  orderTiempo
-                    ? orderTiempo.ingresoAlLugar === 'Alguien estará en casa' ||
-                      false
+                  orderDetails
+                    ? orderDetails.ingresoAlLugar ===
+                        'Alguien estará en casa' || false
                     : true
                 }
               />
@@ -125,8 +125,8 @@ const OrderTime = () => {
                 id="call"
                 defaultValue="Llamar a mi número de celular antes"
                 defaultChecked={
-                  orderTiempo
-                    ? orderTiempo.ingresoAlLugar ===
+                  orderDetails
+                    ? orderDetails.ingresoAlLugar ===
                         'Llamar a mi número de celular antes' || false
                     : false
                 }
@@ -143,8 +143,8 @@ const OrderTime = () => {
                 id="keys"
                 defaultValue="Se le dejara la llave de acceso"
                 defaultChecked={
-                  orderTiempo
-                    ? orderTiempo.ingresoAlLugar ===
+                  orderDetails
+                    ? orderDetails.ingresoAlLugar ===
                         'Se le dejara la llave de acceso' || false
                     : false
                 }
@@ -163,7 +163,9 @@ const OrderTime = () => {
                 onChange={handleChange}
                 type="text"
                 defaultValue={
-                  orderTiempo ? orderTiempo.comentarioIngresoAlLugar || '' : ''
+                  orderDetails
+                    ? orderDetails.comentarioIngresoAlLugar || ''
+                    : ''
                 }
               />
             </div>

@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getReviewsFromDB } from '../../store/actions';
 import './styles.scss';
 import MinititleTitle from '../MinititleTitle';
 import CardsReviews from './CardsReviews';
-import { getReviewsFromDB } from '../../context/actions';
-import { useAppState, useAppDispatch } from '../../context/store';
 
 const ReviewsHome = () => {
-  const dispatch = useAppDispatch();
-  const { reviews, isLoading } = useAppState();
+  const dispatch = useDispatch();
+  const reviews = useSelector((state) => state.reviews);
+  const isLoading = useSelector((state) => state.isLoading);
 
   useEffect(() => {
     const getReviews = async () => {

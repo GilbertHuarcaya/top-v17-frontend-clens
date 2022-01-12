@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/actions';
 import useForm from '../../hooks/useForm';
-import { loginUser } from '../../context/actions';
-import { useAppDispatch } from '../../context/store';
 
 import './LoginForm.scss';
 import gmailLogo from '../../img/icons/Google__G__Logo.svg';
@@ -10,7 +10,7 @@ import facebookLogo from '../../img/icons/facebook.png';
 import logo from '../../img/logo-clens.jpg';
 
 const LoginForm = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { form, handleChange } = useForm({});
   const [formOk, setFormOk] = useState(0);

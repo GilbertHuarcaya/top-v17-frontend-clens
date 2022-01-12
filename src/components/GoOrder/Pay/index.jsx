@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppState } from '../../../context/store';
+import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
 const Pay = () => {
-  const { user } = useAppState();
+  const user = useSelector((state) => state.user);
 
   const navigate = useNavigate();
   return (

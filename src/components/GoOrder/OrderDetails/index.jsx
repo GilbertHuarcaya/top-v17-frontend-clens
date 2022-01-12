@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getOrderFromDetalles } from '../../../context/actions';
-import { useAppState, useAppDispatch } from '../../../context/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrderForm } from '../../../store/actions';
 import useForm from '../../../hooks/useForm';
 
 const OrderDetails = () => {
-  const { user, orderDetalles } = useAppState();
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   let prefilledForm = {};
-  if (orderDetalles) {
+  if (orderDetails && user) {
     prefilledForm = {
-      email: orderDetalles.email,
-      nombre: orderDetalles.fullname,
-      telefono: orderDetalles.telefono,
-      direccion: orderDetalles.direccion,
-      comentariosDeDireccion: orderDetalles.comentariosDeDireccion,
-      ciudad: orderDetalles.ciudad,
+      email: orderDetails.email || user.email,
+      nombre: orderDetails.fullname || user.fullname,
+      telefono: orderDetails.telefono || user.telefono,
+      direccion: orderDetails.direccion || user.direccion,
+      comentariosDeDireccion: orderDetails.comentariosDeDireccion,
+      ciudad: orderDetails.ciudad,
     };
   } else if (user) {
     prefilledForm = {
@@ -24,8 +27,6 @@ const OrderDetails = () => {
       direccion: user.direccion,
     };
   }
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const { form, handleChange } = useForm(prefilledForm);
   const [formOk, setFormOk] = useState(false);
 
@@ -33,7 +34,7 @@ const OrderDetails = () => {
     e.preventDefault();
 
     /* loginUser(dispatch, form); */
-    getOrderFromDetalles(dispatch, form);
+    getOrderForm(dispatch, { ...orderDetails, ...form });
     navigate('/order/pago');
   };
 
@@ -65,7 +66,7 @@ const OrderDetails = () => {
                   onChange={handleChange}
                   required
                   type="email"
-                  defaultValue={user.email}
+                  defaultValue={orderDetails.email || user.email}
                 />
               </div>
             </label>
@@ -78,10 +79,10 @@ const OrderDetails = () => {
                   className="input-text"
                   id="nombre"
                   onChange={handleChange}
-                  name="nombre"
+                  name="fullname"
                   required
                   type="text"
-                  defaultValue={user.fullname}
+                  defaultValue={orderDetails.fullname || user.fullname}
                 />
               </div>
             </label>
@@ -97,7 +98,7 @@ const OrderDetails = () => {
                   name="telefono"
                   required
                   type="number"
-                  defaultValue={user.telefono}
+                  defaultValue={orderDetails.telefono || user.telefono}
                 />
               </div>
             </label>
@@ -113,7 +114,7 @@ const OrderDetails = () => {
                   name="direccion"
                   required
                   type="text"
-                  defaultValue={user.direccion}
+                  defaultValue={orderDetails.direccion || user.direccion}
                 />
               </div>
             </label>
@@ -129,8 +130,8 @@ const OrderDetails = () => {
                   name="comentariosDeDireccion"
                   type="text"
                   defaultValue={
-                    orderDetalles
-                      ? orderDetalles.comentariosDeDireccion || ''
+                    orderDetails
+                      ? orderDetails.comentariosDeDireccion || ''
                       : ''
                   }
                 />
@@ -148,7 +149,7 @@ const OrderDetails = () => {
                   name="ciudad"
                   required
                   type="text"
-                  defaultValue={orderDetalles ? orderDetalles.ciudad || '' : ''}
+                  defaultValue={orderDetails ? orderDetails.ciudad || '' : ''}
                 />
               </div>
             </label>
