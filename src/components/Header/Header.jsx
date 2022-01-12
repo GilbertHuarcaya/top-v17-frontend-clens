@@ -85,10 +85,10 @@ const Header = () => {
       </div>
     ) : (
       <>
-        <Link className="header__login" to="./login">
+        <Link className="header__login" to="/login">
           Ingresa
         </Link>
-        <Link className="header__register" to="./register">
+        <Link className="header__register" to="/register">
           Registrate
         </Link>
       </>
