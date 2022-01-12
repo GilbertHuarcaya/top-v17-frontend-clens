@@ -14,6 +14,7 @@ import GoOrder from './components/GoOrder';
 import Cotiza from './components/GoOrder/Cotiza';
 import OrderTime from './components/GoOrder/OrderTime';
 import OrderDetails from './components/GoOrder/OrderDetails';
+import RegisterSuccess from './components/RegisterSuccess';
 import Pay from './components/GoOrder/Pay';
 
 import './index.scss';
@@ -38,6 +39,7 @@ const App = () => (
       <Route path="*" element={<Page404 />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<RegisterForm />} />
+      <Route path="/register-success" element={<RegisterSuccess />} />
     </Routes>
   </BrowserRouter>
 );
