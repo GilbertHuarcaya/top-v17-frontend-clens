@@ -1,8 +1,9 @@
-import './InfoCuenta.scss';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faImage } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
+import './InfoCuenta.scss';
+import Loader from '../Loader';
 import info from '../../img/info-cuenta.png';
 
 const image = <FontAwesomeIcon icon={faImage} />;
@@ -126,7 +127,7 @@ const InfoCuenta = () => {
             </button>
           </form>
         ) : (
-          'is Loading...'
+          <Loader />
         )}
         <img className="info__img" src={info} alt="" />
       </div>

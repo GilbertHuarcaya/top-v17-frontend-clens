@@ -8,6 +8,7 @@ import axios from 'axios';
 // import getAllOrders from './Orders';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserOrdersFromDB  } from '../../store/actions';
+import Loader from '../Loader'
 import DownloadInvoice from './Descarga'
 import bathroom from '../../img/services/bathroom.jpg';
 import kitchen from '../../img/services/cocinas.jpg';
@@ -202,7 +203,10 @@ const Historial = () => {
   useEffect(() => {
     const getUserOrders = async () => {
       try {
-        getUserOrdersFromDB(dispatch);
+        if (userOrders.length < 1) {
+      getUserOrdersFromDB(dispatch);
+        }
+
       } catch (error) {
         console.log(error);
       }
@@ -262,7 +266,7 @@ const Historial = () => {
             );
           })
         ): (
-          <h1>Loading ...</h1>
+          <Loader />
         )}
         {ordersToShow.length === orders.length ?
           null : ordersToShow.length > 0 &&
