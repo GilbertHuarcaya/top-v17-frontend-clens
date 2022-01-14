@@ -91,10 +91,10 @@ export const getOrderForm = (dispatch, form) => {
   dispatch({ type: GET_ORDER_FORM, payload: form });
 };
 
-export const getUserOrdersFromDB = async (dispatch) => {
+export const getUserOrdersFromDB = async (dispatch, userid) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await orderService.getUserOrders();
+    const response = await orderService.getUserOrdersByUserId(userid);
 
     const data = await response.json();
 
