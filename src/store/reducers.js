@@ -6,7 +6,7 @@ import {
   REGISTER_USER,
   GET_ALL_REVIEWS,
   GET_ORDER_FORM,
-  GET_ORDERS_FROM_USER,
+  GET_ORDERS,
 } from './constants';
 
 const initialState = {
@@ -15,7 +15,6 @@ const initialState = {
   reviews: null,
   orderDetails: {},
   orders: [],
-  userOrders: [],
   user: null,
 };
 
@@ -63,10 +62,10 @@ function reducer(state = initialState, action = '') {
         reviews: newValue,
       };
     }
-    case GET_ORDERS_FROM_USER: {
+    case GET_ORDERS: {
       return {
         ...state,
-        userOrders: newValue,
+        orders: newValue,
       };
     }
     default:

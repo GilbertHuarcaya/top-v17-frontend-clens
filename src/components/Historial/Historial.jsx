@@ -1,10 +1,12 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import easyinvoice from 'easyinvoice';
-import { getUserOrdersFromDB } from '../../store/actions';
+import { getOrdersFromDB } from '../../store/actions';
 import Loader from '../Loader';
 import bathroom from '../../img/services/bathroom.jpg';
 import kitchen from '../../img/services/cocinas.jpg';
@@ -97,7 +99,7 @@ const imgs = {
   Baño: bathroom,
   Cocina: kitchen,
   Sala: livingroom,
-  Cuarto: bedroom,
+  Habitacion: bedroom,
 };
 
 const Scroll = styled.div`
@@ -169,27 +171,34 @@ const Button = styled.button`
 let count = 2;
 const Historial = () => {
   const dispatch = useDispatch();
-  const userOrders = useSelector((state) => state.userOrders);
+  const user = useSelector((state) => state.user);
+  const orders = useSelector((state) => state.orders);
   const isLoading = useSelector((state) => state.isLoading);
-  const [ordersToShow, setOrdersToShow] = useState([]);
+  const [userOrders, setUserOrders] = useState([]);
+  const [userOrdersToShow, setUserOrdersToShow] = useState([]);
 
   const onHandleMore = () => {
     count += 2;
-    setOrdersToShow(userOrders.slice(0, count));
+    setUserOrdersToShow(userOrders.slice(0, count));
   };
 
   useEffect(() => {
     const getUserOrders = async () => {
       try {
-        if (userOrders.length < 1) {
-          getUserOrdersFromDB(dispatch);
+        if (orders.length < 1) {
+          getOrdersFromDB(dispatch);
         }
       } catch (error) {
         console.log(error);
       }
     };
     getUserOrders();
-    setOrdersToShow(userOrders.slice(0, count));
+    const filteredOrders = orders.filter((order) => order.email === user.email);
+    setUserOrders(filteredOrders);
+  }, [orders]);
+
+  useEffect(() => {
+    setUserOrdersToShow(userOrders.slice(0, count));
   }, [userOrders]);
 
   // const prueba = (id) => {
@@ -199,7 +208,7 @@ const Historial = () => {
   // };
 
   const getSampleData = (id) => {
-    const order = userOrders.filter((userOrder) => userOrder._id === id);
+    const order = orders.filter((userOrder) => userOrder._id === id);
     const services = order[0].service;
     const orderDate = order[0].createdAt;
     console.log(orderDate.slice(0, 10));
@@ -216,15 +225,15 @@ const Historial = () => {
       sender: {
         company: 'Clens',
         address: '4565 N Stelling Rd',
-        zip: '1234',
+        zip: 'Lima',
         city: 'Lima',
         country: 'Peru',
       },
       client: {
-        company: 'Thomas Robertson',
-        address: '8109 Wycliff Ave',
-        zip: '4567',
-        city: 'Lima',
+        company: `${order[0].nombre}`,
+        address: `${order[0].direccion}`,
+        zip: `${order[0].distrito}`,
+        city: `${order[0].ciudad}`,
         country: 'Peru',
       },
       invoiceNumber: '2021.0001',
@@ -263,7 +272,7 @@ const Historial = () => {
       </TitleContainer>
       <OrdersContainer>
         {!isLoading ? (
-          ordersToShow.map((order) => {
+          userOrdersToShow.map((order) => {
             const cantidadTotal = order.service.reduce(
               (sum, current) => sum + current.cantidad,
               0,
@@ -292,7 +301,7 @@ const Historial = () => {
                 <Detail>
                   <Number>#{order.number}</Number>
                   <Info>
-                    Fecha: {order.date} <br />
+                    Fecha: {order.createdAt.slice(0, 10)} <br />
                     Cantidad: {cantidadTotal} <br />
                     Total: {order.precio}
                   </Info>
@@ -314,9 +323,9 @@ const Historial = () => {
         ) : (
           <Loader />
         )}
-        {ordersToShow.length === userOrders.length
+        {userOrdersToShow.length === userOrders.length
           ? null
-          : ordersToShow.length > 0 && (
+          : userOrdersToShow.length > 0 && (
               <Button
                 margin="20px"
                 type="button"

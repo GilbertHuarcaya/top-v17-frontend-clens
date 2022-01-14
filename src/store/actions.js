@@ -9,7 +9,7 @@ import {
   GET_USER_FROM_LOCALSTORAGE,
   REGISTER_USER,
   GET_ALL_REVIEWS,
-  GET_ORDERS_FROM_USER,
+  GET_ORDERS,
   GET_ORDER_FORM,
 } from './constants';
 
@@ -89,15 +89,15 @@ export const getOrderForm = (dispatch, form) => {
   dispatch({ type: GET_ORDER_FORM, payload: form });
 };
 
-export const getUserOrdersFromDB = async (dispatch) => {
+export const getOrdersFromDB = async (dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await orderService.getUserOrders();
+    const response = await orderService.getOrders();
 
     const data = await response.json();
 
     if (response.ok) {
-      dispatch({ type: GET_ORDERS_FROM_USER, payload: data });
+      dispatch({ type: GET_ORDERS, payload: data });
     }
   } catch (error) {
     // eslint-disable-next-line no-console

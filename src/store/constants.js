@@ -11,4 +11,4 @@ export const GET_ORDER_FROM_GO_ORDER = 'get-form-from-go-order';
 export const GET_ORDER_FORM = 'get-order-form';
 export const GET_ORDER_FROM_TIEMPO = 'get-form-from-tiempo';
 export const GET_ORDER_FROM_COTIZAR = 'get-form-from-cotizar';
-export const GET_ORDERS_FROM_USER = 'get-orders-from-user';
+export const GET_ORDERS = 'get-orders';
