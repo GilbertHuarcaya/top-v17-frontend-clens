@@ -92,7 +92,7 @@ const OrderTime = () => {
   }, [handleChange]);
 
   return (
-    <div className="order-time">
+    <div className="order-tiempo">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <p>

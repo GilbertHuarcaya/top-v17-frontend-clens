@@ -1,15 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { postUserOrder } from '../../../store/actions';
 
 // eslint-disable-next-line react/prop-types
 const Pay = () => {
   const user = useSelector((state) => state.user);
-
+  const orderDetails = useSelector((state) => state.orderDetails);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    postUserOrder(dispatch, orderDetails);
+    navigate('/');
+  };
   return (
-    <div className="specifications">
+    <div className="pay">
       {user ? (
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <p className="help-block">
               Solo se le cobrará después de que se complete la limpieza. Puede
