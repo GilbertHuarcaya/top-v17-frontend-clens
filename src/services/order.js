@@ -1,6 +1,6 @@
 const URL_BASE = process.env.REACT_APP_API_URL_BASE;
 
-const getUserOrders = () => {
+const getAllOrders = () => {
   const accessTokenObj = localStorage.getItem('token');
 
   const payload = {
@@ -31,9 +31,24 @@ const postOrder = (order) => {
 };
 // const forgotPassword = (email) => {};
 
+const getUserOrdersByUserId = (userId) => {
+  const accessTokenObj = localStorage.getItem('token');
+
+  const payload = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessTokenObj}`,
+    },
+  };
+
+  return fetch(`${URL_BASE}/api/orders/user/${userId}`, payload);
+};
+
 const review = {
-  getUserOrders,
+  getAllOrders,
   postOrder,
+  getUserOrdersByUserId,
   // forgotPassword,
 };
 

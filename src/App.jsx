@@ -9,7 +9,7 @@ import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
 import Services from './components/Services';
 import Page404 from './pages/Page404';
-import Cart from './components/Cart';
+import PendingOrder from './components/PendingOrder';
 import GoOrder from './components/GoOrder';
 import Cotiza from './components/GoOrder/Cotiza';
 import OrderTime from './components/GoOrder/OrderTime';
@@ -28,7 +28,7 @@ const App = () => (
         <Route path="info-cuenta" element={<InfoCuenta />} />
         <Route path="services" element={<Services />} />
         <Route path="mi-historial" element={<Historial />} />
-        <Route path="mi-carrito" element={<Cart />} />
+        <Route path="mi-carrito" element={<PendingOrder />} />
       </Route>
       <Route path="/order/" element={<GoOrder />}>
         <Route path="cotiza" element={<Cotiza />} />
