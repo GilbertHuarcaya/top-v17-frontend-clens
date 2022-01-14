@@ -27,7 +27,6 @@ const Review = () => {
     postUserReview(dispatch, form);
     navigate('/');
   };
-  console.log(form);
   return (
     <div className="review">
       <form onSubmit={handleSubmit}>
