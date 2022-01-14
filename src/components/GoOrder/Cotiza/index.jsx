@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderForm } from '../../../store/actions';
-import useForm from '../../../hooks/useForm';
+import useForm from '../../../hooks/useFormCotizar';
 import './styles.scss';
 
 const Cotiza = () => {
@@ -16,6 +16,7 @@ const Cotiza = () => {
       : {
           horasPorServicio: '2',
           incluirProductos: 'si',
+          service: [],
         };
   const { form, handleChange } = useForm(prefilledForm);
   const [selectedCocina, setSelectedCocina] = useState('0');
@@ -34,7 +35,7 @@ const Cotiza = () => {
         setSelectedHabitacion(e.target.value);
         handleChange(e);
         break;
-      case 'baño':
+      case 'bano':
         setSelectedBaño(e.target.value);
         handleChange(e);
         break;
@@ -66,12 +67,12 @@ const Cotiza = () => {
           },
         });
         break;
-      case 'baño':
+      case 'bano':
         getServiceAmount({
           target: {
             value:
               selectedBaño === '7' ? '0' : String(Number(selectedBaño) + 1),
-            name: 'baño',
+            name: 'bano',
           },
         });
         break;
@@ -108,12 +109,12 @@ const Cotiza = () => {
           },
         });
         break;
-      case 'baño':
+      case 'bano':
         getServiceAmount({
           target: {
             value:
               selectedBaño === '0' ? '7' : String(Number(selectedBaño) - 1),
-            name: 'baño',
+            name: 'bano',
           },
         });
         break;
@@ -136,9 +137,22 @@ const Cotiza = () => {
     getOrderForm(dispatch, { ...orderDetails, ...form });
     navigate('/order/tiempo');
   };
-
   useEffect(() => {
-    getOrderForm(dispatch, form);
+    if (form.service.length > 0) {
+      let suma = 0;
+      form.service.forEach((e) => {
+        suma +=
+          e.precio * Number(e.cantidad) +
+          (e.precio * form.horasPorServicio * Number(e.cantidad)) / 10;
+      });
+
+      const precio =
+        form.incluirProductos === 'si'
+          ? { precio: (suma + 10).toFixed(2) }
+          : { precio: suma.toFixed(2) };
+      return getOrderForm(dispatch, { ...form, ...precio });
+    }
+    return getOrderForm(dispatch, form);
   }, [form]);
 
   useEffect(() => {
@@ -156,7 +170,7 @@ const Cotiza = () => {
   }, [handleChange]);
 
   return (
-    <div className="cotiza">
+    <div className="order-cotizar">
       <form onSubmit={handleSubmit}>
         <h2 className="headline">Personaliza tu limpieza</h2>
         <div className="form-group">
@@ -196,7 +210,7 @@ const Cotiza = () => {
                 </button>
                 <select
                   className={
-                    form.cocina > 0
+                    selectedCocina > 0
                       ? 'number-input-select number-input-selected'
                       : 'number-input-select'
                   }
@@ -237,7 +251,7 @@ const Cotiza = () => {
 
                 <select
                   className={
-                    form.habitacion > 0
+                    selectedHabitacion > 0
                       ? 'number-input-select number-input-selected'
                       : 'number-input-select'
                   }
@@ -270,21 +284,21 @@ const Cotiza = () => {
                 <button
                   className="number-input-button number-input-button-previous"
                   type="button"
-                  onClick={() => checkBefore('baño')}
+                  onClick={() => checkBefore('bano')}
                 >
                   –
                 </button>
 
                 <select
                   className={
-                    form.baño > 0
+                    selectedBaño > 0
                       ? 'number-input-select number-input-selected'
                       : 'number-input-select'
                   }
-                  name="baño"
+                  name="bano"
                   id="baño"
                   onChange={(evt) => getServiceAmount(evt)}
-                  value={orderDetails.baño || selectedBaño}
+                  value={orderDetails.bano || selectedBaño}
                 >
                   <option value="0"> 0 baños </option>
                   <option value="1"> 1 baño </option>
@@ -299,7 +313,7 @@ const Cotiza = () => {
                 <button
                   className="number-input-button number-input-button-next"
                   type="button"
-                  onClick={() => checkNext('baño')}
+                  onClick={() => checkNext('bano')}
                 >
                   +
                 </button>
@@ -318,7 +332,7 @@ const Cotiza = () => {
 
                 <select
                   className={
-                    form.sala > 0
+                    selectedSala > 0
                       ? 'number-input-select number-input-selected'
                       : 'number-input-select'
                   }

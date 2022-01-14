@@ -7,9 +7,6 @@ const Loader = () => {
           margin: 'auto',
           background: 'none',
           display: 'block',
-          'shape-rendering': 'auto',
-          'max-width': '70%',
-          'max-height': '70%',
         }}
         width="50px"
         height="50px"

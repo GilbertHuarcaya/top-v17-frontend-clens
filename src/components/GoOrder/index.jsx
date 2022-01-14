@@ -7,10 +7,8 @@ import './styles.scss';
 
 const GoOrder = () => {
   const {
-    cocina,
-    habitacion,
-    sala,
-    baño,
+    precio,
+    service,
     horasPorServicio,
     incluirProductos,
     horaLlegada,
@@ -19,24 +17,19 @@ const GoOrder = () => {
   } = useSelector((state) => state.orderDetails);
   const orderDetails = useSelector((state) => state.orderDetails);
 
-  const TotalServicios =
-    (cocina === undefined ? 0 : Number(cocina)) +
-    (habitacion === undefined ? 0 : Number(habitacion)) +
-    (baño === undefined ? 0 : Number(baño)) +
-    (sala === undefined ? 0 : Number(sala));
-
-  const precioPorServicios = TotalServicios * 50;
-
+  let TotalServicios = 0;
+  let precioPorServicios = 0;
+  if (service) {
+    if (service.length > 0) {
+      service.forEach((e) => {
+        TotalServicios += Number(e.cantidad);
+        precioPorServicios += e.precio * Number(e.cantidad);
+      });
+    }
+  }
   const precioPorTiempoServicio = horasPorServicio
-    ? (TotalServicios * horasPorServicio) / 5
+    ? (precioPorServicios * horasPorServicio) / 10
     : 0;
-  const precioPorProductoIncluido = incluirProductos === 'si' ? 10 : 0;
-
-  const Total = (
-    precioPorTiempoServicio +
-    precioPorProductoIncluido +
-    precioPorServicios
-  ).toFixed(2);
 
   return (
     <>
@@ -115,7 +108,7 @@ const GoOrder = () => {
 
             <div className="order__resumen__price">
               <p>Total</p>
-              <p>${Total}</p>
+              <p>${precio}</p>
             </div>
           </div>
         </div>

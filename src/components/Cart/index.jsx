@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CartService from './CartService';
 import getAllServices from './services';
+import Review from '../Review';
 
 import './styles.scss';
 
@@ -89,7 +90,7 @@ const FloatCart = () => {
         <span className="bag">
           <span className="bag__quantity">{servicesAdded.length}</span>
         </span>
-        <span className="header-title">Carrito</span>
+        <span className="header-title">Servicios de Limpieza en proceso</span>
       </div>
       <div className="cart__content">
         <div className="cart__shelf-container">
@@ -129,6 +130,7 @@ const FloatCart = () => {
           </div>
         </div>
       </div>
+      <Review />
     </div>
   );
 };

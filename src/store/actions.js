@@ -11,6 +11,8 @@ import {
   GET_ALL_REVIEWS,
   GET_ORDERS_FROM_USER,
   GET_ORDER_FORM,
+  POST_USER_REVIEW,
+  POST_USER_ORDER,
 } from './constants';
 
 import authService from '../services/auth';
@@ -98,6 +100,38 @@ export const getUserOrdersFromDB = async (dispatch) => {
 
     if (response.ok) {
       dispatch({ type: GET_ORDERS_FROM_USER, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const postUserReview = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await reviewService.postReview(form);
+
+    if (response.ok) {
+      dispatch({ type: POST_USER_REVIEW, payload: null });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const postUserOrder = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderService.postOrder(form);
+
+    if (response.ok) {
+      dispatch({ type: POST_USER_ORDER, payload: null });
     }
   } catch (error) {
     // eslint-disable-next-line no-console

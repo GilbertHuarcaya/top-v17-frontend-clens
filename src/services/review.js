@@ -12,11 +12,24 @@ const getReviews = () => {
 };
 
 // const registerAccount = (user) => {};
+const postReview = (reviewForm) => {
+  const token = localStorage.getItem('token');
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(reviewForm),
+  };
 
+  return fetch(`${URL_BASE}/api/reviews`, payload);
+};
 // const forgotPassword = (email) => {};
 
 const review = {
   getReviews,
+  postReview,
   // forgotPassword,
 };
 

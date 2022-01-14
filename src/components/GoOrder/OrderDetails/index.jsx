@@ -21,6 +21,8 @@ const OrderDetails = () => {
     };
   } else if (user) {
     prefilledForm = {
+      userId: user.id,
+      userName: user.userName,
       email: user.email,
       nombre: user.fullname,
       telefono: user.telefono,
@@ -53,7 +55,7 @@ const OrderDetails = () => {
   }, [handleChange]);
 
   return (
-    <div className="specifications">
+    <div className="order-details">
       {user ? (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
