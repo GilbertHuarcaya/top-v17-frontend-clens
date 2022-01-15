@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { postUserOrder } from '../../../store/actions';
+import { postUserOrder, getUserOrdersFromDB } from '../../../store/actions';
 
 // eslint-disable-next-line react/prop-types
 const Pay = () => {
@@ -12,8 +12,9 @@ const Pay = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    postUserOrder(dispatch, orderDetails);
+    await postUserOrder(dispatch, orderDetails);
     navigate('/');
+    await getUserOrdersFromDB(dispatch, user.id);
   };
   return (
     <div className="pay">

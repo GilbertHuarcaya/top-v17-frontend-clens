@@ -9,7 +9,7 @@ import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
 import Services from './components/Services';
 import Page404 from './pages/Page404';
-import PendingOrder from './components/PendingOrder';
+import PendingOrder from './components/PendingOrderCart';
 import GoOrder from './components/GoOrder';
 import Cotiza from './components/GoOrder/Cotiza';
 import OrderTime from './components/GoOrder/OrderTime';

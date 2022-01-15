@@ -7,7 +7,7 @@ import livingroom from '../../../img/services/salas.jpg';
 const CartService = (props) => {
   const { service } = props;
   const imgs = {
-    Baño: bathroom,
+    Bano: bathroom,
     Cocina: kitchen,
     Sala: livingroom,
     Habitacion: bedroom,
@@ -18,11 +18,10 @@ const CartService = (props) => {
         <img src={imgs[service.name]} alt={service.name} />
       </div>
       <div className="shelf-item__details">
-        <p className="title">{service.title}</p>
+        <p className="title">
+          {service.name === 'Bano' ? 'Baño' : service.name}
+        </p>
         <p className="desc">Cantidad: {service.cantidad}</p>
-      </div>
-      <div className="shelf-item__price">
-        <p>{`$${service.precio * service.cantidad}`}</p>
       </div>
     </div>
   );

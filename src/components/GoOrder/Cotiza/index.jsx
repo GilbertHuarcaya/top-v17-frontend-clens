@@ -138,8 +138,8 @@ const Cotiza = () => {
     navigate('/order/tiempo');
   };
   useEffect(() => {
+    let suma = 0;
     if (form.service.length > 0) {
-      let suma = 0;
       form.service.forEach((e) => {
         suma +=
           e.precio * Number(e.cantidad) +
@@ -148,17 +148,19 @@ const Cotiza = () => {
 
       const precio =
         form.incluirProductos === 'si'
-          ? { precio: (suma + 10).toFixed(2) }
-          : { precio: suma.toFixed(2) };
+          ? { precio: suma + 10 }
+          : { precio: suma };
       return getOrderForm(dispatch, { ...form, ...precio });
     }
-    return getOrderForm(dispatch, form);
+    const precio =
+      form.incluirProductos === 'si' ? { precio: suma + 10 } : { precio: suma };
+    return getOrderForm(dispatch, { ...form, ...precio });
   }, [form]);
 
   useEffect(() => {
     const validateForm = () => {
       try {
-        if (Object.keys(form).length >= 4) {
+        if (Object.keys(form).length >= 4 && form.service.length > 0) {
           setFormOk(true);
         }
       } catch (error) {
