@@ -41,7 +41,11 @@ const GoOrder = () => {
               <NavLink
                 to="/order/cotiza"
                 className={`step ${
-                  Object.keys(orderDetails).length >= 4 ? 'step-complete' : null
+                  Object.keys(orderDetails).length >= 4 &&
+                  orderDetails.service.length > 0 &&
+                  orderDetails.distrito
+                    ? 'step-complete'
+                    : null
                 }`}
               >
                 <div className="step-bullet" />

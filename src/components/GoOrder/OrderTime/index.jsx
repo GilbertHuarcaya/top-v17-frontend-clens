@@ -39,6 +39,9 @@ const OrderTime = () => {
           day: 'numeric',
         }).format(new Date(new Date().setDate(new Date().getDate() + i))),
         disabled: false,
+        date: new Date(
+          new Date().setDate(new Date().getDate() + i),
+        ).toLocaleDateString(),
         dayNumber: new Date(
           new Date().setDate(new Date().getDate() + i),
         ).getDate(),

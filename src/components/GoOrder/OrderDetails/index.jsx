@@ -12,6 +12,8 @@ const OrderDetails = () => {
   let prefilledForm = {};
   if (orderDetails && user) {
     prefilledForm = {
+      userId: user.id,
+      userName: user.userName,
       email: orderDetails.email || user.email,
       nombre: orderDetails.fullname || user.fullname,
       telefono: orderDetails.telefono || user.telefono,
@@ -43,7 +45,7 @@ const OrderDetails = () => {
   useEffect(() => {
     const validateForm = () => {
       try {
-        if (Object.keys(form).length >= 5) {
+        if (Object.keys(form).length >= 7 && form.ciudad.length > 2) {
           setFormOk(true);
         }
       } catch (error) {
