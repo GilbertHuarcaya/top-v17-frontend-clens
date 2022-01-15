@@ -19,6 +19,9 @@ const PendingOrdersWrapper = () => {
         return (
           <div className="pending__order-review" key={order.cratedAt}>
             <div className="pending__order-review__details">
+              <h3>{`Orden solicitada para el : ${new Date(
+                order.fecha.date,
+              ).toLocaleDateString()}`}</h3>
               {order.service.map((service) => {
                 return (
                   <PendingOrderService service={service} key={service.name} />
