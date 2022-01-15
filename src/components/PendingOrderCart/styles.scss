@@ -1,0 +1,327 @@
+.cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: auto;
+  height: auto;
+  background-color: rgb(119, 198, 201);
+  padding: 2rem;
+  .bag {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+    background-image: url('../../img/icons/casa.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    &__quantity {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      color: #0c0b10;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: center;
+      line-height: 18px;
+      border-radius: 50%;
+      background-color: #eabf00;
+      position: absolute;
+      top: 0;
+      right: -10px;
+    }
+  }
+
+  &__header {
+    color: #ececec;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 45px 0;
+    width: 100%;
+
+    .header-title {
+      font-weight: bold;
+      font-size: 2rem;
+      vertical-align: middle;
+    }
+  }
+  .shelf-empty {
+    color: #ececec;
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 40px;
+  }
+
+  &__shelf-container {
+    position: relative;
+    min-height: 280px;
+
+    .shelf-item {
+      position: relative;
+      box-sizing: border-box;
+      padding: 5%;
+      max-width: 60rem;
+      transition: background-color 0.2s, opacity 0.2s;
+      border-bottom: rgba(0, 0, 0, 0.2) solid;
+
+      &__thumb,
+      &__details,
+      &__price {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &__thumb {
+        vertical-align: middle;
+        width: 25%;
+        margin-right: 3%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      &__details {
+        width: 47%;
+
+        .title {
+          color: #ececec;
+          font-size: 1.5rem;
+          margin: 0;
+        }
+
+        .desc {
+          color: #5b5a5e;
+          font-size: 1.5rem;
+          margin: 0;
+        }
+      }
+      &__price {
+        color: #eabf00;
+        text-align: right;
+        font-size: 1.5rem;
+        width: 25%;
+      }
+    }
+    .shelf-item:nth-last-child(1) {
+      border: none;
+    }
+  }
+
+  &__footer {
+    box-sizing: border-box;
+    width: 100%;
+    height: 200px;
+    z-index: 2;
+    background-color: rgb(119, 198, 201);
+
+    .sub,
+    .sub-price {
+      color: #5b5a5e;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    .sub {
+      width: 20%;
+      font-size: 1.5rem;
+    }
+
+    .sub-price {
+      width: 80%;
+      text-align: right;
+
+      &__val,
+      &__installment {
+        margin: 0;
+      }
+
+      &__val {
+        color: #eabf00;
+        font-size: 2rem;
+      }
+    }
+    .buy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .buy-btn {
+      color: #ececec;
+      text-align: center;
+      text-transform: uppercase;
+      background-color: #0c0b10;
+      padding: 15px 5px;
+      margin-top: 20px;
+      cursor: pointer;
+
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #000;
+      }
+    }
+  }
+}
+.pending__order-review {
+  padding-bottom: 1rem;
+  margin: 0 0 3rem 0;
+  border-bottom: #000 solid;
+  &__details {
+    width: 100%;
+  }
+}
+.pending__order-review:nth-last-child(1) {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 769px) {
+  .pending__order-review {
+    display: flex;
+    padding-bottom: 1rem;
+    margin: 0 0 3rem 0;
+    border-bottom: #000 solid;
+    &__details {
+      width: 100%;
+      padding-right: 2rem;
+    }
+  }
+  .cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    flex-grow: 1;
+    height: auto;
+    min-height: 55rem;
+    background-color: rgb(119, 198, 201);
+    padding-bottom: 3rem;
+
+    &__content {
+      display: flex;
+      justify-content: center;
+      gap: 5vw;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    &__header {
+      color: #ececec;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 0 50px;
+      margin-bottom: 20px;
+      width: 90vw;
+    }
+
+    &__shelf-container {
+      position: relative;
+      min-height: auto;
+      height: auto;
+      width: 60vw;
+      max-width: 90vw;
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 2rem;
+    }
+    .shelf-item {
+      position: relative;
+      box-sizing: border-box;
+      padding: 5%;
+      width: 100%;
+
+      &__thumb,
+      &__details {
+        display: inline-block;
+      }
+
+      &__thumb {
+        vertical-align: middle;
+        width: 40%;
+        margin-right: 3%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      &__details {
+        width: 47%;
+      }
+    }
+    .shelf-item__del:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      .shelf-item__details {
+        .title,
+        .desc {
+          text-decoration: line-through;
+          opacity: 0.6;
+        }
+      }
+    }
+
+    &__footer {
+      position: sticky;
+      top: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 3rem;
+      width: 30rem;
+      height: 200px;
+      z-index: 2;
+      background-color: rgba(255, 255, 255, 0.15);
+
+      .sub,
+      .sub-price {
+        color: #5b5a5e;
+        width: 50%;
+      }
+
+      .sub {
+        font-size: 1.5rem;
+      }
+
+      .sub-price {
+        text-align: right;
+
+        &__val,
+        &__installment {
+          margin: 0;
+        }
+
+        &__val {
+          color: #eabf00;
+          font-size: 2rem;
+        }
+      }
+      .buy {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .buy-btn {
+        color: #ececec;
+        text-align: center;
+        text-transform: uppercase;
+        background-color: #0c0b10;
+        padding: 15px 5px;
+        margin-top: 20px;
+        cursor: pointer;
+
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #000;
+        }
+      }
+    }
+  }
+}
