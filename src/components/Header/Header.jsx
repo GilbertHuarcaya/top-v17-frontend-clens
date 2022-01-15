@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserFromLocalStorage, logout } from '../../store/actions';
+import {
+  getUserFromLocalStorage,
+  logout,
+  getUserOrdersFromDB,
+  getPendingOrderFromOrders,
+  getPendingReviewFromOrders,
+} from '../../store/actions';
 
 import Loader from '../Loader';
 import './Header.scss';
@@ -9,6 +15,8 @@ import logo from '../../img/logo-clens.jpg';
 
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const userOrders = useSelector((state) => state.userOrders);
+  const userPendingOrders = useSelector((state) => state.userPendingOrders);
   const isLoading = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,6 +52,30 @@ const Header = () => {
       getUser();
     }
   }, []);
+
+  useEffect(() => {
+    const getUserOrders = async () => {
+      try {
+        if (userOrders && user) {
+          await getUserOrdersFromDB(dispatch, user.id);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+    getUserOrders();
+  }, [user]);
+
+  useEffect(() => {
+    const getPendingOrder = () => {
+      getPendingOrderFromOrders(dispatch, userOrders);
+      getPendingReviewFromOrders(dispatch, userOrders);
+    };
+    if (user) {
+      getPendingOrder();
+    }
+  }, [userOrders]);
 
   const handleClick = () => {
     if (!toggleClassBtnMenu) return setToggleCLassBtn(true);
@@ -81,7 +113,9 @@ const Header = () => {
             onClick={handlerCart}
           />
           {!isLoading ? (
-            <span className="header__user--cart__quantity">{0}</span>
+            <span className="header__user--cart__quantity">
+              {userPendingOrders.length}
+            </span>
           ) : null}
         </Link>
         <button
