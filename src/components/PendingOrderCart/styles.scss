@@ -6,7 +6,7 @@
   width: auto;
   height: auto;
   background-color: rgb(119, 198, 201);
-
+  padding: 2rem;
   .bag {
     width: 40px;
     height: 40px;
@@ -14,7 +14,7 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 15px;
-    background-image: url('../../img/icons/cart.svg');
+    background-image: url('../../img/icons/casa.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -114,7 +114,6 @@
 
   &__footer {
     box-sizing: border-box;
-    padding: 5%;
     width: 100%;
     height: 200px;
     z-index: 2;
@@ -168,12 +167,36 @@
     }
   }
 }
+.pending__order-review {
+  padding-bottom: 1rem;
+  margin: 0 0 3rem 0;
+  border-bottom: #000 solid;
+  &__details {
+    width: 100%;
+  }
+}
+.pending__order-review:nth-last-child(1) {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
 
 @media (min-width: 769px) {
+  .pending__order-review {
+    display: flex;
+    padding-bottom: 1rem;
+    margin: 0 0 3rem 0;
+    border-bottom: #000 solid;
+    &__details {
+      width: 100%;
+      padding-right: 2rem;
+    }
+  }
   .cart {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: auto;
     flex-grow: 1;
     height: auto;
@@ -202,10 +225,35 @@
       position: relative;
       min-height: auto;
       height: auto;
-      width: 50vw;
-      max-width: 40rem;
+      width: 60vw;
+      max-width: 90vw;
       background-color: rgba(255, 255, 255, 0.15);
       padding: 2rem;
+    }
+    .shelf-item {
+      position: relative;
+      box-sizing: border-box;
+      padding: 5%;
+      width: 100%;
+
+      &__thumb,
+      &__details {
+        display: inline-block;
+      }
+
+      &__thumb {
+        vertical-align: middle;
+        width: 40%;
+        margin-right: 3%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      &__details {
+        width: 47%;
+      }
     }
     .shelf-item__del:hover {
       background-color: rgba(0, 0, 0, 0.2);
@@ -215,11 +263,6 @@
           text-decoration: line-through;
           opacity: 0.6;
         }
-      }
-
-      .shelf-item__price {
-        text-decoration: line-through;
-        opacity: 0.6;
       }
     }
 

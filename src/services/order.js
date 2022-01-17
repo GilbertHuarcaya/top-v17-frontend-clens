@@ -55,6 +55,23 @@ const getOrderById = (orderId) => {
       Authorization: `Bearer ${accessTokenObj}`,
     },
   };
+  return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
+};
+const patchUserOrderToCompleted = (order) => {
+  const accessTokenObj = localStorage.getItem('token');
+  // eslint-disable-next-line no-underscore-dangle
+  const orderId = order._id;
+  const payload = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessTokenObj}`,
+    },
+    body: JSON.stringify(order),
+  };
+  return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
+};
+
 
   return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
 };
@@ -64,6 +81,7 @@ const review = {
   postOrder,
   getUserOrdersByUserId,
   getOrderById,
+  patchUserOrderToCompleted,
   // forgotPassword,
 };
 

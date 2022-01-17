@@ -47,11 +47,7 @@ const CardsReviews = (props) => {
           <div className="review-card__comment">
             <p>{review.comentario}</p>
             <p className="rate">
-              <Rating
-                size="3rem"
-                initialValue={Math.round(review.rating)}
-                readonly
-              />
+              <Rating size="3rem" ratingValue={review.rating} readonly />
             </p>
           </div>
           <div className="review-card__client">

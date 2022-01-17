@@ -10,6 +10,9 @@ import {
   POST_USER_REVIEW,
   POST_USER_ORDER,
   GET_ORDER_BY_ID,
+  GET_PENDING_ORDER,
+  PATCH_USER_ORDER,
+  GET_PENDING_REVIEW,
 } from './constants';
 
 const initialState = {
@@ -21,6 +24,8 @@ const initialState = {
   orderById: [],
   user: null,
   postReviewState: null,
+  userPendingOrders: [],
+  pendingReview: [],
 };
 
 function reducer(state = initialState, action = '') {
@@ -82,7 +87,27 @@ function reducer(state = initialState, action = '') {
     case POST_USER_ORDER: {
       return {
         ...state,
-        postReviewState: newValue,
+        orderDetails: newValue,
+      };
+    }
+    case GET_PENDING_ORDER: {
+      return {
+        ...state,
+        userPendingOrders: newValue,
+      };
+    }
+    case PATCH_USER_ORDER: {
+      return {
+        ...state,
+        userPendingOrders: newValue,
+        userOrders: newValue,
+        pendingReview: newValue,
+      };
+    }
+    case GET_PENDING_REVIEW: {
+      return {
+        ...state,
+        pendingReview: newValue,
       };
     }
     case GET_ORDER_BY_ID: {

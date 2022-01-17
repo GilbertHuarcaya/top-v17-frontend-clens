@@ -14,18 +14,27 @@ import {
   POST_USER_REVIEW,
   POST_USER_ORDER,
   GET_ORDER_BY_ID,
+  GET_PENDING_ORDER,
+  PATCH_USER_ORDER,
+  GET_PENDING_REVIEW,
 } from './constants';
 
 import authService from '../services/auth';
 import reviewService from '../services/review';
 import orderService from '../services/order';
 
-export const getUserFromLocalStorage = (dispatch) => {
+export const getUserFromLocalStorage = async (dispatch) => {
   const token = localStorage.getItem('token');
   if (token) {
     const decoded = jwt_decode(token);
-    dispatch({ type: GET_USER_FROM_LOCALSTORAGE, payload: decoded });
+    const response = await authService.revalidateToken(decoded.email);
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      return dispatch({ type: LOGOUT_USER, payload: null });
+    }
+    return dispatch({ type: GET_USER_FROM_LOCALSTORAGE, payload: decoded });
   }
+  return dispatch({ type: LOGOUT_USER, payload: null });
 };
 
 export const loginUser = async (dispatch, user) => {
@@ -150,11 +159,65 @@ export const postUserOrder = async (dispatch, form) => {
     const response = await orderService.postOrder(form);
 
     if (response.ok) {
-      dispatch({ type: POST_USER_ORDER, payload: null });
+      dispatch({ type: POST_USER_ORDER, payload: {} });
     }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const getPendingOrderFromOrders = async (dispatch, orders) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    if (orders.length > 0) {
+      const pendingOrder = await orders.filter((e) => {
+        return e.completed === false;
+      });
+      if (pendingOrder.length > 0) {
+        dispatch({ type: GET_PENDING_ORDER, payload: pendingOrder });
+      }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const patchUserOrder = async (dispatch, order) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderService.patchUserOrderToCompleted(order);
+
+    if (response.ok) {
+      dispatch({ type: PATCH_USER_ORDER, payload: [] });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const getPendingReviewFromOrders = async (dispatch, orders) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    if (orders.length > 0) {
+      const pendingReview = await orders.filter((e) => {
+        return e.completed === true && e.reviewed === false;
+      });
+      if (pendingReview.length > 0) {
+        dispatch({ type: GET_PENDING_REVIEW, payload: pendingReview });
+      }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
