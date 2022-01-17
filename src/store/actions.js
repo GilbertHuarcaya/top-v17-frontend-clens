@@ -13,6 +13,7 @@ import {
   GET_ORDER_FORM,
   POST_USER_REVIEW,
   POST_USER_ORDER,
+  GET_ORDER_BY_ID,
   GET_PENDING_ORDER,
   PATCH_USER_ORDER,
   GET_PENDING_REVIEW,
@@ -199,6 +200,24 @@ export const getPendingReviewFromOrders = async (dispatch, orders) => {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const getOrderById = async (dispatch, orderid) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderService.getOrderById(orderid);
+
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: GET_ORDER_BY_ID, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }

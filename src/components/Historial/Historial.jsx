@@ -1,15 +1,15 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-console */
-/* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-console */
+/* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-// import getAllOrders from './Orders';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserOrdersFromDB  } from '../../store/actions';
-import Loader from '../Loader'
-import DownloadInvoice from './Descarga'
+// eslint-disable-next-line no-unused-vars
+import easyinvoice from 'easyinvoice';
+import { Link } from 'react-router-dom';
+import { getUserOrdersFromDB } from '../../store/actions';
+import Loader from '../Loader';
 import bathroom from '../../img/services/bathroom.jpg';
 import kitchen from '../../img/services/cocinas.jpg';
 import bedroom from '../../img/services/habitaciones.jpg';
@@ -42,7 +42,8 @@ const OrdersContainer = styled.div`
 `;
 
 const View = styled.div`
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   width: 96%;
   height: 96%;
   margin: auto;
@@ -84,7 +85,7 @@ const Service = styled.div`
 `;
 
 const Img = styled.img`
-  border-radius: "50px";
+  border-radius: '50px';
   width: 110px;
   height: 110px;
 `;
@@ -97,17 +98,10 @@ const Nombre = styled.p`
 `;
 
 const imgs = {
-  'Baño': bathroom,
-  'Cocina': kitchen,
-  'Sala': livingroom,
-  'Cuarto': bedroom,
-};
-
-const serviceName = {
-  'bathroom': 'Baño',
-  'kitchen': 'Cocina',
-  'livingroom': 'Sala',
-  'bedroom': 'Cuarto',
+  Bano: bathroom,
+  Cocina: kitchen,
+  Sala: livingroom,
+  Habitacion: bedroom,
 };
 
 const Scroll = styled.div`
@@ -141,7 +135,7 @@ const Detail = styled.div`
   /* border: 1px solid green; */
   @media screen and (min-width: 769px) {
     min-width: 50%;
-    margin-left: 10px
+    margin-left: 10px;
   }
   @media screen and (min-width: 1025px) {
     min-width: 39%;
@@ -179,42 +173,175 @@ const Button = styled.button`
 let count = 2;
 const Historial = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const userOrders = useSelector((state) => state.userOrders);
   const isLoading = useSelector((state) => state.isLoading);
-  const [ordersToShow, setOrdersToShow] = useState([]);
-  const [orders, setOrders] = useState([]);
-
-  const onHandleMore = () => {
-    count += 2;
-    setOrdersToShow(orders.slice(0, count))
-  }
-
-  const setUserOders = async () => {
-    try {
-      setTimeout(() => {
-        setOrders(userOrders);
-        setOrdersToShow(userOrders.slice(0, count))
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const [userOrdersToShow, setUserOrdersToShow] = useState([]);
 
   useEffect(() => {
     const getUserOrders = async () => {
       try {
         if (userOrders.length < 1) {
-      getUserOrdersFromDB(dispatch);
+          getUserOrdersFromDB(dispatch, user.id);
         }
-
       } catch (error) {
         console.log(error);
       }
     };
     getUserOrders();
-  }, []);
+  }, [user]);
 
-  setUserOders()
+  useEffect(() => {
+    const setUserOders = async () => {
+      try {
+        if (userOrders.length > 0) {
+          setUserOrdersToShow(userOrders.slice(0, count));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setUserOders();
+  }, [userOrders]);
+
+  const onHandleMore = () => {
+    count += 2;
+    setUserOrdersToShow(userOrders.slice(0, count));
+  };
+
+  // const prueba = (id) => {
+  //   const order = userOrders.filter((userOrder) => userOrder._id === id);
+  //   const services = order[0].service;
+  //   const total = order[0].precio;
+
+  //   const a = services.map((service) => {
+  //     return service.precio * service.cantidad;
+  //   });
+  //   const b = a.reduce((sum, current) => sum + current, 0);
+
+  //   let horas;
+  //   if (order[0].incluirProductos === 'si') {
+  //     horas = total - b - 10;
+  //   } else {
+  //     horas = total - b;
+  //   }
+  //   console.log(horas / order[0].horasPorServicio);
+  // };
+
+  const getSampleData = (id) => {
+    const order = userOrders.filter((userOrder) => userOrder._id === id);
+    const services = order[0].service;
+
+    const date = new Date(order[0].createdAt);
+    const year = date.getFullYear();
+    const fecha = date.toLocaleDateString('es-PE');
+
+    const data = [];
+    const total = order[0].precio;
+    let totalPorHora;
+    // Insert, al comienzo, todos los servicios de la orden
+    order[0].service.map((service) => {
+      for (let i = 0; i < order.length; i += 1) {
+        data.push({
+          quantity: service.cantidad,
+          description: `${service.name}`,
+          'tax-rate': 0,
+          price: service.precio,
+        });
+      }
+    });
+    // Array de los precios totales de los servicios (precio individual * cantidad)
+    const totalServicioIndividual = services.map((service) => {
+      return service.precio * service.cantidad;
+    });
+    // Reduce el array para hallar el total
+    const totalServicios = totalServicioIndividual.reduce(
+      (sum, current) => sum + current,
+      0,
+    );
+
+    if (order[0].incluirProductos === 'si') {
+      // Push de la inclusion de materiales y costo
+      data.push({
+        quantity: 1,
+        description: 'Materiales',
+        'tax-rate': 0,
+        price: 10,
+      });
+      // Hallar el costo total por cada hora brindada
+      totalPorHora = (total - totalServicios - 10) / order[0].horasPorServicio;
+    } else {
+      totalPorHora = (total - totalServicios) / order[0].horasPorServicio;
+    }
+
+    // Push horas brindadas en la orden
+    for (let i = 0; i < order.length; i += 1) {
+      data.push({
+        quantity: order[0].horasPorServicio,
+        description: 'Horas',
+        'tax-rate': 0,
+        price: totalPorHora,
+      });
+    }
+
+    // Data para la impresion del pdf
+    return {
+      documentTitle: 'Recibo',
+      locale: 'es-PE',
+      currency: 'USD',
+      taxNotation: 'vat',
+      marginTop: 50,
+      marginRight: 50,
+      marginLeft: 50,
+      marginBottom: 25,
+      logo: 'https://public.easyinvoice.cloud/img/logo_en_original.png',
+      sender: {
+        company: 'Clens',
+        address: '4565 N Stelling Rd',
+        zip: 'Lima',
+        city: 'Lima',
+        country: 'Peru',
+      },
+      client: {
+        company: `${order[0].nombre}`,
+        address: `${order[0].direccion}`,
+        zip: `${order[0].distrito}`,
+        city: `${order[0].ciudad}`,
+        country: 'Peru',
+      },
+      information: {
+        number: `${year}.000${order[0].orderNumber}`,
+        date: `${fecha}`,
+        'due-date': `${order[0].fecha.date}`,
+      },
+      products: data,
+      'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
+      settings: {
+        'tax-notation': 'IGV',
+      },
+      translate: {
+        invoiceNumber: 'Numero de Recibo',
+        invoiceDate: 'Fecha de Recibo',
+        products: 'Servicios',
+        quantity: 'Cantidad',
+        price: 'Precio',
+        date: 'Fecha Compra',
+        'due-date': 'Fecha Servicio',
+      },
+    };
+  };
+  const DownloadInvoice = async (id) => {
+    const data = getSampleData(id);
+    const result = await easyinvoice.createInvoice(data);
+    easyinvoice.download('myInvoice.pdf', result.pdf);
+  };
+  const renderInvoice = async (id) => {
+    // See documentation for all data properties
+    document.getElementById('pdf').innerHTML = 'loading...';
+    const data = getSampleData(id);
+    const result = await easyinvoice.createInvoice(data);
+    easyinvoice.render('pdf', result.pdf);
+  };
 
   return (
     <>
@@ -222,42 +349,57 @@ const Historial = () => {
         <Title>Historial de ordenes</Title>
       </TitleContainer>
       <OrdersContainer>
-        {ordersToShow.length > 0 ? (
-          ordersToShow.map(order => {
-            const cantidadTotal = order.service.reduce((sum, current) => sum + current.cantidad, 0)
+        {!isLoading ? (
+          userOrdersToShow.map((order, i) => {
+            const cantidadTotal = order.service.reduce(
+              (sum, current) => sum + current.cantidad,
+              0,
+            );
+            const date = new Date(order.createdAt);
+            const fecha = date.toLocaleDateString('es-PE');
             return (
-              <View key={order._id} order={order} >
-              <Services>
-                <Scroll>
-                  {order.service.map(services => {
-                    return (
-                      <Service key={services._id} services={services}>
-                        <Img src={imgs[services.name]} />
-                        <Nombre>{services.name} - {services.cantidad}</Nombre>
-                      </Service>
-                    )
-                  })}
-                </Scroll>
-                <Dots>
-                  {order.service.map(total => {
-                    return (
-                      <Dot key={total._id} total={total}/>
-                    )
-                  })}
-                </Dots>
+              <View key={order._id} order={order}>
+                <Services>
+                  <Scroll>
+                    {order.service.map((services) => {
+                      return (
+                        <Service key={services._id} services={services}>
+                          <Img src={imgs[services.name]} />
+                          <Nombre>
+                            {services.name} - {services.cantidad}
+                          </Nombre>
+                        </Service>
+                      );
+                    })}
+                  </Scroll>
+                  <Dots>
+                    {order.service.map((total) => {
+                      return <Dot key={total._id} total={total} />;
+                    })}
+                  </Dots>
                 </Services>
                 <Detail>
-                  <Number>#{order.number}</Number>
+                  <Number>#{i + 1}</Number>
                   <Info>
-                    Fecha: {order.date} <br />
+                    Fecha: {fecha} <br />
                     Cantidad: {cantidadTotal} <br />
                     Total: {order.precio}
                   </Info>
                   <Buttons>
-                    <Button color="white" border="none" bgColor="#4CAF50">
-                      Ver resumen
-                    </Button>
-                    <Button onClick={DownloadInvoice} >
+                    <Link className="btn" to={`/mi-historial/${order._id}`}>
+                      <Button
+                        color="white"
+                        border="none"
+                        bgColor="#4CAF50"
+                        id={order._id}
+                      >
+                        Ver resumen
+                      </Button>
+                    </Link>
+                    <Button
+                      id={order._id}
+                      onClick={(e) => DownloadInvoice(e.target.id)}
+                    >
                       Descargar Comprobante
                     </Button>
                   </Buttons>
@@ -265,16 +407,22 @@ const Historial = () => {
               </View>
             );
           })
-        ): (
+        ) : (
           <Loader />
         )}
-        {ordersToShow.length === orders.length ?
-          null : ordersToShow.length > 0 &&
-          <Button margin="20px" type="button" width="150px" onClick={onHandleMore}>
-            VER MAS
-          </Button>
-      }
-
+        {userOrdersToShow.length === userOrders.length
+          ? null
+          : userOrdersToShow.length > 0 && (
+              <Button
+                margin="20px"
+                type="button"
+                width="150px"
+                onClick={onHandleMore}
+              >
+                VER MAS
+              </Button>
+            )}
+        <div id="pdf" />
       </OrdersContainer>
     </>
   );
