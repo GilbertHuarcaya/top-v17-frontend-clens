@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -9,11 +10,11 @@ const ScrollToTop = (props) => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 ScrollToTop.propTypes = {
-  children: PropTypes.func,
+  children: PropTypes.node,
 };
 
 ScrollToTop.defaultProps = {
