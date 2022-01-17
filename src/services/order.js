@@ -57,6 +57,7 @@ const getOrderById = (orderId) => {
   };
   return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
 };
+
 const patchUserOrderToCompleted = (order) => {
   const accessTokenObj = localStorage.getItem('token');
   // eslint-disable-next-line no-underscore-dangle
@@ -69,10 +70,6 @@ const patchUserOrderToCompleted = (order) => {
     },
     body: JSON.stringify(order),
   };
-  return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
-};
-
-
   return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
 };
 
