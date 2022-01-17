@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getUserFromLocalStorage,
@@ -20,12 +20,10 @@ const Header = () => {
   const isLoading = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [toggleClassBtnMenu, setToggleCLassBtn] = useState('false');
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const [toggleClassBtnCart, setToggleClassBtnCart] = useState('false');
-
-  /* url Actual */
-  const url = window.location.pathname.split('/').pop();
 
   let prevScrollpos = window.pageYOffset;
   window.onscroll = () => {
@@ -36,13 +34,13 @@ const Header = () => {
     }
     prevScrollpos = currentScrollPos;
   };
+
   /* Cerrar los menu al cambiar de url */
   useEffect(() => {
     setToggleCLassBtnUser(true);
     setToggleClassBtnCart(true);
     setToggleCLassBtn(true);
-    window.scrollTo(0, 0);
-  }, [url]);
+  }, [location]);
 
   useEffect(() => {
     const getUser = () => {
@@ -152,9 +150,6 @@ const Header = () => {
         }
         id="menu-id"
       >
-        <Link className="header__a" to="/why-us">
-          ¿Por qué nosotros?
-        </Link>
         <Link className="header__a" to="/services">
           Servicios
         </Link>
@@ -213,13 +208,6 @@ const Header = () => {
             to="/mi-historial"
           >
             Mi historial
-          </Link>
-          <Link
-            onClick={handlerMenuUser}
-            className="header__perfil__a"
-            to="/mi-carrito"
-          >
-            Ir al carrito
           </Link>
           <Link
             onClick={handleCloseSession}
