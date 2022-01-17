@@ -61,11 +61,25 @@ const patchUserOrderToCompleted = (order) => {
   return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
 };
 
+const getOrderById = (orderId) => {
+  const accessTokenObj = localStorage.getItem('token');
+
+  const payload = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessTokenObj}`,
+    },
+  };
+  return fetch(`${URL_BASE}/api/orders/${orderId}`, payload);
+};
+
 const review = {
   getAllOrders,
   postOrder,
   getUserOrdersByUserId,
   patchUserOrderToCompleted,
+  getOrderById,
   // forgotPassword,
 };
 

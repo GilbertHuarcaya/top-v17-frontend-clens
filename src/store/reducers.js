@@ -9,6 +9,7 @@ import {
   GET_ORDERS_FROM_USER,
   POST_USER_REVIEW,
   POST_USER_ORDER,
+  GET_ORDER_BY_ID,
   GET_PENDING_ORDER,
   PATCH_USER_ORDER,
   GET_PENDING_REVIEW,
@@ -21,6 +22,7 @@ const initialState = {
   orderDetails: {},
   orders: [],
   userOrders: [],
+  orderById: [],
   user: null,
   postReviewState: null,
   userPendingOrders: [],
@@ -107,6 +109,12 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         pendingReview: newValue,
+      };
+    }
+    case GET_ORDER_BY_ID: {
+      return {
+        ...state,
+        orderById: newValue,
       };
     }
     default:

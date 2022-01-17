@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm/LoginForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import InfoCuenta from './components/InfoCuenta/InfoCuenta';
 import Historial from './components/Historial/Historial';
+import Resumen from './components/Historial/Resumen';
 import Postula from './components/Postula/Postula';
 import Layout from './pages/Layout/Layout';
 import Services from './components/Services';
@@ -28,6 +29,7 @@ const App = () => (
         <Route path="info-cuenta" element={<InfoCuenta />} />
         <Route path="services" element={<Services />} />
         <Route path="mi-historial" element={<Historial />} />
+        <Route path="mi-historial/:id" element={<Resumen />} />
         <Route path="mi-carrito" element={<PendingOrder />} />
       </Route>
       <Route path="/order/" element={<GoOrder />}>
