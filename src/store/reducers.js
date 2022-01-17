@@ -9,6 +9,7 @@ import {
   GET_ORDERS_FROM_USER,
   POST_USER_REVIEW,
   POST_USER_ORDER,
+  GET_ORDER_BY_ID,
 } from './constants';
 
 const initialState = {
@@ -16,8 +17,8 @@ const initialState = {
   services: [],
   reviews: null,
   orderDetails: {},
-  orders: [],
   userOrders: [],
+  orderById: [],
   user: null,
   postReviewState: null,
 };
@@ -82,6 +83,12 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         postReviewState: newValue,
+      };
+    }
+    case GET_ORDER_BY_ID: {
+      return {
+        ...state,
+        orderById: newValue,
       };
     }
     default:

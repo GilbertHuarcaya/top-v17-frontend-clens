@@ -1,11 +1,13 @@
-/* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
 import easyinvoice from 'easyinvoice';
+import { Link } from 'react-router-dom';
 import { getUserOrdersFromDB } from '../../store/actions';
 import Loader from '../Loader';
 import bathroom from '../../img/services/bathroom.jpg';
@@ -96,7 +98,7 @@ const Nombre = styled.p`
 `;
 
 const imgs = {
-  Baño: bathroom,
+  Bano: bathroom,
   Cocina: kitchen,
   Sala: livingroom,
   Habitacion: bedroom,
@@ -176,11 +178,6 @@ const Historial = () => {
   const isLoading = useSelector((state) => state.isLoading);
   const [userOrdersToShow, setUserOrdersToShow] = useState([]);
 
-  const onHandleMore = () => {
-    count += 2;
-    setUserOrdersToShow(userOrders.slice(0, count));
-  };
-
   useEffect(() => {
     const getUserOrders = async () => {
       try {
@@ -197,32 +194,97 @@ const Historial = () => {
   useEffect(() => {
     const setUserOders = async () => {
       try {
-        setTimeout(() => {
-          if (userOrders.length > 0) {
-            setUserOrdersToShow(userOrders.slice(0, count));
-          }
-        }, 1000);
+        if (userOrders.length > 0) {
+          setUserOrdersToShow(userOrders.slice(0, count));
+        }
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.log(error);
       }
     };
     setUserOders();
   }, [userOrders]);
 
+  const onHandleMore = () => {
+    count += 2;
+    setUserOrdersToShow(userOrders.slice(0, count));
+  };
+
   // const prueba = (id) => {
-  //   const a = userOrders.filter((userOrder) => userOrder._id === id);
-  //   const b = a[0].service.forEach((s) => console.log(s));
-  //   console.log(b);
+  //   const order = userOrders.filter((userOrder) => userOrder._id === id);
+  //   const services = order[0].service;
+  //   const total = order[0].precio;
+
+  //   const a = services.map((service) => {
+  //     return service.precio * service.cantidad;
+  //   });
+  //   const b = a.reduce((sum, current) => sum + current, 0);
+
+  //   let horas;
+  //   if (order[0].incluirProductos === 'si') {
+  //     horas = total - b - 10;
+  //   } else {
+  //     horas = total - b;
+  //   }
+  //   console.log(horas / order[0].horasPorServicio);
   // };
 
   const getSampleData = (id) => {
     const order = userOrders.filter((userOrder) => userOrder._id === id);
     const services = order[0].service;
+
     const date = new Date(order[0].createdAt);
     const year = date.getFullYear();
     const fecha = date.toLocaleDateString('es-PE');
-    console.log(date);
+
+    const data = [];
+    const total = order[0].precio;
+    let totalPorHora;
+    // Insert, al comienzo, todos los servicios de la orden
+    order[0].service.map((service) => {
+      for (let i = 0; i < order.length; i += 1) {
+        data.push({
+          quantity: service.cantidad,
+          description: `${service.name}`,
+          'tax-rate': 0,
+          price: service.precio,
+        });
+      }
+    });
+    // Array de los precios totales de los servicios (precio individual * cantidad)
+    const totalServicioIndividual = services.map((service) => {
+      return service.precio * service.cantidad;
+    });
+    // Reduce el array para hallar el total
+    const totalServicios = totalServicioIndividual.reduce(
+      (sum, current) => sum + current,
+      0,
+    );
+
+    if (order[0].incluirProductos === 'si') {
+      // Push de la inclusion de materiales y costo
+      data.push({
+        quantity: 1,
+        description: 'Materiales',
+        'tax-rate': 0,
+        price: 10,
+      });
+      // Hallar el costo total por cada hora brindada
+      totalPorHora = (total - totalServicios - 10) / order[0].horasPorServicio;
+    } else {
+      totalPorHora = (total - totalServicios) / order[0].horasPorServicio;
+    }
+
+    // Push horas brindadas en la orden
+    for (let i = 0; i < order.length; i += 1) {
+      data.push({
+        quantity: order[0].horasPorServicio,
+        description: 'Horas',
+        'tax-rate': 0,
+        price: totalPorHora,
+      });
+    }
+
+    // Data para la impresion del pdf
     return {
       documentTitle: 'Recibo',
       locale: 'es-PE',
@@ -250,16 +312,9 @@ const Historial = () => {
       information: {
         number: `${year}.000${order[0].orderNumber}`,
         date: `${fecha}`,
-        'due-date': '31-12-2021',
+        'due-date': `${order[0].fecha.date}`,
       },
-      products: services.map((service) => {
-        return {
-          quantity: `${service.cantidad}`,
-          description: `${service.name}`,
-          'tax-rate': 18,
-          price: `${service.precio}`,
-        };
-      }),
+      products: data,
       'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
       settings: {
         'tax-notation': 'IGV',
@@ -276,10 +331,16 @@ const Historial = () => {
     };
   };
   const DownloadInvoice = async (id) => {
-    // See documentation for all data properties
     const data = getSampleData(id);
     const result = await easyinvoice.createInvoice(data);
     easyinvoice.download('myInvoice.pdf', result.pdf);
+  };
+  const renderInvoice = async (id) => {
+    // See documentation for all data properties
+    document.getElementById('pdf').innerHTML = 'loading...';
+    const data = getSampleData(id);
+    const result = await easyinvoice.createInvoice(data);
+    easyinvoice.render('pdf', result.pdf);
   };
 
   return (
@@ -289,7 +350,7 @@ const Historial = () => {
       </TitleContainer>
       <OrdersContainer>
         {!isLoading ? (
-          userOrdersToShow.map((order) => {
+          userOrdersToShow.map((order, i) => {
             const cantidadTotal = order.service.reduce(
               (sum, current) => sum + current.cantidad,
               0,
@@ -318,16 +379,23 @@ const Historial = () => {
                   </Dots>
                 </Services>
                 <Detail>
-                  <Number>#{order.number}</Number>
+                  <Number>#{i + 1}</Number>
                   <Info>
                     Fecha: {fecha} <br />
                     Cantidad: {cantidadTotal} <br />
                     Total: {order.precio}
                   </Info>
                   <Buttons>
-                    <Button color="white" border="none" bgColor="#4CAF50">
-                      Ver resumen
-                    </Button>
+                    <Link className="btn" to={`/mi-historial/${order._id}`}>
+                      <Button
+                        color="white"
+                        border="none"
+                        bgColor="#4CAF50"
+                        id={order._id}
+                      >
+                        Ver resumen
+                      </Button>
+                    </Link>
                     <Button
                       id={order._id}
                       onClick={(e) => DownloadInvoice(e.target.id)}
@@ -354,6 +422,7 @@ const Historial = () => {
                 VER MAS
               </Button>
             )}
+        <div id="pdf" />
       </OrdersContainer>
     </>
   );
