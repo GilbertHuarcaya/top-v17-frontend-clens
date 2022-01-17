@@ -17,32 +17,34 @@ import OrderTime from './components/GoOrder/OrderTime';
 import OrderDetails from './components/GoOrder/OrderDetails';
 import RegisterSuccess from './components/RegisterSuccess';
 import Pay from './components/GoOrder/Pay';
-
+import ScrollToTop from './hooks/ScrollToTop';
 import './index.scss';
 
 const App = () => (
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="" element={<Home />} />
-        <Route path="postula" element={<Postula />} />
-        <Route path="info-cuenta" element={<InfoCuenta />} />
-        <Route path="services" element={<Services />} />
-        <Route path="mi-historial" element={<Historial />} />
-        <Route path="mi-historial/:id" element={<Resumen />} />
-        <Route path="mi-carrito" element={<PendingOrder />} />
-      </Route>
-      <Route path="/order/" element={<GoOrder />}>
-        <Route path="cotiza" element={<Cotiza />} />
-        <Route path="tiempo" element={<OrderTime />} />
-        <Route path="tu-info" element={<OrderDetails />} />
-        <Route path="pago" element={<Pay />} />
-      </Route>
-      <Route path="*" element={<Page404 />} />
-      <Route path="/login" element={<LoginForm />} />
-      <Route path="/register" element={<RegisterForm />} />
-      <Route path="/register-success" element={<RegisterSuccess />} />
-    </Routes>
+    <ScrollToTop>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="" element={<Home />} />
+          <Route path="postula" element={<Postula />} />
+          <Route path="info-cuenta" element={<InfoCuenta />} />
+          <Route path="services" element={<Services />} />
+          <Route path="mi-historial" element={<Historial />} />
+          <Route path="mi-historial/:id" element={<Resumen />} />
+          <Route path="mi-carrito" element={<PendingOrder />} />
+        </Route>
+        <Route path="/order/" element={<GoOrder />}>
+          <Route path="cotiza" element={<Cotiza />} />
+          <Route path="tiempo" element={<OrderTime />} />
+          <Route path="tu-info" element={<OrderDetails />} />
+          <Route path="pago" element={<Pay />} />
+        </Route>
+        <Route path="*" element={<Page404 />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/register-success" element={<RegisterSuccess />} />
+      </Routes>
+    </ScrollToTop>
   </BrowserRouter>
 );
 
