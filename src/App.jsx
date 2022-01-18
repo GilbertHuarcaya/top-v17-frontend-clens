@@ -18,6 +18,8 @@ import OrderDetails from './components/GoOrder/OrderDetails';
 import RegisterSuccess from './components/RegisterSuccess';
 import Pay from './components/GoOrder/Pay';
 import ScrollToTop from './hooks/ScrollToTop';
+import MiPerfil from './components/InfoCuenta/MiPerfil';
+import NewPassword from './components/InfoCuenta/ChangePassword';
 import './index.scss';
 
 const App = () => (
@@ -27,8 +29,11 @@ const App = () => (
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
-          <Route path="info-cuenta" element={<InfoCuenta />} />
           <Route path="services" element={<Services />} />
+          <Route path="/mi-perfil/" element={<InfoCuenta />}>
+            <Route path="" element={<MiPerfil />} />
+            <Route path="cambio-contrasena" element={<NewPassword />} />
+          </Route>
           <Route path="mi-historial" element={<Historial />} />
           <Route path="mi-historial/:id" element={<Resumen />} />
           <Route path="mi-carrito" element={<PendingOrder />} />

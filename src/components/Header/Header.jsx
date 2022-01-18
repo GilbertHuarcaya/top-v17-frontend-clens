@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { AdvancedImage } from '@cloudinary/react';
+import { Cloudinary } from '@cloudinary/url-gen';
 import {
   getUserFromLocalStorage,
   logout,
@@ -12,6 +14,8 @@ import {
 import Loader from '../Loader';
 import './Header.scss';
 import logo from '../../img/logo-clens.jpg';
+
+const CLOUD = process.env.REACT_APP_CLOUD_NAME;
 
 const Header = () => {
   const user = useSelector((state) => state.user);
@@ -34,6 +38,12 @@ const Header = () => {
     }
     prevScrollpos = currentScrollPos;
   };
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: CLOUD,
+    },
+  });
 
   /* Cerrar los menu al cambiar de url */
   useEffect(() => {
@@ -121,7 +131,9 @@ const Header = () => {
           type="button"
           aria-label="foto-perfil"
           onClick={handlerMenuUser}
-        />
+        >
+          <AdvancedImage cldImg={cld.image(user.photo.id || 'cld-sample')} />
+        </button>
       </div>
     ) : (
       <>
@@ -191,7 +203,7 @@ const Header = () => {
           <Link
             onClick={handlerMenuUser}
             className="header__perfil__a"
-            to="/info-cuenta"
+            to="/mi-perfil"
           >
             Mi Perfil
           </Link>

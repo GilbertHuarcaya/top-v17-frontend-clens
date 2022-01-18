@@ -228,17 +228,17 @@
     background-color: #fff;
     border-radius: 100%;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 5px;
     cursor: pointer;
-    background-image: url('https://randomuser.me/api/portraits/women/21.jpg');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
     border-style: solid;
     border-color: #77c6ca;
+
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      object-fit: cover;
+    }
   }
 }
 
@@ -332,7 +332,7 @@
     }
     /* menu perfil */
     &__perfil {
-      bottom: -189px;
+      bottom: -151px;
       right: 1px;
     }
     /* carrito de compras y foto usuario (menu) */
