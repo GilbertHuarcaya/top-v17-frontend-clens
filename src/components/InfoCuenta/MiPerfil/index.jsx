@@ -22,7 +22,7 @@ const MiPerfil = () => {
     },
   });
 
-  const myImage = cld.image(user.photo.id);
+  const myImage = cld.image(user.photo.id || 'cld-sample');
 
   const onChangeFile = (e) => {
     setFile(e.target.files[0]);

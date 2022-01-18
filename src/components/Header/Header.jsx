@@ -132,7 +132,7 @@ const Header = () => {
           aria-label="foto-perfil"
           onClick={handlerMenuUser}
         >
-          <AdvancedImage cldImg={cld.image(user.photo.id)} />
+          <AdvancedImage cldImg={cld.image(user.photo.id || 'cld-sample')} />
         </button>
       </div>
     ) : (
