@@ -17,11 +17,14 @@ import {
   GET_PENDING_ORDER,
   PATCH_USER_ORDER,
   GET_PENDING_REVIEW,
+  UPLOAD_FILE,
 } from './constants';
 
 import authService from '../services/auth';
 import reviewService from '../services/review';
 import orderService from '../services/order';
+import uploadService from '../services/upload';
+import userService from '../services/user';
 
 export const getUserFromLocalStorage = async (dispatch) => {
   const token = localStorage.getItem('token');
@@ -214,6 +217,30 @@ export const getOrderById = async (dispatch, orderid) => {
 
     if (response.ok) {
       dispatch({ type: GET_ORDER_BY_ID, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const postUploadFile = async (dispatch, file, user) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await uploadService.postFile(file);
+
+    if (response.status === 200) {
+      const userResponse = await userService.patchUser({
+        ...user,
+        photo: response.data,
+      });
+      const userData = await userResponse.json();
+
+      if (userResponse.ok) {
+        dispatch({ type: UPLOAD_FILE, payload: userData });
+      }
     }
   } catch (error) {
     // eslint-disable-next-line no-console
