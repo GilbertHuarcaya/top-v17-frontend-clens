@@ -41,6 +41,16 @@ const registerAccount = ({
 };
 
 // const forgotPassword = (email) => {};
+const forgotPassword = ({ email, password, newPassword }) => {
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password, newPassword }),
+  };
+  return fetch(`${URL_BASE}/auth/local/change-password`, payload);
+};
 
 const revalidateToken = (email) => {
   const accessTokenObj = localStorage.getItem('token');
@@ -58,7 +68,7 @@ const auth = {
   loginAccount,
   registerAccount,
   revalidateToken,
-  // forgotPassword,
+  forgotPassword,
 };
 
 export default auth;

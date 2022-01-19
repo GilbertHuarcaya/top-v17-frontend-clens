@@ -149,6 +149,15 @@
   margin-left: -1px;
   border: none;
   cursor: pointer;
+  animation: grow-animation 2s linear infinite;
+}
+.i-btn:disabled {
+  margin-left: -1px;
+  border: none;
+  animation: none;
+  svg {
+    cursor: not-allowed;
+  }
 }
 .password-btn {
   margin-left: -25px;

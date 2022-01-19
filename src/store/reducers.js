@@ -13,6 +13,8 @@ import {
   GET_PENDING_ORDER,
   PATCH_USER_ORDER,
   GET_PENDING_REVIEW,
+  UPLOAD_FILE,
+  FORGOT_PASSWORD,
 } from './constants';
 
 const initialState = {
@@ -115,6 +117,18 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         orderById: newValue,
+      };
+    }
+    case UPLOAD_FILE: {
+      return {
+        ...state,
+        user: newValue,
+      };
+    }
+    case FORGOT_PASSWORD: {
+      return {
+        ...state,
+        user: newValue,
       };
     }
     default:

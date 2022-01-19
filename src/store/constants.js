@@ -19,3 +19,4 @@ export const GET_PENDING_ORDER = 'get-pending-order';
 export const PATCH_USER_ORDER = 'patch-user-order';
 export const GET_PENDING_REVIEW = 'get-pending-review';
 export const UPLOAD_FILE = 'upload-file';
+export const FORGOT_PASSWORD = 'forgot-password';

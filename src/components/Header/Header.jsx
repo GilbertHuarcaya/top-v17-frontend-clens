@@ -136,14 +136,9 @@ const Header = () => {
         </button>
       </div>
     ) : (
-      <>
-        <Link className="header__login" to="/login">
-          Ingresa
-        </Link>
-        <Link className="header__register" to="/register">
-          Registrate
-        </Link>
-      </>
+      <Link className="header__login" to="/login">
+        Ingresa
+      </Link>
     );
   } else {
     buttons = <Loader />;
