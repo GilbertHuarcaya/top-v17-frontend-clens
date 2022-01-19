@@ -15,6 +15,7 @@ const MiPerfil = () => {
   const dispatch = useDispatch();
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const [file, setFile] = useState(null);
+  const [blocked, setBlocked] = useState(true);
   // const [files, setFiles] = useState(null);
   const cld = new Cloudinary({
     cloud: {
@@ -28,7 +29,9 @@ const MiPerfil = () => {
     setFile(e.target.files[0]);
     // setFiles(e.target.files)
     // console.log(": ~ file: UploadImage.js ~ line 11~ onchangeFile ~ e.target.files", e.target.files)
+    setBlocked(!true);
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     await postUploadFile(dispatch, file, user);
@@ -114,9 +117,11 @@ const MiPerfil = () => {
               className="i-btn"
               type="submit"
               tabIndex="0"
+              disabled={blocked}
               onClick={onSubmit}
             >
               {image}
+              {blocked ? null : '✔'}
             </button>
           </div>
         </form>

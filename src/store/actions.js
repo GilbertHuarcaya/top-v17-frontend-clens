@@ -18,6 +18,7 @@ import {
   PATCH_USER_ORDER,
   GET_PENDING_REVIEW,
   UPLOAD_FILE,
+  FORGOT_PASSWORD,
 } from './constants';
 
 import authService from '../services/auth';
@@ -239,8 +240,30 @@ export const postUploadFile = async (dispatch, file, user) => {
       const userData = await userResponse.json();
 
       if (userResponse.ok) {
-        dispatch({ type: UPLOAD_FILE, payload: userData });
+        localStorage.setItem('token', userData.token);
+        const decoded = jwt_decode(userData.token);
+        dispatch({ type: UPLOAD_FILE, payload: decoded });
       }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const changePassword = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await authService.forgotPassword(form);
+
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem('token', data.token);
+      const decoded = jwt_decode(data.token);
+      dispatch({ type: FORGOT_PASSWORD, payload: decoded });
     }
   } catch (error) {
     // eslint-disable-next-line no-console
