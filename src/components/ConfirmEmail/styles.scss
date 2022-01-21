@@ -1,0 +1,38 @@
+.register-success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100vw;
+  height: 100vh;
+  background-color: #77c6c9;
+
+  &--title {
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+    margin-bottom: 10px;
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    &--message {
+      font-size: 18px;
+    }
+
+    &--button {
+      font-size: 20px;
+      text-decoration: none;
+      color: white;
+      border: thin solid white;
+      padding: 8px;
+      margin-top: 15px;
+      box-shadow: 0.5px 1px 4px #777;
+    }
+  }
+}
