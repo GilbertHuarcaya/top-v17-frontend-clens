@@ -50,8 +50,12 @@ const App = () => (
         <Route path="*" element={<Page404 />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />;
-        <Route path="/validation-email/:email" element={<ValidationEmail />} />;
-        <Route path="/reset-password/:email" element={<ResetPassword />} />;
+        <Route
+          path="/validation-email/:userToken"
+          element={<ValidationEmail />}
+        />
+        ;
+        <Route path="/reset-password/:userToken" element={<ResetPassword />} />;
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/register-success" element={<RegisterSuccess />} />
       </Routes>

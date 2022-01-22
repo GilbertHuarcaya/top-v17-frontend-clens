@@ -75,14 +75,15 @@ const resetPassword = (form) => {
   return fetch(`${URL_BASE}/auth/local/reset-password`, payload);
 };
 
-const userCreateValidation = (email) => {
+const userCreateValidation = (userToken, id) => {
   const payload = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ id }),
   };
-  return fetch(`${URL_BASE}/auth/local/validate-email/${email}`, payload);
+  return fetch(`${URL_BASE}/auth/local/validate-email/${userToken}`, payload);
 };
 
 const auth = {

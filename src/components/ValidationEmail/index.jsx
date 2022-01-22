@@ -5,11 +5,11 @@ import { validateUser } from '../../store/actions';
 import './styles.scss';
 
 const ValidationEmail = () => {
-  const { email } = useParams();
+  const { userToken } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    validateUser(dispatch, email);
+    validateUser(dispatch, userToken);
   }, []);
 
   return (

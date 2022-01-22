@@ -40,7 +40,7 @@ const LoginForm = () => {
       if (!user) {
         navigate('/login');
       }
-      dispatch({ type: 'reset-response', payload: null });
+      dispatch({ type: 'reset-response', response: null });
     }, 2500);
   };
   useEffect(() => {

@@ -47,12 +47,12 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
-    const validateForm = () => {
+    const redirect = () => {
       if (response === true) {
         navigate('/register-success');
       }
     };
-    validateForm();
+    redirect();
   }, [isLoading]);
 
   return (
@@ -183,7 +183,7 @@ const RegisterForm = () => {
           </Link>
         </div>
       </form>
-      {response ? (
+      {response !== null && response !== true ? (
         <p className="alert">{Object.keys(response.error)} is already in use</p>
       ) : null}
     </>

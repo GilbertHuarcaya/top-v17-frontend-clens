@@ -8,17 +8,19 @@ import './styles.scss';
 import logo from '../../img/logo-clens.jpg';
 
 const ResetPasswordForm = () => {
-  const { email } = useParams();
+  const { userToken } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { form, handleChange } = useForm({ email });
+  const { form, handleChange } = useForm({ userToken });
   const [formOk, setFormOk] = useState(0);
 
   useEffect(() => {
     const validateForm = () => {
       try {
         if (form?.password !== undefined) {
-          const data = form?.password.length > 5;
+          const data =
+            form?.password.length > 5 &&
+            form?.confirmpassword === form?.password;
           setFormOk(data);
         }
       } catch (error) {

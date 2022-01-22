@@ -300,10 +300,15 @@ export const changePassword = async (dispatch, form) => {
   }
 };
 
-export const validateUser = async (dispatch, email) => {
+export const validateUser = async (dispatch, userToken) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await authService.userCreateValidation(email);
+    const decoded = jwt_decode(userToken);
+
+    const response = await authService.userCreateValidation(
+      userToken,
+      decoded.id,
+    );
     const data = await response.json();
 
     if (response.ok) {
