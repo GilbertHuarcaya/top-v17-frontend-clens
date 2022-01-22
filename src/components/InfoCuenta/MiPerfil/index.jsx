@@ -32,15 +32,16 @@ const MiPerfil = () => {
     setBlocked(!true);
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    await postUploadFile(dispatch, file, user);
-  };
   const handlerUserPhoto = () => {
     if (!toggleClassBtnUser) {
       return setToggleCLassBtnUser(true);
     }
     return setToggleCLassBtnUser(false);
+  };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    await postUploadFile(dispatch, file, user);
+    handlerUserPhoto();
   };
 
   return (
