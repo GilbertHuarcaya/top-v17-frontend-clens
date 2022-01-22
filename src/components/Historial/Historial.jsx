@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
 import easyinvoice from 'easyinvoice';
 import { Link } from 'react-router-dom';
 import { getUserOrdersFromDB } from '../../store/actions';
@@ -209,25 +207,6 @@ const Historial = () => {
     setUserOrdersToShow(userOrders.slice(0, count));
   };
 
-  // const prueba = (id) => {
-  //   const order = userOrders.filter((userOrder) => userOrder._id === id);
-  //   const services = order[0].service;
-  //   const total = order[0].precio;
-
-  //   const a = services.map((service) => {
-  //     return service.precio * service.cantidad;
-  //   });
-  //   const b = a.reduce((sum, current) => sum + current, 0);
-
-  //   let horas;
-  //   if (order[0].incluirProductos === 'si') {
-  //     horas = total - b - 10;
-  //   } else {
-  //     horas = total - b;
-  //   }
-  //   console.log(horas / order[0].horasPorServicio);
-  // };
-
   const getSampleData = (id) => {
     const order = userOrders.filter((userOrder) => userOrder._id === id);
     const services = order[0].service;
@@ -330,17 +309,11 @@ const Historial = () => {
       },
     };
   };
+
   const DownloadInvoice = async (id) => {
     const data = getSampleData(id);
     const result = await easyinvoice.createInvoice(data);
     easyinvoice.download('myInvoice.pdf', result.pdf);
-  };
-  const renderInvoice = async (id) => {
-    // See documentation for all data properties
-    document.getElementById('pdf').innerHTML = 'loading...';
-    const data = getSampleData(id);
-    const result = await easyinvoice.createInvoice(data);
-    easyinvoice.render('pdf', result.pdf);
   };
 
   return (
