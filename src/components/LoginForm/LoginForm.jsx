@@ -37,9 +37,6 @@ const LoginForm = () => {
 
     loginUser(dispatch, form);
     setTimeout(() => {
-      if (!user) {
-        navigate('/login');
-      }
       dispatch({ type: 'reset-response', response: null });
     }, 2500);
   };

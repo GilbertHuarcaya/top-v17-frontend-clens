@@ -102,8 +102,15 @@ const MiPerfil = () => {
         }
         id="menu-perfil"
       >
-        <form className="card__form">
+        <form className="card__form" onSubmit={onSubmit}>
           <h4 className="card__form__h4">Cambie su foto</h4>
+          <button
+            type="button"
+            className="card__form__close"
+            onClick={handlerUserPhoto}
+          >
+            &times;
+          </button>
           <div className="card__form__group">
             <p className="card__form__titulo">Foto</p>
             <input
@@ -119,12 +126,14 @@ const MiPerfil = () => {
               type="submit"
               tabIndex="0"
               disabled={blocked}
-              onClick={onSubmit}
             >
               {image}
               {blocked ? null : '✔'}
             </button>
           </div>
+          <button type="submit" className="card__form__btn">
+            Actualizar
+          </button>
         </form>
       </div>
     </>

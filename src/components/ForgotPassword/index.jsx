@@ -81,7 +81,7 @@ const ResetPasswordForm = () => {
           <p className="form_forgot-password__text">
             ¿Recordaste tu contraseña?
           </p>
-          <Link className="form_forgot-password__button__p" to="/register">
+          <Link className="form_forgot-password__button__p" to="/login">
             Ingresa
           </Link>
         </div>
@@ -98,7 +98,7 @@ const ResetPasswordForm = () => {
       ) : (
         <ActionSuccess
           title="Email enviado"
-          message="Un email de cambio de contraseña ha sido emviado a su correo, porfavor revisarlo"
+          message="Un email de cambio de contraseña ha sido enviado a su correo, porfavor revisarlo"
           redirect="/"
           button="Volver a Home"
           visible={success}
