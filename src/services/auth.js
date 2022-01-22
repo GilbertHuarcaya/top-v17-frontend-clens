@@ -64,11 +64,35 @@ const revalidateToken = (email) => {
   return fetch(`${URL_BASE}/api/users/email/${email}`, payload);
 };
 
+const resetPassword = (form) => {
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(form),
+  };
+  return fetch(`${URL_BASE}/auth/local/reset-password`, payload);
+};
+
+const userCreateValidation = (userToken, id) => {
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  };
+  return fetch(`${URL_BASE}/auth/local/validate-email/${userToken}`, payload);
+};
+
 const auth = {
   loginAccount,
   registerAccount,
   revalidateToken,
   forgotPassword,
+  userCreateValidation,
+  resetPassword,
 };
 
 export default auth;

@@ -20,6 +20,9 @@ import Pay from './components/GoOrder/Pay';
 import ScrollToTop from './hooks/ScrollToTop';
 import MiPerfil from './components/InfoCuenta/MiPerfil';
 import NewPassword from './components/InfoCuenta/ChangePassword';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
+import ValidationEmail from './components/ValidationEmail';
 import './index.scss';
 
 const App = () => (
@@ -46,6 +49,13 @@ const App = () => (
         </Route>
         <Route path="*" element={<Page404 />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />;
+        <Route
+          path="/validation-email/:userToken"
+          element={<ValidationEmail />}
+        />
+        ;
+        <Route path="/reset-password/:userToken" element={<ResetPassword />} />;
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/register-success" element={<RegisterSuccess />} />
       </Routes>

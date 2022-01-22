@@ -20,3 +20,6 @@ export const PATCH_USER_ORDER = 'patch-user-order';
 export const GET_PENDING_REVIEW = 'get-pending-review';
 export const UPLOAD_FILE = 'upload-file';
 export const FORGOT_PASSWORD = 'forgot-password';
+export const RESET_PASSWORD = 'reset-password';
+export const USER_CREATE_VALIDATION = 'user-create-validation';
+export const RESPONSE = 'response';
