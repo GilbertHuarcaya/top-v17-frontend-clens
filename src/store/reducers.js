@@ -15,6 +15,8 @@ import {
   GET_PENDING_REVIEW,
   UPLOAD_FILE,
   FORGOT_PASSWORD,
+  RESET_PASSWORD,
+  RESPONSE,
 } from './constants';
 
 const initialState = {
@@ -29,6 +31,7 @@ const initialState = {
   postReviewState: null,
   userPendingOrders: [],
   pendingReview: [],
+  response: null,
 };
 
 function reducer(state = initialState, action = '') {
@@ -129,6 +132,24 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         user: newValue,
+      };
+    }
+    case RESET_PASSWORD: {
+      return {
+        ...state,
+        response: newValue,
+      };
+    }
+    case 'reset-response': {
+      return {
+        ...state,
+        response: newValue,
+      };
+    }
+    case RESPONSE: {
+      return {
+        ...state,
+        response: newValue,
       };
     }
     default:

@@ -16,9 +16,20 @@ const patchUser = (user) => {
   return fetch(`${URL_BASE}/api/users/${userId}`, payload);
 };
 // const forgotPassword = (email) => {};
+const sendUserEmail = (form) => {
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(form),
+  };
+  return fetch(`${URL_BASE}/api/users/email`, payload);
+};
 
 const user = {
   patchUser,
+  sendUserEmail,
   // forgotPassword,
 };
 
