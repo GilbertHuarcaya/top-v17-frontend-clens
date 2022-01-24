@@ -2,13 +2,13 @@
 import React from 'react';
 import './styles.scss';
 
-const ActionSuccess = ({ title = '', message = '', visible = false }) => {
+const PaymentSuccess = ({ title = '', message = '', visible = false }) => {
   return (
-    <div className={`action-success ${visible ? 'modal' : 'modal-hidden'}`}>
+    <div className={`payment-success ${visible ? 'modal' : 'modal-hidden'}`}>
       <div className="modal-content">
-        <h2 className="action-success--title">{title}</h2>
-        <article className="action-success__wrapper">
-          <p className="action-success__wrapper--message">{message}</p>
+        <h2 className="payment-success--title">{title}</h2>
+        <article className="payment-success__wrapper">
+          <p className="payment-success__wrapper--message">{message}</p>
           <svg
             id="successAnimation"
             className="animated"
@@ -46,4 +46,4 @@ const ActionSuccess = ({ title = '', message = '', visible = false }) => {
   );
 };
 
-export default ActionSuccess;
+export default PaymentSuccess;

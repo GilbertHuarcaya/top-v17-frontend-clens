@@ -28,7 +28,7 @@ const Pay = () => {
         cardCVC: '',
       };
   const { form, handleChange } = useForm(prefilledForm);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(true);
 
   const paymentForm = {
     city: orderDetails.ciudad,
