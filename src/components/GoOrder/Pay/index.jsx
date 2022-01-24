@@ -208,7 +208,7 @@ const Pay = () => {
           </form>
           <PaymentSuccess
             title="Pago realizado"
-            message="Ha completado satisfactoriamente su orden, un correo será enviado a su correo con los detalles."
+            message="Ha completado satisfactoriamente su orden, un correo será enviado a su email con los detalles."
             visible={success}
           />
         </>
