@@ -43,12 +43,7 @@ const Pay = () => {
 
     await postUserCardToken(dispatch, form);
 
-    if (
-      user?.billing?.customerId === null ||
-      user?.billing?.customerId === undefined
-    ) {
-      postUserCustomerToken(dispatch);
-    }
+    await postUserCustomerToken(dispatch);
 
     await postUserPayment(dispatch, paymentForm);
     setSuccess(true);
