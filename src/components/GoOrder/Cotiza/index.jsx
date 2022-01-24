@@ -19,10 +19,28 @@ const Cotiza = () => {
           service: [],
         };
   const { form, handleChange } = useForm(prefilledForm);
-  const [selectedCocina, setSelectedCocina] = useState('0');
-  const [selectedHabitacion, setSelectedHabitacion] = useState('0');
-  const [selectedBaño, setSelectedBaño] = useState('0');
-  const [selectedSala, setSelectedSala] = useState('0');
+
+  const rememberService = (service) => {
+    const services = orderDetails.service;
+    if (services) {
+      if (services.length >= 1) {
+        const serviceData = services.find((e) => {
+          return e.name === service;
+        });
+        return serviceData ? serviceData.cantidad : '0';
+      }
+    }
+    return '0';
+  };
+
+  const [selectedCocina, setSelectedCocina] = useState(
+    rememberService('Cocina'),
+  );
+  const [selectedHabitacion, setSelectedHabitacion] = useState(
+    rememberService('Habitacion'),
+  );
+  const [selectedBaño, setSelectedBaño] = useState(rememberService('Bano'));
+  const [selectedSala, setSelectedSala] = useState(rememberService('Sala'));
   const [formOk, setFormOk] = useState(false);
 
   const getServiceAmount = (e) => {

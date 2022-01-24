@@ -39,9 +39,6 @@ const RegisterForm = () => {
 
     registerUser(dispatch, form);
     setTimeout(() => {
-      if (response === null) {
-        navigate('/register');
-      }
       dispatch({ type: 'reset-response', payload: null });
     }, 2500);
   };

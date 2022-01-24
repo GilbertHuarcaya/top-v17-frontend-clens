@@ -1,12 +1,12 @@
 .page-content {
   padding-top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 @media (min-width: 769px) {
   .page-content {
     padding-top: 60px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 }
