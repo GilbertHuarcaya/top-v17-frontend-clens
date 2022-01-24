@@ -17,6 +17,9 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   RESPONSE,
+  POST_CARD_TOKEN,
+  POST_CUSTOMER_TOKEN,
+  POST_PAYMENT,
 } from './constants';
 
 const initialState = {
@@ -32,6 +35,9 @@ const initialState = {
   userPendingOrders: [],
   pendingReview: [],
   response: null,
+  cardToken: [],
+  customerToken: '',
+  payment: [],
 };
 
 function reducer(state = initialState, action = '') {
@@ -152,6 +158,21 @@ function reducer(state = initialState, action = '') {
         response: newValue,
       };
     }
+    case POST_CARD_TOKEN:
+      return {
+        ...state,
+        cardToken: newValue,
+      };
+    case POST_CUSTOMER_TOKEN:
+      return {
+        ...state,
+        customerToken: newValue,
+      };
+    case POST_PAYMENT:
+      return {
+        ...state,
+        payment: newValue,
+      };
     default:
       return state;
   }

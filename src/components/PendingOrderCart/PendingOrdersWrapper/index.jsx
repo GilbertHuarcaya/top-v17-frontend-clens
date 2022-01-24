@@ -17,7 +17,7 @@ const PendingOrdersWrapper = () => {
     <div className="cart__shelf-container">
       {userPendingOrders.map((order) => {
         return (
-          <div className="pending__order-review" key={order.cratedAt}>
+          <div className="pending__order-review" key={order.createdAt}>
             <div className="pending__order-review__details">
               <h3>{`Orden solicitada para el : ${order.fecha.date}`}</h3>
               <h3>{`Para empezar entre ${order.horaLlegada}`}</h3>

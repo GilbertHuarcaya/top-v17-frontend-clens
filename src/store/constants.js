@@ -23,3 +23,6 @@ export const FORGOT_PASSWORD = 'forgot-password';
 export const RESET_PASSWORD = 'reset-password';
 export const USER_CREATE_VALIDATION = 'user-create-validation';
 export const RESPONSE = 'response';
+export const POST_CARD_TOKEN = 'post-card-token';
+export const POST_CUSTOMER_TOKEN = 'post-customer-token';
+export const POST_PAYMENT = 'post-payment';
