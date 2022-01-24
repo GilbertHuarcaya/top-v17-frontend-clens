@@ -22,6 +22,9 @@ import {
   USER_CREATE_VALIDATION,
   RESET_PASSWORD,
   RESPONSE,
+  POST_CARD_TOKEN,
+  POST_CUSTOMER_TOKEN,
+  POST_PAYMENT,
 } from './constants';
 
 import authService from '../services/auth';
@@ -29,6 +32,67 @@ import reviewService from '../services/review';
 import orderService from '../services/order';
 import uploadService from '../services/upload';
 import userService from '../services/user';
+import orderPayment from '../services/payment';
+
+export const postUserCardToken = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderPayment.postCardToken(form);
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: POST_CARD_TOKEN, payload: {} });
+    }
+    if (!response.ok) {
+      dispatch({ type: RESPONSE, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const postUserCustomerToken = async (dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderPayment.postCustomerToken();
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: POST_CUSTOMER_TOKEN, payload: {} });
+    }
+    if (!response.ok) {
+      dispatch({ type: RESPONSE, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const postUserPayment = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderPayment.postPayment(form);
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: POST_PAYMENT, payload: {} });
+    }
+    if (!response.ok) {
+      dispatch({ type: RESPONSE, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
 
 export const getUserFromLocalStorage = async (dispatch) => {
   const token = localStorage.getItem('token');
