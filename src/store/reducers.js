@@ -15,8 +15,6 @@ import {
   GET_PENDING_REVIEW,
   UPLOAD_FILE,
   FORGOT_PASSWORD,
-  RESET_PASSWORD,
-  RESPONSE,
   POST_CARD_TOKEN,
   POST_CUSTOMER_TOKEN,
   POST_PAYMENT,
@@ -138,24 +136,6 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         user: newValue,
-      };
-    }
-    case RESET_PASSWORD: {
-      return {
-        ...state,
-        response: newValue,
-      };
-    }
-    case 'reset-response': {
-      return {
-        ...state,
-        response: newValue,
-      };
-    }
-    case RESPONSE: {
-      return {
-        ...state,
-        response: newValue,
       };
     }
     case POST_CARD_TOKEN:

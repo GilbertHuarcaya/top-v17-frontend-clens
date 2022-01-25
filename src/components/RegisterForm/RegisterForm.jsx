@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerUser } from '../../store/actions';
 import useForm from '../../hooks/useForm';
 
@@ -12,10 +12,9 @@ import logo from '../../img/logo-clens.jpg';
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const response = useSelector((state) => state.response);
-  const isLoading = useSelector((state) => state.isLoading);
   const { form, handleChange } = useForm({});
   const [formOk, setFormOk] = useState(0);
+  const [formData, setFormData] = useState();
 
   useEffect(() => {
     const validateForm = () => {
@@ -37,20 +36,24 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    registerUser(dispatch, form);
-    setTimeout(() => {
-      dispatch({ type: 'reset-response', payload: null });
-    }, 2500);
+    const response = await registerUser(dispatch, form);
+
+    setFormData(response);
+    if (response.error) {
+      setTimeout(() => {
+        setFormData(null);
+      }, 2500);
+    }
   };
 
   useEffect(() => {
     const redirect = () => {
-      if (response === true) {
+      if (formData?.ok) {
         navigate('/register-success');
       }
     };
     redirect();
-  }, [isLoading]);
+  }, [formData]);
 
   return (
     <>
@@ -180,8 +183,10 @@ const RegisterForm = () => {
           </Link>
         </div>
       </form>
-      {response !== null && response !== true ? (
-        <p className="alert">{Object.keys(response.error)} is already in use</p>
+      {formData?.error ? (
+        <p className="alert">
+          {Object.keys(formData?.error)} is already in use
+        </p>
       ) : null}
     </>
   );

@@ -7,7 +7,6 @@ import {
   LOGOUT_USER,
   SET_LOADING,
   GET_USER_FROM_LOCALSTORAGE,
-  /*  REGISTER_USER, */
   GET_ALL_REVIEWS,
   GET_ORDERS_FROM_USER,
   GET_ORDER_FORM,
@@ -20,8 +19,6 @@ import {
   UPLOAD_FILE,
   FORGOT_PASSWORD,
   USER_CREATE_VALIDATION,
-  RESET_PASSWORD,
-  RESPONSE,
   POST_CARD_TOKEN,
   POST_CUSTOMER_TOKEN,
   POST_PAYMENT,
@@ -43,12 +40,10 @@ export const postUserCardToken = async (dispatch, form) => {
     if (response.ok) {
       dispatch({ type: POST_CARD_TOKEN, payload: {} });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return error;
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -63,12 +58,10 @@ export const postUserCustomerToken = async (dispatch) => {
     if (response.ok) {
       dispatch({ type: POST_CUSTOMER_TOKEN, payload: {} });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return error;
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -83,12 +76,10 @@ export const postUserPayment = async (dispatch, form) => {
     if (response.ok) {
       dispatch({ type: POST_PAYMENT, payload: {} });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return error;
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -101,7 +92,8 @@ export const getUserFromLocalStorage = async (dispatch) => {
     const response = await authService.revalidateToken(decoded.email);
     if (response.status === 401) {
       localStorage.removeItem('token');
-      return dispatch({ type: LOGOUT_USER, payload: null });
+      dispatch({ type: LOGOUT_USER, payload: null });
+      return 'Your sesion expired, please sign in again';
     }
     return dispatch({ type: GET_USER_FROM_LOCALSTORAGE, payload: decoded });
   }
@@ -120,12 +112,10 @@ export const loginUser = async (dispatch, user) => {
       const decoded = jwt_decode(data.token);
       dispatch({ type: LOGIN_USER, payload: decoded });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -136,16 +126,13 @@ export const registerUser = async (dispatch, newUser) => {
   try {
     const response = await authService.registerAccount(newUser);
     const data = await response.json();
-
-    if (response.ok) {
-      dispatch({ type: RESPONSE, payload: response.ok });
-    }
     if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
+      return data;
     }
+    return response;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -189,9 +176,6 @@ export const getUserOrdersFromDB = async (dispatch, userid) => {
     if (response.ok) {
       dispatch({ type: GET_ORDERS_FROM_USER, payload: data });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -209,12 +193,10 @@ export const postUserReview = async (dispatch, form) => {
     if (response.ok) {
       dispatch({ type: POST_USER_REVIEW, payload: null });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -229,12 +211,10 @@ export const postUserOrder = async (dispatch, form) => {
     if (response.ok) {
       dispatch({ type: POST_USER_ORDER, payload: {} });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -304,9 +284,6 @@ export const getOrderById = async (dispatch, orderid) => {
     if (response.ok) {
       dispatch({ type: GET_ORDER_BY_ID, payload: data });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -353,12 +330,10 @@ export const changePassword = async (dispatch, form) => {
       const decoded = jwt_decode(data.token);
       dispatch({ type: FORGOT_PASSWORD, payload: decoded });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -378,12 +353,10 @@ export const validateUser = async (dispatch, userToken) => {
     if (response.ok) {
       dispatch({ type: USER_CREATE_VALIDATION });
     }
-    if (!response.ok) {
-      dispatch({ type: RESPONSE, payload: data });
-    }
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -393,16 +366,14 @@ export const sendUserEmailResetPassword = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
     const response = await userService.sendUserEmail(form);
-
-    if (response.ok) {
-      dispatch({ type: RESET_PASSWORD, payload: response.ok });
-    }
+    const data = await response.json();
     if (!response.ok) {
-      dispatch({ type: RESET_PASSWORD, payload: response.ok });
+      return data;
     }
+    return response;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error);
+    return console.log(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
@@ -412,16 +383,11 @@ export const resetPassword = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
     const response = await authService.resetPassword(form);
-
-    if (response.ok) {
-      dispatch({ type: RESET_PASSWORD, payload: response.ok });
-    }
-    if (!response.ok) {
-      dispatch({ type: RESET_PASSWORD, payload: response.ok });
-    }
+    const data = await response.json();
+    return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    return console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }
