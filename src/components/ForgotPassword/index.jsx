@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { sendUserEmailResetPassword } from '../../store/actions';
 import useForm from '../../hooks/useForm';
 import ActionSuccess from '../ActionSuccess';
@@ -13,7 +13,7 @@ const ResetPasswordForm = () => {
   const { form, handleChange } = useForm({});
   const [formOk, setFormOk] = useState(0);
   const [success, setSuccess] = useState(false);
-  const response = useSelector((state) => state.response);
+  const [formData, setFormData] = useState();
 
   useEffect(() => {
     const validateForm = () => {
@@ -32,18 +32,20 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    sendUserEmailResetPassword(dispatch, form);
+    const response = await sendUserEmailResetPassword(dispatch, form);
+    setFormData(response);
   };
+
   const handleClose = () => {
     setSuccess(false);
-    dispatch({ type: 'reset-response', payload: null });
+    setFormData(null);
   };
 
   useEffect(() => {
-    if (response) {
+    if (formData?.ok) {
       setSuccess(true);
     }
-  }, [handleSubmit]);
+  }, [formData]);
 
   return (
     <>
@@ -86,7 +88,7 @@ const ResetPasswordForm = () => {
           </Link>
         </div>
       </form>
-      {response === false ? (
+      {formData?.message ? (
         <ActionSuccess
           title="Error"
           message="No se encontró un usuario con el email otorgado, vuelva a intentarlo"

@@ -13,9 +13,9 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const response = useSelector((state) => state.response);
   const { form, handleChange } = useForm({});
   const [formOk, setFormOk] = useState(0);
+  const [formData, setFormData] = useState();
 
   useEffect(() => {
     const validateForm = () => {
@@ -32,14 +32,16 @@ const LoginForm = () => {
     validateForm();
   }, [handleChange]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    loginUser(dispatch, form);
+    const data = await loginUser(dispatch, form);
+    setFormData(data);
     setTimeout(() => {
-      dispatch({ type: 'reset-response', response: null });
+      setFormData(null);
     }, 2500);
   };
+
   useEffect(() => {
     const validateLogin = async () => {
       if (user) {
@@ -121,7 +123,7 @@ const LoginForm = () => {
           </Link>
         </div>
       </form>
-      {response ? <p className="alert">{response.message}</p> : null}
+      {formData ? <p className="alert">{formData.message}</p> : null}
     </>
   );
 };

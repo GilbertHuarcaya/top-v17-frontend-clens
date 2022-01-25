@@ -45,15 +45,16 @@ const Pay = () => {
 
     await postUserCustomerToken(dispatch);
 
-    await postUserPayment(dispatch, paymentForm);
-    setSuccess(true);
-    await postUserOrder(dispatch, orderDetails);
-    setTimeout(() => {
-      navigate('/mi-carrito');
-      setSuccess(false);
-    }, 6000);
+    const response = await postUserPayment(dispatch, paymentForm);
+    if (response.success === true) {
+      setSuccess(true);
+      await postUserOrder(dispatch, orderDetails);
+      setTimeout(() => {
+        navigate('/mi-carrito');
+      }, 6000);
 
-    await getUserOrdersFromDB(dispatch, user.id);
+      await getUserOrdersFromDB(dispatch, user.id);
+    }
   };
 
   return (

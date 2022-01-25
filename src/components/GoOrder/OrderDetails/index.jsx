@@ -45,7 +45,7 @@ const OrderDetails = () => {
   useEffect(() => {
     const validateForm = () => {
       try {
-        if (Object.keys(form).length >= 7 && form.ciudad.length > 2) {
+        if (Object.keys(form)?.length >= 7 && form?.ciudad?.length > 2) {
           setFormOk(true);
         }
       } catch (error) {

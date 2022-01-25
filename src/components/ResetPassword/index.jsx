@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { resetPassword } from '../../store/actions';
+import { resetPassword, loginUser } from '../../store/actions';
 import useForm from '../../hooks/useForm';
 
 import './styles.scss';
@@ -34,8 +34,14 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    resetPassword(dispatch, form);
-    navigate('/');
+    const response = await resetPassword(dispatch, form);
+    if (response) {
+      await loginUser(dispatch, {
+        email: response.email,
+        password: form.password,
+      });
+      navigate('/mi-perfil');
+    }
   };
 
   return (
