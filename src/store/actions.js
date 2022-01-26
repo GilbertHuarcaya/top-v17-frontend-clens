@@ -206,12 +206,12 @@ export const postUserOrder = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
     const response = await orderService.postOrder(form);
-    const data = await response.json();
 
     if (response.ok) {
       dispatch({ type: POST_USER_ORDER, payload: {} });
+      return response;
     }
-    return data;
+    return 'Orden no enviada, porfavor contacte al administrador';
   } catch (error) {
     // eslint-disable-next-line no-console
     return console.error(error);
