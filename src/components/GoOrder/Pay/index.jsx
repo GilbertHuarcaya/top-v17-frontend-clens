@@ -59,12 +59,10 @@ const Pay = () => {
         setTimeout(() => {
           navigate('/mi-carrito');
         }, 6000);
-      } else {
-        setTimeout(() => {
-          setFormData(null);
-        }, 2500);
       }
       await getUserOrdersFromDB(dispatch, user.id);
+    } else {
+      setLoadingPayment(false);
     }
   };
 
