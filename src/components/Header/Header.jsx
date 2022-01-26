@@ -202,13 +202,16 @@ const Header = () => {
           >
             Mi Perfil
           </Link>
-          <Link
-            onClick={handlerMenuUser}
-            className="header__perfil__a"
-            to="/mis-servicios"
-          >
-            Mis servicios
-          </Link>
+          {user?.role === 'usuario' ? null : (
+            <Link
+              onClick={handlerMenuUser}
+              className="header__perfil__a"
+              to="/mis-servicios"
+            >
+              Mis servicios
+            </Link>
+          )}
+
           <Link
             onClick={handlerMenuUser}
             className="header__perfil__a"
