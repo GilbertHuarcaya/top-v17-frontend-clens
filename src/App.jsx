@@ -23,6 +23,7 @@ import NewPassword from './components/InfoCuenta/ChangePassword';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import ValidationEmail from './components/ValidationEmail';
+import MisServicios from './components/MisServicios';
 import './index.scss';
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
           <Route path="services" element={<Services />} />
+          <Route path="/mis-servicios" element={<MisServicios />} />
           <Route path="/mi-perfil/" element={<InfoCuenta />}>
             <Route path="" element={<MiPerfil />} />
             <Route path="cambio-contrasena" element={<NewPassword />} />
@@ -54,7 +56,6 @@ const App = () => (
           path="/validation-email/:userToken"
           element={<ValidationEmail />}
         />
-        ;
         <Route path="/reset-password/:userToken" element={<ResetPassword />} />;
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/register-success" element={<RegisterSuccess />} />

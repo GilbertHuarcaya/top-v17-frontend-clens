@@ -1,0 +1,24 @@
+.my-services-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  height: 400px;
+  margin: 10px 15px;
+
+  &__services-assigned {
+    grid-area: 1 / 1 / 2 / 2;
+    border: thin solid #999;
+  }
+
+  &__services-finished {
+    grid-area: 1 / 2 / 2 / 3;
+    border: thin solid #999;
+  }
+
+  &__benefits-earned {
+    grid-area: 2 / 1 / 3 / 3;
+    border: thin solid #999;
+  }
+}
