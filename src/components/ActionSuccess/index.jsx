@@ -4,10 +4,10 @@ import './styles.scss';
 import { Link } from 'react-router-dom';
 
 const ActionSuccess = ({
-  title = '',
+  title,
   message = '',
   redirect = '/',
-  button = '',
+  button,
   visible = false,
   handleClose,
 }) => {
@@ -17,16 +17,18 @@ const ActionSuccess = ({
         <button type="button" className="close" onClick={handleClose}>
           &times;
         </button>
-        <h2 className="action-success--title">{title}</h2>
+        {title ? <h2 className="action-success--title">{title}</h2> : null}
         <article className="action-success__wrapper">
           <p className="action-success__wrapper--message">{message}</p>
-          <Link
-            className="action-success__wrapper--button"
-            onClick={handleClose}
-            to={redirect}
-          >
-            {button}
-          </Link>
+          {button ? (
+            <Link
+              className="action-success__wrapper--button"
+              onClick={handleClose}
+              to={redirect}
+            >
+              {button}
+            </Link>
+          ) : null}
         </article>
       </div>
     </div>

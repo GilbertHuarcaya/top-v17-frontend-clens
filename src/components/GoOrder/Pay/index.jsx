@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,6 +8,7 @@ import {
   postUserCustomerToken,
   postUserPayment,
 } from '../../../store/actions';
+import ActionSuccess from '../../ActionSuccess';
 import PaymentSuccess from '../../PaymentSuccess';
 import useForm from '../../../hooks/useFormCotizar';
 
@@ -29,6 +30,9 @@ const Pay = () => {
       };
   const { form, handleChange } = useForm(prefilledForm);
   const [success, setSuccess] = useState(false);
+  const [formOk, setFormOk] = useState(false);
+  const [formData, setFormData] = useState();
+  const [loadingPayment, setLoadingPayment] = useState(false);
 
   const paymentForm = {
     city: orderDetails.ciudad,
@@ -40,21 +44,70 @@ const Pay = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoadingPayment(true);
     await postUserCardToken(dispatch, form);
 
     await postUserCustomerToken(dispatch);
-
     const response = await postUserPayment(dispatch, paymentForm);
-    if (response.success === true) {
-      setSuccess(true);
-      await postUserOrder(dispatch, orderDetails);
-      setTimeout(() => {
-        navigate('/mi-carrito');
-      }, 6000);
 
+    setFormData(response);
+    if (response.success === true) {
+      setLoadingPayment(false);
+      setSuccess(true);
+      const orderResponse = await postUserOrder(dispatch, orderDetails);
+      if (orderResponse.ok) {
+        setTimeout(() => {
+          navigate('/mi-carrito');
+        }, 6000);
+      }
       await getUserOrdersFromDB(dispatch, user.id);
+    } else {
+      setLoadingPayment(false);
     }
+  };
+
+  useEffect(() => {
+    const validateForm = () => {
+      if (
+        Object.keys(form).length >= 5 &&
+        form.accept &&
+        orderDetails.precio > 10
+      ) {
+        return setFormOk(true);
+      }
+      return setFormOk(false);
+    };
+    validateForm();
+  }, [handleChange]);
+
+  const handleClose = () => {
+    setSuccess(false);
+    setFormData(null);
+  };
+
+  const paymentMessage = () => {
+    if (formData?.success === true) {
+      return (
+        <PaymentSuccess
+          title="Pago realizado"
+          message="Ha completado satisfactoriamente su orden, un correo será enviado a su email con los detalles."
+          visible={success}
+        />
+      );
+    }
+    if (formData !== null && formData !== undefined) {
+      return (
+        <ActionSuccess
+          title="Error"
+          message={formData.message}
+          redirect="/"
+          button="Volver a Home"
+          visible
+          handleClose={handleClose}
+        />
+      );
+    }
+    return null;
   };
 
   return (
@@ -164,7 +217,9 @@ const Pay = () => {
                   formcontrolname="termsAndConditionsConsent"
                   hktrackfield="termsAndConditionsConsent"
                   id="terms-consent"
+                  name="accept"
                   required
+                  onChange={handleChange}
                   type="checkbox"
                   className="ng-dirty ng-touched ng-valid"
                 />
@@ -190,7 +245,12 @@ const Pay = () => {
                 </span>
               </label>
             </div>
-            <button className="btn btn-primary" id="btn-continue" type="submit">
+            <button
+              className="btn btn-primary"
+              id="btn-continue"
+              type="submit"
+              disabled={!formOk}
+            >
               Completar
             </button>
             <button
@@ -202,11 +262,15 @@ const Pay = () => {
               Volver
             </button>
           </form>
-          <PaymentSuccess
-            title="Pago realizado"
-            message="Ha completado satisfactoriamente su orden, un correo será enviado a su email con los detalles."
-            visible={success}
-          />
+          {loadingPayment ? (
+            <ActionSuccess
+              title="Pagando"
+              message="Pago en proceso..."
+              visible
+              handleClose={handleClose}
+            />
+          ) : null}
+          {paymentMessage()}
         </>
       ) : (
         <button

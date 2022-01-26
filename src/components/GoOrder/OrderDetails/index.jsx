@@ -44,14 +44,10 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const validateForm = () => {
-      try {
-        if (Object.keys(form)?.length >= 7 && form?.ciudad?.length > 2) {
-          setFormOk(true);
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+      if (Object.keys(form)?.length >= 7 && form?.ciudad?.length > 2) {
+        return setFormOk(true);
       }
+      return setFormOk(false);
     };
     validateForm();
   }, [handleChange]);

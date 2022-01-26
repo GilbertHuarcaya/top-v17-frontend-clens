@@ -147,15 +147,7 @@ const Cotiza = () => {
         break;
     }
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    /* loginUser(dispatch, form); */
-    getOrderForm(dispatch, { ...orderDetails, ...form });
-    navigate('/order/tiempo');
-  };
-  useEffect(() => {
+  const precioFinal = () => {
     let suma = 0;
     if (form.service.length > 0) {
       form.service.forEach((e) => {
@@ -173,18 +165,28 @@ const Cotiza = () => {
     const precio =
       form.incluirProductos === 'si' ? { precio: suma + 10 } : { precio: suma };
     return getOrderForm(dispatch, { ...form, ...precio });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    precioFinal();
+    navigate('/order/tiempo');
+  };
+  useEffect(() => {
+    precioFinal();
   }, [form]);
 
   useEffect(() => {
     const validateForm = () => {
-      try {
-        if (Object.keys(form).length >= 4 && form.service.length > 0) {
-          setFormOk(true);
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+      if (
+        Object.keys(form).length >= 4 &&
+        form.service.length > 0 &&
+        orderDetails.precio > 10
+      ) {
+        return setFormOk(true);
       }
+      return setFormOk(false);
     };
     validateForm();
   }, [handleChange]);

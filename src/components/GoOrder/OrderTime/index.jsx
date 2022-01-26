@@ -82,14 +82,10 @@ const OrderTime = () => {
 
   useEffect(() => {
     const validateForm = () => {
-      try {
-        if (Object.keys(form).length >= 3) {
-          setFormOk(true);
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+      if (Object.keys(form).length >= 3 && Object.values(form).length >= 2) {
+        return setFormOk(true);
       }
+      return setFormOk(false);
     };
     validateForm();
   }, [handleChange]);

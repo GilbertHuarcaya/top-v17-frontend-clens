@@ -30,7 +30,6 @@ const GoOrder = () => {
   const precioPorTiempoServicio = horasPorServicio
     ? (precioPorServicios * horasPorServicio) / 10
     : 0;
-
   return (
     <>
       <Header />
@@ -55,8 +54,11 @@ const GoOrder = () => {
             </li>
             <li>
               <NavLink
-                to="/order/tiempo"
-                className={`step ${horaLlegada ? 'step-complete' : null}`}
+                onClick={(e) => {
+                  if (!horaLlegada) e.preventDefault();
+                }}
+                to={ciudad ? '/order/tiempo' : '/'}
+                className={`step ${horaLlegada ? 'step-complete' : ''}`}
               >
                 <div className="step-bullet" />
                 <span className="visible-inline">Tiempo</span>
@@ -65,7 +67,12 @@ const GoOrder = () => {
             </li>
             <li>
               <NavLink
-                to="/order/tu-info"
+                onClick={(e) => {
+                  if (!ciudad) {
+                    e.preventDefault();
+                  }
+                }}
+                to={ciudad ? '/order/tu-info' : '/'}
                 className={`step ${ciudad ? 'step-complete' : null}`}
               >
                 <div className="step-bullet" />
@@ -75,7 +82,10 @@ const GoOrder = () => {
             </li>
             <li>
               <NavLink
-                to="/order/pago"
+                onClick={(e) => {
+                  if (!CVC) e.preventDefault();
+                }}
+                to={ciudad ? '/order/pago' : '/'}
                 className={`step ${CVC ? 'step-complete' : null}`}
               >
                 <span className="step-bullet" />
@@ -112,7 +122,7 @@ const GoOrder = () => {
 
             <div className="order__resumen__price">
               <p>Total</p>
-              <p>${precio}</p>
+              <p>${precio?.toFixed(2)}</p>
             </div>
           </div>
         </div>
