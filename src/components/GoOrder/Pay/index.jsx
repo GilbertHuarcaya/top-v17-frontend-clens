@@ -33,7 +33,7 @@ const Pay = () => {
   const [formOk, setFormOk] = useState(false);
   const [formData, setFormData] = useState();
   const [loadingPayment, setLoadingPayment] = useState(false);
-  console.log(formData);
+
   const paymentForm = {
     city: orderDetails.ciudad,
     address: orderDetails.direccion,
