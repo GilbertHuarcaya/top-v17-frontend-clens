@@ -7,6 +7,7 @@ import {
   getUserOrdersFromDB,
 } from '../../store/actions';
 import useForm from '../../hooks/useForm';
+import noPhoto from '../../img/no-photo.jpeg';
 import './styles.scss';
 
 // eslint-disable-next-line react/prop-types
@@ -20,9 +21,7 @@ const Review = ({ reviewOrder }) => {
     prefilledForm = {
       userId: user.id,
       userName: user.userName,
-      userPhoto: `https://randomuser.me/api/portraits/men/${Math.floor(
-        Math.random() * (100 - 1 + 1) + 1,
-      )}.jpg`,
+      userPhoto: user?.photo?.url || noPhoto,
     };
   } else {
     prefilledForm = {};
