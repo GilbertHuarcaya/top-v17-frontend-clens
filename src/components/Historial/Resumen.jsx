@@ -56,6 +56,8 @@ const Resumen = () => {
 
       const data = [];
       const total = orderById.precio;
+
+      const orderNumberData = orderById.orderNumber;
       let totalPorHora;
 
       // Insert, al comienzo, todos los servicios de la orden
@@ -120,7 +122,7 @@ const Resumen = () => {
           country: 'Peru',
         },
         information: {
-          number: `${year}.000${orderById.orderNumber}`,
+          number: `${year}.${orderNumberData.toString().padStart(4, '0')}`,
           date: `${fecha}`,
           'due-date': `${orderById.fecha.date}`,
         },
