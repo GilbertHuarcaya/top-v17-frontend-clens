@@ -16,6 +16,7 @@ const Container = styled.div`
 
 const Pdf = styled.div`
   border: 1px solid black;
+  font-size: 30px;
 `;
 
 const Button = styled.button`
@@ -105,10 +106,6 @@ const Resumen = () => {
         locale: 'es-PE',
         currency: 'USD',
         taxNotation: 'vat',
-        marginTop: 50,
-        marginRight: 50,
-        marginLeft: 50,
-        marginBottom: 25,
         images: {
           logo: 'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
         },
@@ -135,6 +132,10 @@ const Resumen = () => {
         'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
         settings: {
           'tax-notation': 'IGV',
+          'margin-top': 70,
+          'margin-right': 40,
+          'margin-left': 40,
+          'margin-bottom': 1,
         },
         translate: {
           invoiceNumber: 'Numero de Recibo',
