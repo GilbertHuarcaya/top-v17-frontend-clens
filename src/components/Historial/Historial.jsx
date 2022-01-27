@@ -269,14 +269,6 @@ const Historial = () => {
 
     // Data para la impresion del pdf
     return {
-      documentTitle: 'Recibo',
-      locale: 'es-PE',
-      currency: 'USD',
-      taxNotation: 'vat',
-      marginTop: 50,
-      marginRight: 50,
-      marginLeft: 50,
-      marginBottom: 25,
       images: {
         logo: 'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
       },
@@ -302,9 +294,15 @@ const Historial = () => {
       products: data,
       'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
       settings: {
+        currency: 'USD',
         'tax-notation': 'IGV',
+        'margin-top': 70,
+        'margin-right': 40,
+        'margin-left': 40,
+        'margin-bottom': 1,
       },
       translate: {
+        invoice: 'Recibo',
         invoiceNumber: 'Numero de Recibo',
         invoiceDate: 'Fecha de Recibo',
         products: 'Servicios',

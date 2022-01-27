@@ -102,10 +102,6 @@ const Resumen = () => {
 
       // Data para la impresion del pdf
       return {
-        documentTitle: 'Recibo',
-        locale: 'es-PE',
-        currency: 'USD',
-        taxNotation: 'vat',
         images: {
           logo: 'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
         },
@@ -131,6 +127,7 @@ const Resumen = () => {
         products: data,
         'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
         settings: {
+          currency: 'USD',
           'tax-notation': 'IGV',
           'margin-top': 70,
           'margin-right': 40,
@@ -138,6 +135,7 @@ const Resumen = () => {
           'margin-bottom': 1,
         },
         translate: {
+          invoice: 'Recibo',
           invoiceNumber: 'Numero de Recibo',
           invoiceDate: 'Fecha de Recibo',
           products: 'Servicios',
