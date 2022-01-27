@@ -100,7 +100,9 @@ const Resumen = () => {
         marginRight: 50,
         marginLeft: 50,
         marginBottom: 25,
-        logo: 'https://public.easyinvoice.cloud/img/logo_en_original.png',
+        images: {
+          logo: 'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
+        },
         sender: {
           company: 'Clens',
           address: '4565 N Stelling Rd',
