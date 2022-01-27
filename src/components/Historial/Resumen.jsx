@@ -2,27 +2,36 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import easyinvoice from 'easyinvoice';
 import { getOrderById } from '../../store/actions';
-import Loader from '../Loader';
 
 const Container = styled.div`
   display: flex;
-  margin: auto;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 const Pdf = styled.div`
   border: 1px solid black;
 `;
 
+const Button = styled.button`
+  border: 1px solid green;
+  height: 60px;
+  width: 120px;
+  font-size: 20px;
+  margin: auto;
+`;
+
 const Resumen = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const orderById = useSelector((state) => state.orderById);
-  const isLoading = useSelector((state) => state.isLoading);
+  const [download, setDownload] = useState({});
 
   useEffect(() => {
     const script1 = document.createElement('script');
@@ -140,14 +149,28 @@ const Resumen = () => {
     };
 
     const renderInvoice = async () => {
+      document.getElementById('pdf').innerHTML = 'Cargando datos';
       const data = getSampleData();
       const result = await easyinvoice.createInvoice(data);
+      setDownload(data);
       easyinvoice.render('pdf', result.pdf);
     };
+
     renderInvoice();
   }, [orderById]);
 
-  return <Container>{!isLoading ? <Pdf id="pdf" /> : <Loader />}</Container>;
+  const DownloadInvoice = async () => {
+    const result = await easyinvoice.createInvoice(download);
+    easyinvoice.download('myInvoice.pdf', result.pdf);
+  };
+
+  return (
+    <Container>
+      <Button onClick={() => navigate(-1)}>Regresar</Button>
+      <Pdf id="pdf" />
+      <Button onClick={() => DownloadInvoice()}>Descargar</Button>
+    </Container>
+  );
 };
 
 export default Resumen;
