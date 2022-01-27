@@ -30,13 +30,17 @@ const OrdersContainer = styled.div`
   align-items: center;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color: white;
-  height: auto;
   min-height: 20rem;
   width: 90vw;
   max-width: 1300px;
-  margin: -45px auto 20px auto;
+  margin: auto auto 20px auto;
   padding: 0 0 15px 0;
   border-radius: 20px;
+  overflow: hidden;
+
+  @media screen and (min-height: 767px) {
+    margin: -45px auto 20px auto;
+  }
 `;
 
 const View = styled.div`
