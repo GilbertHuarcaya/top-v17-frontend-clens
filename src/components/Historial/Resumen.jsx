@@ -2,27 +2,37 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import easyinvoice from 'easyinvoice';
 import { getOrderById } from '../../store/actions';
-import Loader from '../Loader';
 
 const Container = styled.div`
   display: flex;
-  margin: auto;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 const Pdf = styled.div`
   border: 1px solid black;
+  font-size: 30px;
+`;
+
+const Button = styled.button`
+  border: 1px solid green;
+  height: 60px;
+  width: 120px;
+  font-size: 20px;
+  margin: auto;
 `;
 
 const Resumen = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const orderById = useSelector((state) => state.orderById);
-  const isLoading = useSelector((state) => state.isLoading);
+  const [download, setDownload] = useState({});
 
   useEffect(() => {
     const script1 = document.createElement('script');
@@ -46,6 +56,8 @@ const Resumen = () => {
 
       const data = [];
       const total = orderById.precio;
+
+      const orderNumberData = orderById.orderNumber;
       let totalPorHora;
 
       // Insert, al comienzo, todos los servicios de la orden
@@ -92,15 +104,9 @@ const Resumen = () => {
 
       // Data para la impresion del pdf
       return {
-        documentTitle: 'Recibo',
-        locale: 'es-PE',
-        currency: 'USD',
-        taxNotation: 'vat',
-        marginTop: 50,
-        marginRight: 50,
-        marginLeft: 50,
-        marginBottom: 25,
-        logo: 'https://public.easyinvoice.cloud/img/logo_en_original.png',
+        images: {
+          logo: 'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
+        },
         sender: {
           company: 'Clens',
           address: '4565 N Stelling Rd',
@@ -116,16 +122,22 @@ const Resumen = () => {
           country: 'Peru',
         },
         information: {
-          number: `${year}.000${orderById.orderNumber}`,
+          number: `${year}.${orderNumberData.toString().padStart(4, '0')}`,
           date: `${fecha}`,
           'due-date': `${orderById.fecha.date}`,
         },
         products: data,
         'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
         settings: {
+          currency: 'USD',
           'tax-notation': 'IGV',
+          'margin-top': 70,
+          'margin-right': 40,
+          'margin-left': 40,
+          'margin-bottom': 1,
         },
         translate: {
+          invoice: 'Recibo',
           invoiceNumber: 'Numero de Recibo',
           invoiceDate: 'Fecha de Recibo',
           products: 'Servicios',
@@ -138,14 +150,28 @@ const Resumen = () => {
     };
 
     const renderInvoice = async () => {
+      document.getElementById('pdf').innerHTML = 'Cargando datos';
       const data = getSampleData();
       const result = await easyinvoice.createInvoice(data);
+      setDownload(data);
       easyinvoice.render('pdf', result.pdf);
     };
+
     renderInvoice();
   }, [orderById]);
 
-  return <Container>{!isLoading ? <Pdf id="pdf" /> : <Loader />}</Container>;
+  const DownloadInvoice = async () => {
+    const result = await easyinvoice.createInvoice(download);
+    easyinvoice.download('myInvoice.pdf', result.pdf);
+  };
+
+  return (
+    <Container>
+      <Button onClick={() => navigate(-1)}>Regresar</Button>
+      <Pdf id="pdf" />
+      <Button onClick={() => DownloadInvoice()}>Descargar</Button>
+    </Container>
+  );
 };
 
 export default Resumen;

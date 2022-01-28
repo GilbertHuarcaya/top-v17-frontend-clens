@@ -30,13 +30,17 @@ const OrdersContainer = styled.div`
   align-items: center;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color: white;
-  height: auto;
   min-height: 20rem;
   width: 90vw;
   max-width: 1300px;
-  margin: -45px auto 20px auto;
+  margin: auto auto 20px auto;
   padding: 0 0 15px 0;
   border-radius: 20px;
+  overflow: hidden;
+
+  @media screen and (min-height: 767px) {
+    margin: -45px auto 20px auto;
+  }
 `;
 
 const View = styled.div`
@@ -265,15 +269,9 @@ const Historial = () => {
 
     // Data para la impresion del pdf
     return {
-      documentTitle: 'Recibo',
-      locale: 'es-PE',
-      currency: 'USD',
-      taxNotation: 'vat',
-      marginTop: 50,
-      marginRight: 50,
-      marginLeft: 50,
-      marginBottom: 25,
-      logo: 'https://public.easyinvoice.cloud/img/logo_en_original.png',
+      images: {
+        logo: 'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
+      },
       sender: {
         company: 'Clens',
         address: '4565 N Stelling Rd',
@@ -296,9 +294,15 @@ const Historial = () => {
       products: data,
       'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
       settings: {
+        currency: 'USD',
         'tax-notation': 'IGV',
+        'margin-top': 70,
+        'margin-right': 40,
+        'margin-left': 40,
+        'margin-bottom': 1,
       },
       translate: {
+        invoice: 'Recibo',
         invoiceNumber: 'Numero de Recibo',
         invoiceDate: 'Fecha de Recibo',
         products: 'Servicios',
