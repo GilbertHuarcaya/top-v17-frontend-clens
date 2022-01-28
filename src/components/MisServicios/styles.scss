@@ -1,0 +1,50 @@
+.my-services-wrapper {
+  margin: 10px 15px;
+
+  &__user-name {
+    margin: 15px;
+
+    & > span {
+      text-decoration: underline;
+      color: #507cab;
+    }
+  }
+
+  &__grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    min-height: 400px;
+    min-width: 350px;
+    font-size: 10px;
+
+    &-services-assigned {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      border: thin solid #507cab;
+      border-radius: 5px;
+      padding: 7px;
+      color: #507cab;
+    }
+
+    &-services-finished {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      border-radius: 5px;
+      padding: 7px;
+      color: #507cab;
+      border: thin solid #507cab;
+    }
+
+    &-benefits-earned {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      border-radius: 5px;
+      padding: 7px;
+      color: #507cab;
+      border: thin solid #507cab;
+    }
+  }
+}
