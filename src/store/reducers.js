@@ -5,6 +5,7 @@ import {
   LOGOUT_USER,
   REGISTER_USER,
   GET_ALL_REVIEWS,
+  GET_ALL_ORDERS,
   GET_ORDER_FORM,
   GET_ORDERS_FROM_USER,
   POST_USER_REVIEW,
@@ -36,6 +37,7 @@ const initialState = {
   cardToken: [],
   customerToken: '',
   payment: [],
+  allOrders: [],
 };
 
 function reducer(state = initialState, action = '') {
@@ -152,6 +154,11 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         payment: newValue,
+      };
+    case GET_ALL_ORDERS:
+      return {
+        ...state,
+        allOrders: newValue,
       };
     default:
       return state;

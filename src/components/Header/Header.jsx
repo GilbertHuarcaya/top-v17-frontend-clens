@@ -220,6 +220,13 @@ const Header = () => {
             Mi historial
           </Link>
           <Link
+            onClick={handlerMenuUser}
+            className="header__perfil__a"
+            to="/panel-administrador"
+          >
+            Administrador
+          </Link>
+          <Link
             onClick={handleCloseSession}
             type="button"
             className="header__perfil__a"
