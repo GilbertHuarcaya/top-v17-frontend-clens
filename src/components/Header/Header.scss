@@ -332,8 +332,11 @@
     }
     /* menu perfil */
     &__perfil {
-      bottom: -151px;
+      bottom: 0;
       right: 1px;
+      top: 60px;
+      height: fit-content;
+      background-color: #77c6ca;
     }
     /* carrito de compras y foto usuario (menu) */
     &__user {
