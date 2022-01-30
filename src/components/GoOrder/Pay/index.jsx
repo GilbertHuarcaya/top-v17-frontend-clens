@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,6 +35,10 @@ const Pay = () => {
   const [formData, setFormData] = useState();
   const [loadingPayment, setLoadingPayment] = useState(false);
 
+  const [showStoredCC, setShowStoredCC] = useState(false);
+  const [showNewCCForm, setShowNewCCForm] = useState(false);
+  const [CCSelected, setCCSelected] = useState(false);
+
   const paymentForm = {
     city: orderDetails.ciudad,
     address: orderDetails.direccion,
@@ -45,6 +50,7 @@ const Pay = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingPayment(true);
+
     await postUserCardToken(dispatch, form);
 
     await postUserCustomerToken(dispatch);
@@ -68,9 +74,13 @@ const Pay = () => {
 
   useEffect(() => {
     const validateForm = () => {
+      const accept = document.getElementsByName('accept');
       if (
         Object.keys(form).length >= 5 &&
-        form.accept &&
+        accept[0].checked === true &&
+        form.cardExpMonth.length === 2 &&
+        form.cardExpYear.length === 4 &&
+        form.cardCVC.length >= 3 &&
         orderDetails.precio > 10
       ) {
         return setFormOk(true);
@@ -110,158 +120,274 @@ const Pay = () => {
     return null;
   };
 
+  const validateStoredCC = () => {
+    const radios = document.getElementsByName('creditCards-Input');
+    const radiosArray = Array.from(radios);
+    const accept = document.getElementsByName('accept');
+
+    radiosArray.map((r) => {
+      if (r.checked === true && accept[0].checked === true) {
+        setCCSelected(true);
+      }
+    });
+  };
+
+  function trueStoredCC() {
+    setShowStoredCC(true);
+    setShowNewCCForm(false);
+  }
+
+  function trueNewCCForm() {
+    setCCSelected(false);
+    setShowNewCCForm(true);
+    setShowStoredCC(false);
+  }
+
   return (
     <div className="pay">
       {user ? (
         <>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <p className="help-block">
-                Solo se le cobrará después de que se complete la limpieza. Puede
-                cambiar o cancelar este horario en cualquier momento.
-              </p>
-            </div>
-            <div className="form-group">
-              <label className="control-label" htmlFor="distrito">
-                <span> Número de tarjeta </span>
-                <div className="slot">
+          <div className="seleccion">
+            <button
+              type="button"
+              className="seleccion-Button"
+              onClick={() => trueStoredCC()}
+              style={{
+                backgroundColor: showStoredCC ? '#77c6ca' : 'transparent',
+              }}
+            >
+              Guardadas
+            </button>
+            <button
+              type="button"
+              className="seleccion-Button"
+              onClick={() => trueNewCCForm()}
+              style={{
+                backgroundColor: showNewCCForm ? '#77c6ca' : 'transparent',
+              }}
+            >
+              Nueva
+            </button>
+          </div>
+
+          {showStoredCC ? (
+            <form onSubmit={handleSubmit}>
+              <div className="creditCards">
+                {user.billing.creditCards.map((c) => (
+                  <div key={c.tokenId} className="creditCards-Single">
+                    <input
+                      id={c.tokenId}
+                      type="radio"
+                      name="creditCards-Input"
+                      className="creditCards-Input"
+                      onChange={validateStoredCC}
+                      onClick={(e) => console.log(e.target.id)}
+                    />
+                    <span>{c.mask}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="checkbox">
+                <label htmlFor="terms-consent">
                   <input
-                    className="InputElement is-empty Input Input--empty input-text"
-                    autoComplete="cc-number"
-                    autoCorrect="off"
-                    spellCheck="false"
-                    type="text"
-                    name="cardNumber"
-                    id="cardNumber"
-                    onChange={handleChange}
-                    data-elements-stable-field-name="cardNumber"
-                    inputMode="numeric"
-                    aria-label="Número de la tarjeta de crédito o débito"
-                    placeholder="1234 1234 1234 1234"
-                    aria-invalid="false"
-                    defaultValue=""
+                    formcontrolname="termsAndConditionsConsent"
+                    hktrackfield="termsAndConditionsConsent"
+                    id="terms-consent"
+                    name="accept"
+                    required
+                    onChange={validateStoredCC}
+                    type="checkbox"
+                    className="ng-dirty ng-touched ng-valid"
                   />
-                </div>
-              </label>
-            </div>
-            <div className="form-group">
-              <div className="slot">
-                <label className="control-label" htmlFor="distrito">
-                  <span> Mes de expiración </span>
-                  <div className="slot">
-                    <input
-                      className="InputElement is-empty Input Input--empty input-text"
-                      autoComplete="cc-exp"
-                      autoCorrect="off"
-                      spellCheck="false"
-                      type="text"
-                      name="cardExpMonth"
-                      id="cardExpMonth"
-                      onChange={handleChange}
-                      data-elements-stable-field-name="cardExpMonth"
-                      inputMode="numeric"
-                      aria-label="Fecha de caducidad de la tarjeta de crédito o débito"
-                      placeholder="MM"
-                      aria-invalid="false"
-                      defaultValue=""
-                    />
-                  </div>
+                  <span>
+                    Acepto los{' '}
+                    <a
+                      href="https://housekeep.com/footer/terms-conditions/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      términos y condiciones
+                    </a>
+                    , he leído la{' '}
+                    <a
+                      href="https://housekeep.com/footer/privacy/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      política de privacidad
+                    </a>{' '}
+                    y autorizo a Clens a cargar mi tarjeta de pago de acuerdo
+                    con estos términos.
+                  </span>
                 </label>
+              </div>
+              <button
+                className="btn btn-primary"
+                id="btn-continue"
+                type="submit"
+                disabled={!CCSelected}
+              >
+                Completar
+              </button>
+              <button
+                className="btn btn-primary"
+                id="btn-back"
+                type="button"
+                onClick={() => navigate('/order/tu-info')}
+              >
+                Volver
+              </button>
+            </form>
+          ) : null}
+
+          {showNewCCForm ? (
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
                 <label className="control-label" htmlFor="distrito">
-                  <span> Año de expiración </span>
+                  <span> Número de tarjeta </span>
                   <div className="slot">
                     <input
                       className="InputElement is-empty Input Input--empty input-text"
-                      autoComplete="cc-exp"
+                      autoComplete="cc-number"
                       autoCorrect="off"
                       spellCheck="false"
                       type="text"
-                      name="cardExpYear"
-                      id="cardExpYear"
+                      name="cardNumber"
+                      id="cardNumber"
                       onChange={handleChange}
-                      data-elements-stable-field-name="cardExpYear"
+                      maxLength={16}
+                      data-elements-stable-field-name="cardNumber"
                       inputMode="numeric"
-                      aria-label="Fecha de caducidad de la tarjeta de crédito o débito"
-                      placeholder="AAAA"
+                      aria-label="Número de la tarjeta de crédito o débito"
+                      placeholder="1234 1234 1234 1234"
                       aria-invalid="false"
-                      defaultValue=""
-                    />
-                  </div>
-                </label>
-                <label className="control-label" htmlFor="distrito">
-                  <span> CVC </span>
-                  <div className="slot">
-                    <input
-                      className="InputElement is-empty Input Input--empty input-text"
-                      autoComplete="cc-csc"
-                      autoCorrect="off"
-                      spellCheck="false"
-                      type="text"
-                      name="cardCVC"
-                      id="cardCVC"
-                      onChange={handleChange}
-                      data-elements-stable-field-name="cardCVC"
-                      inputMode="numeric"
-                      aria-label="CVC/CVV de la tarjeta de crédito o débito"
-                      placeholder="123"
-                      aria-invalid="false"
-                      defaultValue=""
+                      defaultValue={form.cardNumber}
                     />
                   </div>
                 </label>
               </div>
-            </div>
-            <div className="checkbox">
-              <label htmlFor="terms-consent">
-                <input
-                  formcontrolname="termsAndConditionsConsent"
-                  hktrackfield="termsAndConditionsConsent"
-                  id="terms-consent"
-                  name="accept"
-                  required
-                  onChange={handleChange}
-                  type="checkbox"
-                  className="ng-dirty ng-touched ng-valid"
-                />
-                <span>
-                  Acepto los{' '}
-                  <a
-                    href="https://housekeep.com/footer/terms-conditions/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    términos y condiciones
-                  </a>
-                  , he leído la{' '}
-                  <a
-                    href="https://housekeep.com/footer/privacy/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    política de privacidad
-                  </a>{' '}
-                  y autorizo a Clens a cargar mi tarjeta de pago de acuerdo con
-                  estos términos.
-                </span>
-              </label>
-            </div>
-            <button
-              className="btn btn-primary"
-              id="btn-continue"
-              type="submit"
-              disabled={!formOk}
-            >
-              Completar
-            </button>
-            <button
-              className="btn btn-primary"
-              id="btn-back"
-              type="button"
-              onClick={() => navigate('/order/tu-info')}
-            >
-              Volver
-            </button>
-          </form>
+              <div className="form-group">
+                <div className="slot">
+                  <label className="control-label" htmlFor="distrito">
+                    <span> Mes de expiración </span>
+                    <div className="slot">
+                      <input
+                        className="InputElement is-empty Input Input--empty input-text"
+                        autoComplete="cc-exp"
+                        autoCorrect="off"
+                        spellCheck="false"
+                        type="text"
+                        name="cardExpMonth"
+                        id="cardExpMonth"
+                        maxLength={2}
+                        onChange={handleChange}
+                        data-elements-stable-field-name="cardExpMonth"
+                        inputMode="numeric"
+                        aria-label="Fecha de caducidad de la tarjeta de crédito o débito"
+                        placeholder="MM"
+                        aria-invalid="false"
+                        defaultValue={form.cardExpMonth}
+                      />
+                    </div>
+                  </label>
+                  <label className="control-label" htmlFor="distrito">
+                    <span> Año de expiración </span>
+                    <div className="slot">
+                      <input
+                        className="InputElement is-empty Input Input--empty input-text"
+                        autoComplete="cc-exp"
+                        autoCorrect="off"
+                        spellCheck="false"
+                        type="text"
+                        name="cardExpYear"
+                        id="cardExpYear"
+                        maxLength={4}
+                        onChange={handleChange}
+                        data-elements-stable-field-name="cardExpYear"
+                        inputMode="numeric"
+                        aria-label="Fecha de caducidad de la tarjeta de crédito o débito"
+                        placeholder="AAAA"
+                        aria-invalid="false"
+                        defaultValue={form.cardExpYear}
+                      />
+                    </div>
+                  </label>
+                  <label className="control-label" htmlFor="distrito">
+                    <span> CVC </span>
+                    <div className="slot">
+                      <input
+                        className="InputElement is-empty Input Input--empty input-text"
+                        autoComplete="cc-csc"
+                        autoCorrect="off"
+                        spellCheck="false"
+                        type="text"
+                        name="cardCVC"
+                        id="cardCVC"
+                        maxLength={4}
+                        onChange={handleChange}
+                        data-elements-stable-field-name="cardCVC"
+                        inputMode="numeric"
+                        aria-label="CVC/CVV de la tarjeta de crédito o débito"
+                        placeholder="123"
+                        aria-invalid="false"
+                        defaultValue={form.cardCVC}
+                      />
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div className="checkbox">
+                <label htmlFor="terms-consent">
+                  <input
+                    formcontrolname="termsAndConditionsConsent"
+                    hktrackfield="termsAndConditionsConsent"
+                    id="terms-consent"
+                    name="accept"
+                    required
+                    onChange={handleChange}
+                    type="checkbox"
+                    className="ng-dirty ng-touched ng-valid"
+                  />
+                  <span>
+                    Acepto los{' '}
+                    <a
+                      href="https://housekeep.com/footer/terms-conditions/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      términos y condiciones
+                    </a>
+                    , he leído la{' '}
+                    <a
+                      href="https://housekeep.com/footer/privacy/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      política de privacidad
+                    </a>{' '}
+                    y autorizo a Clens a cargar mi tarjeta de pago de acuerdo
+                    con estos términos.
+                  </span>
+                </label>
+              </div>
+              <button
+                className="btn btn-primary"
+                id="btn-continue"
+                type="submit"
+                disabled={!formOk}
+              >
+                Completar
+              </button>
+              <button
+                className="btn btn-primary"
+                id="btn-back"
+                type="button"
+                onClick={() => navigate('/order/tu-info')}
+              >
+                Volver
+              </button>
+            </form>
+          ) : null}
           {loadingPayment ? (
             <ActionSuccess
               title="Pagando"
