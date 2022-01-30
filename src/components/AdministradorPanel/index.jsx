@@ -17,12 +17,14 @@ const AdministratorPanel = () => {
   }, []);
 
   return (
-    <section className="administrator-panel-wrapper">
+    <>
       <h2>Panel de administrador</h2>
-      {allOrders.map((order) => (
-        <li key={Math.random()}>{ShowInfoOrder(order)}</li>
-      ))}
-    </section>
+      <section className="administrator-panel-wrapper">
+        {allOrders.map((order) => (
+          <li key={Math.random()}>{ShowInfoOrder(order)}</li>
+        ))}
+      </section>
+    </>
   );
 };
 

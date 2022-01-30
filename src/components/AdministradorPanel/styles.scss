@@ -1,3 +1,7 @@
 .administrator-panel-wrapper {
   padding: 15px;
+  list-style: none;
+  // width: 350px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
