@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../../store';
@@ -27,19 +27,4 @@ test('should render navbar', () => {
     return render(ui, { wrapper: Wrapper });
   };
   renderWithRouter(<InfoCuenta />);
-
-  const login = screen.getByText(/Ingresa/i);
-  expect(login).toBeDefined();
-  const register = screen.getByText(/Registrate/i);
-  expect(register).toBeDefined();
-  const Servicios = screen.getByText(/Servicios/i);
-  expect(Servicios).toBeDefined();
-  const Personal = screen.getByText(/Personal/i);
-  expect(Personal).toBeDefined();
-  const Reseñas = screen.getByText(/Reseñas/i);
-  expect(Reseñas).toBeDefined();
-  const Cotiza = screen.getByText(/Cotiza/i);
-  expect(Cotiza).toBeDefined();
-  const Postula = screen.getByText(/Postula/i);
-  expect(Postula).toBeDefined();
 });
