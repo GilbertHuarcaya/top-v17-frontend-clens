@@ -5,7 +5,8 @@ import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { AdvancedImage } from '@cloudinary/react';
 import { Cloudinary } from '@cloudinary/url-gen';
-import { postUploadFile } from '../../../store/actions';
+import { postUploadFile, patchUserData } from '../../../store/actions';
+import useForm from '../../../hooks/useForm';
 
 const CLOUD = process.env.REACT_APP_CLOUD_NAME;
 const image = <FontAwesomeIcon icon={faImage} />;
@@ -16,7 +17,11 @@ const MiPerfil = () => {
   const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
   const [file, setFile] = useState(null);
   const [blocked, setBlocked] = useState(true);
-  // const [files, setFiles] = useState(null);
+  const prefilledForm = {
+    direccion: user.direccion,
+    telefono: user.telefono,
+  };
+  const { form, handleChange } = useForm(prefilledForm);
   const cld = new Cloudinary({
     cloud: {
       cloudName: CLOUD,
@@ -38,12 +43,20 @@ const MiPerfil = () => {
     }
     return setToggleCLassBtnUser(false);
   };
-  const onSubmit = async (e) => {
+  const onSubmitFoto = async (e) => {
     e.preventDefault();
     await postUploadFile(dispatch, file, user);
     handlerUserPhoto();
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await patchUserData(dispatch, {
+      id: user.id,
+      direccion: form.direccion,
+      telefono: form.telefono,
+    });
+  };
   return (
     <>
       <form className="card__form">
@@ -59,33 +72,45 @@ const MiPerfil = () => {
           <AdvancedImage cldImg={myImage} />
         </button>
         <div className="card__form__group">
-          <p className="card__form__titulo">Dirección</p>
+          <p className="card__form__titulo">
+            Nombre Completo <small> - No puede editar este campo</small>
+          </p>
           <input
             type="text"
-            id="input-direccion"
+            id="nombre"
+            name="fullname"
             className="card__form__input"
-            defaultValue={user.direccion}
+            defaultValue={user.fullname}
+            disabled
           />
         </div>
         <div className="card__form__group">
-          <p className="card__form__titulo">Nombre Completo</p>
+          <p className="card__form__titulo">Dirección</p>
           <input
             type="text"
-            id="input-nombre"
+            id="direccion"
+            name="direccion"
             className="card__form__input"
-            defaultValue={user.fullname}
+            onChange={handleChange}
+            defaultValue={user.direccion}
           />
         </div>
         <div className="card__form__group">
           <p className="card__form__titulo">Teléfono</p>
           <input
             type="tel"
-            id="input-telefono"
+            id="telefono"
+            name="telefono"
             className="card__form__input"
+            onChange={handleChange}
             defaultValue={user.telefono}
           />
         </div>
-        <button type="submit" className="card__form__btn">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="card__form__btn"
+        >
           Actualizar
         </button>
         <p className="card__form__link">
@@ -102,7 +127,7 @@ const MiPerfil = () => {
         }
         id="menu-perfil"
       >
-        <form className="card__form" onSubmit={onSubmit}>
+        <form className="card__form">
           <h4 className="card__form__h4">Cambie su foto</h4>
           <button
             type="button"
@@ -131,7 +156,11 @@ const MiPerfil = () => {
               {blocked ? null : '✔'}
             </button>
           </div>
-          <button type="submit" className="card__form__btn">
+          <button
+            type="button"
+            onClick={onSubmitFoto}
+            className="card__form__btn"
+          >
             Actualizar
           </button>
         </form>

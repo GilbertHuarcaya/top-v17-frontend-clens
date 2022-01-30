@@ -243,7 +243,7 @@ const OrderTime = () => {
                             defaultValue={e.hora}
                           />
                           <div className="option-label__text">
-                            <p>{e.hora}</p>
+                            <p>{e.horaLlegada}</p>
                           </div>
                         </label>
                       ))
@@ -262,7 +262,7 @@ const OrderTime = () => {
                             defaultValue={e.hora}
                           />
                           <div className="option-label__text">
-                            <p>{e.hora}</p>
+                            <p>{e.horaLlegada}</p>
                           </div>
                         </label>
                       ))}
@@ -288,7 +288,7 @@ const OrderTime = () => {
                             defaultValue={e.hora}
                           />
                           <div className="option-label__text">
-                            <p>{e.hora}</p>
+                            <p>{e.horaLlegada}</p>
                           </div>
                         </label>
                       ))
@@ -308,7 +308,7 @@ const OrderTime = () => {
                             defaultValue={e.hora}
                           />
                           <div className="option-label__text">
-                            <p>{e.hora}</p>
+                            <p>{e.horaLlegada}</p>
                           </div>
                         </label>
                       ))}

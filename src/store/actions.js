@@ -392,3 +392,44 @@ export const resetPassword = async (dispatch, form) => {
     dispatch({ type: SET_LOADING, payload: false });
   }
 };
+
+export const patchPersonalDisponibility = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await userService.patchUser({
+      id: form.userId,
+      disponibility: form,
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      return response;
+    }
+    return data;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const patchUserData = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await userService.patchUser(form);
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem('token', data.token);
+      const decoded = jwt_decode(data.token);
+      dispatch({ type: LOGIN_USER, payload: decoded });
+    }
+    return data;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};

@@ -24,6 +24,7 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import ValidationEmail from './components/ValidationEmail';
 import MisServicios from './components/MisServicios';
+import PersonalDisponibility from './components/PersonalDisponibility';
 import './index.scss';
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
+          <Route path="disponibilidad" element={<PersonalDisponibility />} />
           <Route path="services" element={<Services />} />
           <Route path="/mis-servicios" element={<MisServicios />} />
           <Route path="/mi-perfil/" element={<InfoCuenta />}>
