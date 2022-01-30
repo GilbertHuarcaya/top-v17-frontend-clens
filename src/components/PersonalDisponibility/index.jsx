@@ -40,7 +40,7 @@ const PersonalDisponibility = () => {
     };
     validateForm();
   }, [handleChange]);
-  console.log(form);
+
   return (
     <div className="disponibility">
       {user ? (
