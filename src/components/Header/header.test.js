@@ -28,10 +28,6 @@ test('should render navbar', () => {
   };
   renderWithRouter(<Header />);
 
-  const login = screen.getByText(/Ingresa/i);
-  expect(login).toBeDefined();
-  const register = screen.getByText(/Registrate/i);
-  expect(register).toBeDefined();
   const Servicios = screen.getByText(/Servicios/i);
   expect(Servicios).toBeDefined();
   const Personal = screen.getByText(/Personal/i);
@@ -42,4 +38,6 @@ test('should render navbar', () => {
   expect(Cotiza).toBeDefined();
   const Postula = screen.getByText(/Postula/i);
   expect(Postula).toBeDefined();
+  const login = screen.getByText(/Ingresa/i);
+  expect(login).toBeDefined();
 });

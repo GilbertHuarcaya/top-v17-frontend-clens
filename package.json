@@ -5,8 +5,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "npm run static-code-analysis && npm run dynamic-code-analysis",
+    "static-code-analysis": "npm run prettier",
+    "dynamic-code-analysis": "react-scripts test",
+    "prettier": "prettier --check \"src/**/*.{js,jsx}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx}\""
   },
   "volta": {
     "node": "16.13.0",
@@ -51,7 +55,10 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-testing-library": "^3.10.2",
-    "sass": "^1.43.4"
+    "sass": "^1.43.4",
+    "@types/node": "10.12.9",
+    "@types/react": "16.9.0",
+    "prettier": "1.16.4"
   },
   "repository": {
     "type": "git",
@@ -67,6 +74,12 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/GilbertHuarcaya/top-v17-frontend-clens/issues"
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always"
   },
   "browserslist": {
     "production": [
