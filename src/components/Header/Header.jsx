@@ -206,7 +206,7 @@ const Header = () => {
             <Link
               onClick={handlerMenuUser}
               className="header__perfil__a"
-              to="mis-servicios"
+              to="/mis-servicios"
             >
               Mis servicios
             </Link>
@@ -215,7 +215,7 @@ const Header = () => {
             <Link
               onClick={handlerMenuUser}
               className="header__perfil__a"
-              to="disponibilidad"
+              to="/disponibilidad"
             >
               Mi horario
             </Link>

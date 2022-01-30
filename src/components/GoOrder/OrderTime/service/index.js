@@ -3,11 +3,11 @@ export const createMorningToday = () => {
   for (let i = 7; i < 12; i += 1) {
     const hora = {
       hora: `${i}:00 - ${i}:30`,
-      disabled: i < new Date().getHours(),
+      disabled: i < new Date().getHours() + 1,
     };
     const nextHora = {
       hora: `${i}:30 - ${i + 1}:00`,
-      disabled: i < new Date().getHours(),
+      disabled: i < new Date().getHours() + 1,
     };
     Array.push(hora);
     Array.push(nextHora);
@@ -19,11 +19,11 @@ export const createAfternoonToday = () => {
   for (let i = 13; i < 18; i += 1) {
     const hora = {
       hora: `${i}:00 - ${i}:30`,
-      disabled: i < new Date().getHours(),
+      disabled: i < new Date().getHours() + 1,
     };
     const nextHora = {
       hora: `${i}:30 - ${i + 1}:00`,
-      disabled: i < new Date().getHours(),
+      disabled: i < new Date().getHours() + 1,
     };
     Array.push(hora);
     Array.push(nextHora);
