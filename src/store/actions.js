@@ -90,14 +90,24 @@ export const postUserPayment = async (dispatch, form) => {
 
 export const getUserFromLocalStorage = async (dispatch) => {
   const token = localStorage.getItem('token');
+
   if (token) {
     const decoded = jwt_decode(token);
     const response = await authService.revalidateToken(decoded.email);
+    const data = await response.json();
+
     if (response.status === 401) {
       localStorage.removeItem('token');
       dispatch({ type: LOGOUT_USER, payload: null });
       return 'Your sesion expired, please sign in again';
     }
+
+    if (response.status === 200) {
+      localStorage.setItem('token', data);
+      const decoded2 = jwt_decode(data);
+      dispatch({ type: LOGIN_USER, payload: decoded2 });
+    }
+
     return dispatch({ type: GET_USER_FROM_LOCALSTORAGE, payload: decoded });
   }
   return dispatch({ type: LOGOUT_USER, payload: null });

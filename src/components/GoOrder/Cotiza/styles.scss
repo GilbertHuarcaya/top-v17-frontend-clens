@@ -1,11 +1,39 @@
 .headline {
   margin-bottom: 2rem;
 }
+.creditCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-around;
+  margin-top: 3rem;
+
+  &-Single {
+    padding: 0.7rem;
+  }
+}
+.seleccion {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  &-Button {
+    font-size: 2rem;
+    height: 5rem;
+    width: 15rem;
+    border: 2px solid #77c6ca;
+    border-radius: 12px;
+
+    &:hover {
+      background-color: #77c6ca;
+    }
+  }
+}
 .form-group {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 0 1rem 0;
+  margin: 3rem 0 1rem 0;
   padding-bottom: 1rem;
 
   .control-label {
