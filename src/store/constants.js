@@ -26,3 +26,4 @@ export const RESPONSE = 'response';
 export const POST_CARD_TOKEN = 'post-card-token';
 export const POST_CUSTOMER_TOKEN = 'post-customer-token';
 export const POST_PAYMENT = 'post-payment';
+export const GET_ROLE_PERSONAL = 'GET_ROLE_PERSONAL';

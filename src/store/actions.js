@@ -8,6 +8,7 @@ import {
   SET_LOADING,
   GET_USER_FROM_LOCALSTORAGE,
   GET_ALL_REVIEWS,
+  GET_ALL_ORDERS,
   GET_ORDERS_FROM_USER,
   GET_ORDER_FORM,
   POST_USER_REVIEW,
@@ -22,6 +23,7 @@ import {
   POST_CARD_TOKEN,
   POST_CUSTOMER_TOKEN,
   POST_PAYMENT,
+  GET_ROLE_PERSONAL,
 } from './constants';
 
 import authService from '../services/auth';
@@ -393,6 +395,23 @@ export const resetPassword = async (dispatch, form) => {
   }
 };
 
+export const getAllOrders = async (dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderService.getAllOrders();
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: GET_ALL_ORDERS, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
 export const patchPersonalDisponibility = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
@@ -409,6 +428,22 @@ export const patchPersonalDisponibility = async (dispatch, form) => {
   } catch (error) {
     // eslint-disable-next-line no-console
     return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const getAllRolePersonal = async (dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await userService.getAllRolePersonalService();
+    const data = await response.json();
+    if (response.ok) {
+      dispatch({ type: GET_ROLE_PERSONAL, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }

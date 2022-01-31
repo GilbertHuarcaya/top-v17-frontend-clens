@@ -27,9 +27,25 @@ const sendUserEmail = (form) => {
   return fetch(`${URL_BASE}/api/users/email`, payload);
 };
 
+// obtener usuarios con role PERSONAL
+const getAllRolePersonalService = () => {
+  const accessTokenObj = localStorage.getItem('token');
+
+  const payload = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessTokenObj}`,
+    },
+  };
+
+  return fetch(`${URL_BASE}/api/users/personalclens`, payload);
+};
+
 const user = {
   patchUser,
   sendUserEmail,
+  getAllRolePersonalService,
   // forgotPassword,
 };
 

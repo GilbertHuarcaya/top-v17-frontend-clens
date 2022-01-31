@@ -24,6 +24,7 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import ValidationEmail from './components/ValidationEmail';
 import MisServicios from './components/MisServicios';
+import AdministratorPanel from './components/AdministradorPanel';
 import PersonalDisponibility from './components/PersonalDisponibility';
 import './index.scss';
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="postula" element={<Postula />} />
           <Route path="disponibilidad" element={<PersonalDisponibility />} />
           <Route path="services" element={<Services />} />
+          <Route path="/panel-administrador" element={<AdministratorPanel />} />
           <Route path="/mis-servicios" element={<MisServicios />} />
           <Route path="/mi-perfil/" element={<InfoCuenta />}>
             <Route path="" element={<MiPerfil />} />
