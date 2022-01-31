@@ -19,12 +19,13 @@ const PersonalCard = (props) => {
   return (
     <div className="personal-card">
       <div className="personal-card__data">
-        <AdvancedImage cldImg={cld.image(personal?.photo.id || 'cld-sample')} />
-        <h2>{personal?.fullname}</h2>
+        <AdvancedImage cldImg={cld.image(personal.photo.id || 'cld-sample')} />
+        <h2>{personal?.userName}</h2>
       </div>
       {reviews ? (
         <CardsReviews
-          reviews={reviews.filter((e) => e.userId === personal.id)}
+          // eslint-disable-next-line no-underscore-dangle
+          reviews={reviews.filter((e) => e.clensId === personal.id)}
         />
       ) : (
         <Loader />

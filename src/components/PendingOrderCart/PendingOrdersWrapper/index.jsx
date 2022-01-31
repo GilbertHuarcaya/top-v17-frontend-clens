@@ -10,8 +10,11 @@ const PendingOrdersWrapper = () => {
 
   const proceedToCompleteOrder = async (order) => {
     // eslint-disable-next-line no-console
-    await patchUserOrder(dispatch, { ...order, completed: true });
-    await getUserOrdersFromDB(dispatch, user.id);
+    console.log(order.clensId);
+    if (order.clensId !== undefined) {
+      await patchUserOrder(dispatch, { ...order, completed: true });
+      await getUserOrdersFromDB(dispatch, user.id);
+    }
   };
   return (
     <div className="cart__shelf-container">
@@ -20,7 +23,10 @@ const PendingOrdersWrapper = () => {
           <div className="pending__order-review" key={order.createdAt}>
             <div className="pending__order-review__details">
               <h3>{`Orden solicitada para el : ${order.fecha.date}`}</h3>
-              <h3>{`Para empezar entre ${order.horaLlegada}`}</h3>
+              {order.clensId ? (
+                <h3>{`Personal Clens asignado : ${order.clensId}`}</h3>
+              ) : null}
+              <h3>{`Para empezar alrededor de ${order.horaLlegada}`}</h3>
               {order.service.map((service) => {
                 return (
                   <PendingOrderService service={service} key={service.name} />
@@ -33,6 +39,7 @@ const PendingOrdersWrapper = () => {
                   type="button"
                   onClick={() => proceedToCompleteOrder(order)}
                   className="btn btn-primary"
+                  disabled={order.clensId === undefined}
                 >
                   Terminar la Orden
                 </button>

@@ -24,6 +24,7 @@ import {
   POST_CUSTOMER_TOKEN,
   POST_PAYMENT,
   GET_ROLE_PERSONAL,
+  ASIGN_PERSONAL_TO_ORDER,
 } from './constants';
 
 import authService from '../services/auth';
@@ -244,7 +245,7 @@ export const getPendingOrderFromOrders = async (dispatch, orders) => {
 export const patchUserOrder = async (dispatch, order) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await orderService.patchUserOrderToCompleted(order);
+    const response = await orderService.patchUserOrder(order);
 
     if (response.ok) {
       dispatch({ type: PATCH_USER_ORDER, payload: [] });
@@ -464,6 +465,22 @@ export const patchUserData = async (dispatch, form) => {
   } catch (error) {
     // eslint-disable-next-line no-console
     return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const asignPersonalToOrder = async (dispatch, order) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await orderService.patchUserOrder(order);
+
+    if (response.ok) {
+      dispatch({ type: ASIGN_PERSONAL_TO_ORDER, payload: null });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }

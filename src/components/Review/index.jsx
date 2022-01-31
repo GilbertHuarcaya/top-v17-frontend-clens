@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Rating } from 'react-simple-star-rating';
@@ -10,7 +11,6 @@ import useForm from '../../hooks/useForm';
 import noPhoto from '../../img/no-photo.jpeg';
 import './styles.scss';
 
-// eslint-disable-next-line react/prop-types
 const Review = ({ reviewOrder }) => {
   const [reviewRating, setReviewRating] = useState(0);
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const Review = ({ reviewOrder }) => {
   if (user) {
     prefilledForm = {
       userId: user.id,
+      clensId: reviewOrder.clensId,
       userName: user.userName,
       userPhoto: user?.photo?.url || noPhoto,
     };
