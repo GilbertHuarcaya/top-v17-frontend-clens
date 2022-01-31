@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -38,6 +39,8 @@ const Pay = () => {
   const [showStoredCC, setShowStoredCC] = useState(false);
   const [showNewCCForm, setShowNewCCForm] = useState(false);
   const [CCSelected, setCCSelected] = useState(false);
+  const [tokenId, setTokenId] = useState('');
+  const [customerId, setCustomerId] = useState();
 
   const paymentForm = {
     city: orderDetails.ciudad,
@@ -45,15 +48,51 @@ const Pay = () => {
     phone: `${orderDetails.telefono}`,
     cellPhone: `${orderDetails.telefono}`,
     value: `${orderDetails.precio}000`,
+    tokenId: `${tokenId}`,
   };
 
-  const handleSubmit = async (e) => {
+  const handleNewSubmit = async (e) => {
     e.preventDefault();
+    // const lastTokenCard = user?.billing?.creditCards.slice(-1)[0];
+    // setTokenId(lastTokenCard.tokenId);
+    // console.log('lastTokenCard', user?.billing?.creditCards);
+
     setLoadingPayment(true);
 
     await postUserCardToken(dispatch, form);
 
-    await postUserCustomerToken(dispatch);
+    try {
+      await postUserCustomerToken(dispatch);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      const lastTokenCard = user?.billing?.creditCards.slice(-1)[0];
+      setTokenId(lastTokenCard?.tokenId);
+      console.log('lastTokenCard', lastTokenCard?.tokenId);
+    }
+
+    const response = await postUserPayment(dispatch, paymentForm);
+
+    setFormData(response);
+    if (response.success === true) {
+      setLoadingPayment(false);
+      setSuccess(true);
+      const orderResponse = await postUserOrder(dispatch, orderDetails);
+      if (orderResponse.ok) {
+        setTimeout(() => {
+          navigate('/mi-carrito');
+        }, 6000);
+      }
+      await getUserOrdersFromDB(dispatch, user.id);
+    } else {
+      setLoadingPayment(false);
+    }
+  };
+
+  const handleUsedSubmit = async (e) => {
+    e.preventDefault();
+    setLoadingPayment(true);
+
     const response = await postUserPayment(dispatch, paymentForm);
 
     setFormData(response);
@@ -147,6 +186,9 @@ const Pay = () => {
     <div className="pay">
       {user ? (
         <>
+          <button type="submit" onClick={() => console.log(user)}>
+            Hola
+          </button>
           <div className="seleccion">
             <button
               type="button"
@@ -171,17 +213,18 @@ const Pay = () => {
           </div>
 
           {showStoredCC ? (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleUsedSubmit}>
               <div className="creditCards">
-                {user.billing.creditCards.map((c) => (
+                {user?.billing?.creditCards.map((c) => (
                   <div key={c.tokenId} className="creditCards-Single">
                     <input
                       id={c.tokenId}
+                      value={c.tokenId}
                       type="radio"
                       name="creditCards-Input"
                       className="creditCards-Input"
                       onChange={validateStoredCC}
-                      onClick={(e) => console.log(e.target.id)}
+                      onClick={() => setTokenId(c.tokenId)}
                     />
                     <span>{c.mask}</span>
                   </div>
@@ -241,7 +284,7 @@ const Pay = () => {
           ) : null}
 
           {showNewCCForm ? (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleNewSubmit}>
               <div className="form-group">
                 <label className="control-label" htmlFor="distrito">
                   <span> Número de tarjeta </span>
