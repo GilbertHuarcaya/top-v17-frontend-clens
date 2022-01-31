@@ -127,12 +127,13 @@
   .order {
     padding-top: 6rem;
     height: 100%;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+
     &__nav {
       .steps {
         max-width: 102rem;
         .step {
-          font-size: 2.2rem;
+          font-size: 1.5rem;
         }
         .step-bullet {
           display: inline-block;

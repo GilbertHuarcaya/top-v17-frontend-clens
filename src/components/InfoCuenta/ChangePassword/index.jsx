@@ -50,13 +50,16 @@ const NewPassword = () => {
     <form className="card__form" onSubmit={handleSubmit}>
       <h4 className="card__form__h4">Cambie su información de ingreso</h4>
       <div className="card__form__group">
-        <p className="card__form__titulo">Correo</p>
+        <p className="card__form__titulo">
+          Correo <small> - No puede editar este campo</small>
+        </p>
         <input
           name="email"
           type="email"
           onChange={handleChange}
           className="card__form__input"
           defaultValue={user.email}
+          disabled
         />
       </div>
       <h4 className="card__form__h4">Cambie su contraseña</h4>
