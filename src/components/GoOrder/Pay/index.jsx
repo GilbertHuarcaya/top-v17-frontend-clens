@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable array-callback-return */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,12 +7,12 @@ import {
   getUserOrdersFromDB,
   postUserCustomerToken,
   postUserPayment,
+  getUserFromLocalStorage,
 } from '../../../store/actions';
 import ActionSuccess from '../../ActionSuccess';
 import PaymentSuccess from '../../PaymentSuccess';
 import useForm from '../../../hooks/useFormCotizar';
 
-// eslint-disable-next-line react/prop-types
 const Pay = () => {
   const user = useSelector((state) => state.user);
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -40,7 +38,6 @@ const Pay = () => {
   const [showNewCCForm, setShowNewCCForm] = useState(false);
   const [CCSelected, setCCSelected] = useState(false);
   const [tokenId, setTokenId] = useState('');
-  const [customerId, setCustomerId] = useState();
 
   const paymentForm = {
     city: orderDetails.ciudad,
@@ -53,23 +50,12 @@ const Pay = () => {
 
   const handleNewSubmit = async (e) => {
     e.preventDefault();
-    // const lastTokenCard = user?.billing?.creditCards.slice(-1)[0];
-    // setTokenId(lastTokenCard.tokenId);
-    // console.log('lastTokenCard', user?.billing?.creditCards);
 
     setLoadingPayment(true);
 
     await postUserCardToken(dispatch, form);
 
-    try {
-      await postUserCustomerToken(dispatch);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      const lastTokenCard = user?.billing?.creditCards.slice(-1)[0];
-      setTokenId(lastTokenCard?.tokenId);
-      console.log('lastTokenCard', lastTokenCard?.tokenId);
-    }
+    await postUserCustomerToken(dispatch);
 
     const response = await postUserPayment(dispatch, paymentForm);
 
@@ -87,6 +73,8 @@ const Pay = () => {
     } else {
       setLoadingPayment(false);
     }
+
+    getUserFromLocalStorage(dispatch);
   };
 
   const handleUsedSubmit = async (e) => {
@@ -109,6 +97,7 @@ const Pay = () => {
     } else {
       setLoadingPayment(false);
     }
+    getUserFromLocalStorage(dispatch);
   };
 
   useEffect(() => {
@@ -128,6 +117,10 @@ const Pay = () => {
     };
     validateForm();
   }, [handleChange]);
+
+  useEffect(() => {
+    getUserFromLocalStorage(dispatch);
+  }, []);
 
   const handleClose = () => {
     setSuccess(false);
@@ -166,8 +159,9 @@ const Pay = () => {
 
     radiosArray.map((r) => {
       if (r.checked === true && accept[0].checked === true) {
-        setCCSelected(true);
+        return setCCSelected(true);
       }
+      return setCCSelected(false);
     });
   };
 
@@ -186,9 +180,6 @@ const Pay = () => {
     <div className="pay">
       {user ? (
         <>
-          <button type="submit" onClick={() => console.log(user)}>
-            Hola
-          </button>
           <div className="seleccion">
             <button
               type="button"
