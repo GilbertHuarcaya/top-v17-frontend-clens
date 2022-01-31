@@ -8,7 +8,7 @@ const ShowInfoOrder = (
   role,
 ) => {
   const { rolePersonal } = role;
-  console.log(rolePersonal);
+
   return (
     <>
       <ul className="show-info-order-wrapper">
