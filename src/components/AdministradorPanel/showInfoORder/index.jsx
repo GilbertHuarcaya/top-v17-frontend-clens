@@ -3,13 +3,12 @@ import React from 'react';
 import './styles.scss';
 // import PropTypes from 'prop-types';
 
-const ShowInfoOrder = ({
-  userName,
-  ciudad,
-  completed,
-  direccion,
-  telefono,
-}) => {
+const ShowInfoOrder = (
+  { userName, ciudad, completed, direccion, telefono },
+  role,
+) => {
+  const { rolePersonal } = role;
+  console.log(rolePersonal);
   return (
     <>
       <ul className="show-info-order-wrapper">
@@ -27,15 +26,22 @@ const ShowInfoOrder = ({
           {`Telefono contacto: ${telefono}`}
         </li>
       </ul>
-      <form>
-        <select name="personal" id="personal-id">
-          <option value="value1">Value 1</option>
-          <option value="value2" selected>
-            Value 2
-          </option>
-          <option value="value3">Value 3</option>
-        </select>
-      </form>
+      <section className="asign-wrapper">
+        <h3>Asignar servicio a:</h3>
+        <form>
+          <select name="personal" id="personal-id">
+            <option value="default">Elegir</option>
+            {rolePersonal.map((person, index) => {
+              return (
+                <option key={Math.random()} value={index + 1}>
+                  {person.firstName}
+                </option>
+              );
+            })}
+          </select>
+        </form>
+        <h3>Servicio asignado a:</h3>
+      </section>
     </>
   );
 };

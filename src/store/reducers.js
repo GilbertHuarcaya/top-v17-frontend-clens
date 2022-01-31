@@ -19,6 +19,7 @@ import {
   POST_CARD_TOKEN,
   POST_CUSTOMER_TOKEN,
   POST_PAYMENT,
+  GET_ROLE_PERSONAL,
 } from './constants';
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   customerToken: '',
   payment: [],
   allOrders: [],
+  rolePersonal: [],
 };
 
 function reducer(state = initialState, action = '') {
@@ -159,6 +161,11 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         allOrders: newValue,
+      };
+    case GET_ROLE_PERSONAL:
+      return {
+        ...state,
+        rolePersonal: newValue,
       };
     default:
       return state;

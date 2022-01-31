@@ -105,7 +105,8 @@ const Resumen = () => {
       // Data para la impresion del pdf
       return {
         images: {
-          logo: 'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
+          logo:
+            'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
         },
         sender: {
           company: 'Clens',
