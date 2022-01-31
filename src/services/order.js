@@ -45,7 +45,7 @@ const getUserOrdersByUserId = (userId) => {
   return fetch(`${URL_BASE}/api/orders/user/${userId}`, payload);
 };
 
-const patchUserOrderToCompleted = (order) => {
+const patchUserOrder = (order) => {
   const accessTokenObj = localStorage.getItem('token');
   // eslint-disable-next-line no-underscore-dangle
   const orderId = order._id;
@@ -78,7 +78,7 @@ const review = {
   getAllOrders,
   postOrder,
   getUserOrdersByUserId,
-  patchUserOrderToCompleted,
+  patchUserOrder,
   getOrderById,
   // forgotPassword,
 };

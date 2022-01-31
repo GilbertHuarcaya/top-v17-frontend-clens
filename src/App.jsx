@@ -26,6 +26,7 @@ import ValidationEmail from './components/ValidationEmail';
 import MisServicios from './components/MisServicios';
 import AdministratorPanel from './components/AdministradorPanel';
 import PersonalDisponibility from './components/PersonalDisponibility';
+import PersonalClens from './components/PersonalClens';
 import './index.scss';
 
 const App = () => (
@@ -35,6 +36,7 @@ const App = () => (
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="postula" element={<Postula />} />
+          <Route path="personal" element={<PersonalClens />} />
           <Route path="disponibilidad" element={<PersonalDisponibility />} />
           <Route path="services" element={<Services />} />
           <Route path="/panel-administrador" element={<AdministratorPanel />} />

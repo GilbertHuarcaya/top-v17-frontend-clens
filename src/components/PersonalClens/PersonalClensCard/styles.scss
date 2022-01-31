@@ -1,0 +1,29 @@
+.personal-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  height: fit-content;
+  background-color: white;
+  box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.2), 0 10px 7px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 3rem;
+
+  &__data {
+    img {
+      width: 10rem;
+    }
+  }
+  .review-cards {
+    height: auto;
+    width: fit-content;
+    margin: 0 5rem;
+    .review-card {
+      width: fit-content;
+      max-width: 50rem;
+      height: fit-content;
+      min-height: 10rem;
+    }
+  }
+}

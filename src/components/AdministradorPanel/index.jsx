@@ -8,7 +8,8 @@ import './styles.scss';
 const AdministratorPanel = () => {
   const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.allOrders);
-  const RolePersonal = useSelector((state) => state);
+  const rolePersonal = useSelector((state) => state.rolePersonal);
+
   useEffect(() => {
     const getAllOrdersFromDB = () => {
       getAllOrders(dispatch);
@@ -24,9 +25,15 @@ const AdministratorPanel = () => {
     <>
       <h2>Panel de administrador</h2>
       <section className="administrator-panel-wrapper">
-        {allOrders.map((order) => (
-          <li key={Math.random()}>{ShowInfoOrder(order, RolePersonal)}</li>
-        ))}
+        {allOrders && rolePersonal
+          ? allOrders
+              .filter((e) => e.completed === false)
+              .map((order) => (
+                <div key={Math.random()}>
+                  <ShowInfoOrder order={order} rolePersonal={rolePersonal} />
+                </div>
+              ))
+          : null}
       </section>
     </>
   );

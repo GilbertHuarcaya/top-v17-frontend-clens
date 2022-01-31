@@ -13,14 +13,7 @@ const ReviewsHome = () => {
 
   useEffect(() => {
     const getReviews = async () => {
-      try {
-        if (reviews === null) {
-          getReviewsFromDB(dispatch);
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
+      await getReviewsFromDB(dispatch);
     };
     getReviews();
   }, []);
