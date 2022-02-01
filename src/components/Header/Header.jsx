@@ -9,6 +9,7 @@ import {
   getUserOrdersFromDB,
   getPendingOrderFromOrders,
   getPendingReviewFromOrders,
+  getAllRolePersonal,
 } from '../../store/actions';
 
 import Loader from '../Loader';
@@ -53,8 +54,9 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
-    const getUser = () => {
-      getUserFromLocalStorage(dispatch);
+    const getUser = async () => {
+      await getUserFromLocalStorage(dispatch);
+      await getAllRolePersonal(dispatch);
     };
     if (user === null) {
       getUser();
@@ -163,9 +165,6 @@ const Header = () => {
         <Link className="header__a" to="/personal">
           Personal
         </Link>
-        <Link className="header__a" to="/reseñas">
-          Reseñas
-        </Link>
         <Link className="header__a" to="/order/cotiza">
           Cotiza
         </Link>
@@ -227,13 +226,15 @@ const Header = () => {
           >
             Mi historial
           </Link>
-          <Link
-            onClick={handlerMenuUser}
-            className="header__perfil__a"
-            to="/panel-administrador"
-          >
-            Administrador
-          </Link>
+          {user?.role === 'admin' ? (
+            <Link
+              onClick={handlerMenuUser}
+              className="header__perfil__a"
+              to="/panel-administrador"
+            >
+              Administrador
+            </Link>
+          ) : null}
           <Link
             onClick={handleCloseSession}
             type="button"

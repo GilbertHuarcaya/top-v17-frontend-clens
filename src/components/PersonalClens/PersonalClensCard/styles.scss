@@ -2,28 +2,46 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   padding: 2rem;
   height: fit-content;
   background-color: white;
   box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.2), 0 10px 7px 0 rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
+  max-width: 50rem;
 
   &__data {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+
     img {
       width: 10rem;
+      height: 10rem;
+      border-radius: 50%;
+    }
+    &__text {
+      flex-grow: 1;
     }
   }
   .review-cards {
     height: auto;
     width: fit-content;
     margin: 0 5rem;
+
+    img {
+      display: none;
+    }
     .review-card {
+      margin: 0;
+      flex-direction: column;
       width: fit-content;
-      max-width: 50rem;
+      max-width: 40rem;
       height: fit-content;
-      min-height: 10rem;
+      min-height: 9rem;
+      box-shadow: none;
     }
   }
 }

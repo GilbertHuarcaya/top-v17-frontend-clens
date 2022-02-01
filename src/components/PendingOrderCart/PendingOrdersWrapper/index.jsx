@@ -6,6 +6,7 @@ const PendingOrdersWrapper = () => {
   const userPendingOrders = useSelector((state) => state.userPendingOrders);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const rolePersonal = useSelector((state) => state.rolePersonal);
   /*   const pendingReview = useSelector((state) => state.pendingReview); */
 
   const proceedToCompleteOrder = async (order) => {
@@ -23,8 +24,11 @@ const PendingOrdersWrapper = () => {
           <div className="pending__order-review" key={order.createdAt}>
             <div className="pending__order-review__details">
               <h3>{`Orden solicitada para el : ${order.fecha.date}`}</h3>
-              {order.clensId ? (
-                <h3>{`Personal Clens asignado : ${order.clensId}`}</h3>
+              {order.clensId && rolePersonal.length >= 1 ? (
+                <h3>{`Personal Clens asignado : ${
+                  rolePersonal?.find((person) => person.id === order.clensId)
+                    .userName
+                }`}</h3>
               ) : null}
               <h3>{`Para empezar alrededor de ${order.horaLlegada}`}</h3>
               {order.service.map((service) => {

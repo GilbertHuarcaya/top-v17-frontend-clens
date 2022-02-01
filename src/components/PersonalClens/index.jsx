@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getReviewsFromDB, getAllRolePersonal } from '../../store/actions';
 import MinititleTitle from '../MinititleTitle';
 import PersonalCard from './PersonalClensCard';
+import './styles.scss';
 
 const PersonalReviews = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const PersonalReviews = () => {
   return (
     <section className="personal-reviews">
       <MinititleTitle
-        title="Nuestro Personal CLENS es el mejor en el campo de limpieza"
+        title="Nuestros son los mejores en el campo de limpieza"
         minititle="Personal"
       />
       {rolePersonal ? (
