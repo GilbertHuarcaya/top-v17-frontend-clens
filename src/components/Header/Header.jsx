@@ -201,7 +201,7 @@ const Header = () => {
           >
             Mi Perfil
           </Link>
-          {user?.role === 'usuario' ? null : (
+          {user?.role === 'personal' ? (
             <Link
               onClick={handlerMenuUser}
               className="header__perfil__a"
@@ -209,8 +209,8 @@ const Header = () => {
             >
               Mis servicios
             </Link>
-          )}
-          {user?.role === 'usuario' ? null : (
+          ) : null}
+          {user?.role === 'personal' ? (
             <Link
               onClick={handlerMenuUser}
               className="header__perfil__a"
@@ -218,7 +218,7 @@ const Header = () => {
             >
               Mi horario
             </Link>
-          )}
+          ) : null}
           <Link
             onClick={handlerMenuUser}
             className="header__perfil__a"
