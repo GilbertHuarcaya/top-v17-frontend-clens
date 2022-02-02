@@ -22,7 +22,7 @@ const AdministratorPanel = () => {
   }, []);
 
   return (
-    <>
+    <div className="administrator-panel-page">
       <h2>Panel de administrador</h2>
       <section className="administrator-panel-wrapper">
         {allOrders && rolePersonal
@@ -30,12 +30,16 @@ const AdministratorPanel = () => {
               .filter((e) => e.completed === false)
               .map((order) => (
                 <div key={Math.random()}>
-                  <ShowInfoOrder order={order} rolePersonal={rolePersonal} />
+                  <ShowInfoOrder
+                    order={order}
+                    rolePersonal={rolePersonal}
+                    key={Math.random()}
+                  />
                 </div>
               ))
           : null}
       </section>
-    </>
+    </div>
   );
 };
 

@@ -7,7 +7,15 @@ import './styles.scss';
 // import PropTypes from 'prop-types';
 
 const ShowInfoOrder = ({ order, rolePersonal }) => {
-  const { userName, ciudad, completed, direccion, telefono, _id } = order;
+  const {
+    userName,
+    ciudad,
+    completed,
+    direccion,
+    telefono,
+    _id,
+    fecha,
+  } = order;
 
   const dispatch = useDispatch();
   let prefilledForm = {};
@@ -49,6 +57,7 @@ const ShowInfoOrder = ({ order, rolePersonal }) => {
 
   return (
     <>
+      <h3>Fecha solicitada: {fecha?.date}</h3>
       <ul className="show-info-order-wrapper">
         <li className="show-info-order-wrapper__item">
           {`Nombre del cliente: ${userName}`}
@@ -64,8 +73,16 @@ const ShowInfoOrder = ({ order, rolePersonal }) => {
           {`Telefono contacto: ${telefono}`}
         </li>
       </ul>
+      {personalPerson?.userName ? (
+        <h3>Servicio asignado a: {personalPerson?.userName}</h3>
+      ) : null}
       <section className="asign-wrapper">
-        <h3>Asignar servicio a:</h3>
+        {personalPerson?.userName ? (
+          <h3>Cambiar personal asignado:</h3>
+        ) : (
+          <h3>Asignar servicio a:</h3>
+        )}
+
         <form onSubmit={handleSubmit}>
           <select name="clensId" id="personal-id" onChange={handleChange}>
             <option value="default">
@@ -89,7 +106,6 @@ const ShowInfoOrder = ({ order, rolePersonal }) => {
             Asignar
           </button>
         </form>
-        <h3>Servicio asignado a: {personalPerson?.userName}</h3>
       </section>
     </>
   );

@@ -170,6 +170,7 @@ const Button = styled.button`
   border-radius: 0.6rem;
   width: ${(props) => props.width || '100%'};
   color: ${(props) => props.color || '#4CAF50'};
+  cursor: pointer;
 `;
 
 let count = 2;
@@ -183,11 +184,11 @@ const Historial = () => {
   useEffect(() => {
     const getUserOrders = async () => {
       try {
-        if (userOrders.length < 1) {
+        if (userOrders.length < 1 && user) {
           getUserOrdersFromDB(dispatch, user.id);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getUserOrders();

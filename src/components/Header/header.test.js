@@ -32,8 +32,6 @@ test('should render navbar', () => {
   expect(Servicios).toBeDefined();
   const Personal = screen.getByText(/Personal/i);
   expect(Personal).toBeDefined();
-  const Reseñas = screen.getByText(/Reseñas/i);
-  expect(Reseñas).toBeDefined();
   const Cotiza = screen.getByText(/Cotiza/i);
   expect(Cotiza).toBeDefined();
   const Postula = screen.getByText(/Postula/i);

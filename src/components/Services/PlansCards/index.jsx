@@ -61,12 +61,12 @@ const PlansCards = () => {
           <div className="plan-cards__wrapper-prices__price-card-1--price">
             $20
           </div>
-          <button
+          {/* <button
             className="plan-cards__wrapper-prices__price-card-1--button"
             type="button"
           >
             Agendar
-          </button>
+          </button> */}
         </div>
         <div className="plan-cards__wrapper-prices__price-card-2">
           <div className="plan-cards__wrapper-prices__price-card-2--title">
@@ -75,12 +75,12 @@ const PlansCards = () => {
           <div className="plan-cards__wrapper-prices__price-card-2--price">
             $35
           </div>
-          <button
+          {/* <button
             className="plan-cards__wrapper-prices__price-card-2--button"
             type="button"
           >
             Agendar
-          </button>
+          </button> */}
         </div>
         <div className="plan-cards__wrapper-prices__price-card-3">
           <div className="plan-cards__wrapper-prices__price-card-3--title">
@@ -89,12 +89,12 @@ const PlansCards = () => {
           <div className="plan-cards__wrapper-prices__price-card-3--price">
             $50
           </div>
-          <button
+          {/* <button
             className="plan-cards__wrapper-prices__price-card-3--button"
             type="button"
           >
             Agendar
-          </button>
+          </button> */}
         </div>
       </div>
     </section>

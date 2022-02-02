@@ -49,105 +49,108 @@ const Resumen = () => {
 
   useEffect(() => {
     const getSampleData = () => {
-      const services = orderById.service;
-      const date = new Date(orderById.createdAt);
-      const year = date.getFullYear();
-      const fecha = date.toLocaleDateString('es-PE');
+      if (orderById.service) {
+        const services = orderById.service;
+        const date = new Date(orderById.createdAt);
+        const year = date.getFullYear();
+        const fecha = date.toLocaleDateString('es-PE');
 
-      const data = [];
-      const total = orderById.precio;
+        const data = [];
+        const total = orderById.precio;
 
-      const orderNumberData = orderById.orderNumber;
-      let totalPorHora;
+        const orderNumberData = orderById.orderNumber;
+        let totalPorHora;
 
-      // Insert, al comienzo, todos los servicios de la orden
-      services.map((service) => {
-        data.push({
-          quantity: service.cantidad,
-          description: `${service.name}`,
-          'tax-rate': 0,
-          price: service.precio,
+        // Insert, al comienzo, todos los servicios de la orden
+        services.map((service) => {
+          data.push({
+            quantity: service.cantidad,
+            description: `${service.name}`,
+            'tax-rate': 0,
+            price: service.precio,
+          });
         });
-      });
-      // Array de los precios totales de los servicios (precio individual * cantidad)
-      const totalServicioIndividual = services.map((service) => {
-        return service.precio * service.cantidad;
-      });
-      // Reduce el array para hallar el total
-      const totalServicios = totalServicioIndividual.reduce(
-        (sum, current) => sum + current,
-        0,
-      );
-
-      if (orderById.incluirProductos === 'si') {
-        // Push de la inclusion de materiales y costo
-        data.push({
-          quantity: 1,
-          description: 'Materiales',
-          'tax-rate': 0,
-          price: 10,
+        // Array de los precios totales de los servicios (precio individual * cantidad)
+        const totalServicioIndividual = services.map((service) => {
+          return service.precio * service.cantidad;
         });
-        // Hallar el costo total por cada hora brindada
-        totalPorHora =
-          (total - totalServicios - 10) / orderById.horasPorServicio;
-      } else {
-        totalPorHora = (total - totalServicios) / orderById.horasPorServicio;
+        // Reduce el array para hallar el total
+        const totalServicios = totalServicioIndividual.reduce(
+          (sum, current) => sum + current,
+          0,
+        );
+
+        if (orderById.incluirProductos === 'si') {
+          // Push de la inclusion de materiales y costo
+          data.push({
+            quantity: 1,
+            description: 'Materiales',
+            'tax-rate': 0,
+            price: 10,
+          });
+          // Hallar el costo total por cada hora brindada
+          totalPorHora =
+            (total - totalServicios - 10) / orderById.horasPorServicio;
+        } else {
+          totalPorHora = (total - totalServicios) / orderById.horasPorServicio;
+        }
+
+        // Push horas brindadas en la orden
+        data.push({
+          quantity: orderById.horasPorServicio,
+          description: 'Horas',
+          'tax-rate': 0,
+          price: totalPorHora,
+        });
+
+        // Data para la impresion del pdf
+        return {
+          images: {
+            logo:
+              'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
+          },
+          sender: {
+            company: 'Clens',
+            address: '4565 N Stelling Rd',
+            zip: 'Lima',
+            city: 'Lima',
+            country: 'Peru',
+          },
+          client: {
+            company: `${orderById.nombre}`,
+            address: `${orderById.direccion}`,
+            zip: `${orderById.distrito}`,
+            city: `${orderById.ciudad}`,
+            country: 'Peru',
+          },
+          information: {
+            number: `${year}.${orderNumberData.toString().padStart(4, '0')}`,
+            date: `${fecha}`,
+            'due-date': `${orderById.fecha.date}`,
+          },
+          products: data,
+          'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
+          settings: {
+            currency: 'USD',
+            'tax-notation': 'IGV',
+            'margin-top': 70,
+            'margin-right': 40,
+            'margin-left': 40,
+            'margin-bottom': 1,
+          },
+          translate: {
+            invoice: 'Recibo',
+            invoiceNumber: 'Numero de Recibo',
+            invoiceDate: 'Fecha de Recibo',
+            products: 'Servicios',
+            quantity: 'Cantidad',
+            price: 'Precio',
+            date: 'Fecha Compra',
+            'due-date': 'Fecha Servicio',
+          },
+        };
       }
-
-      // Push horas brindadas en la orden
-      data.push({
-        quantity: orderById.horasPorServicio,
-        description: 'Horas',
-        'tax-rate': 0,
-        price: totalPorHora,
-      });
-
-      // Data para la impresion del pdf
-      return {
-        images: {
-          logo:
-            'https://clens.netlify.app/static/media/logo-clens.8126eea5.jpg',
-        },
-        sender: {
-          company: 'Clens',
-          address: '4565 N Stelling Rd',
-          zip: 'Lima',
-          city: 'Lima',
-          country: 'Peru',
-        },
-        client: {
-          company: `${orderById.nombre}`,
-          address: `${orderById.direccion}`,
-          zip: `${orderById.distrito}`,
-          city: `${orderById.ciudad}`,
-          country: 'Peru',
-        },
-        information: {
-          number: `${year}.${orderNumberData.toString().padStart(4, '0')}`,
-          date: `${fecha}`,
-          'due-date': `${orderById.fecha.date}`,
-        },
-        products: data,
-        'bottom-notice': 'Muchas gracias por confiar en nuestro servicio.',
-        settings: {
-          currency: 'USD',
-          'tax-notation': 'IGV',
-          'margin-top': 70,
-          'margin-right': 40,
-          'margin-left': 40,
-          'margin-bottom': 1,
-        },
-        translate: {
-          invoice: 'Recibo',
-          invoiceNumber: 'Numero de Recibo',
-          invoiceDate: 'Fecha de Recibo',
-          products: 'Servicios',
-          quantity: 'Cantidad',
-          price: 'Precio',
-          date: 'Fecha Compra',
-          'due-date': 'Fecha Servicio',
-        },
-      };
+      return console.log('error');
     };
 
     const renderInvoice = async () => {
@@ -157,8 +160,9 @@ const Resumen = () => {
       setDownload(data);
       easyinvoice.render('pdf', result.pdf);
     };
-
-    renderInvoice();
+    if (orderById.service) {
+      renderInvoice();
+    }
   }, [orderById]);
 
   const DownloadInvoice = async () => {

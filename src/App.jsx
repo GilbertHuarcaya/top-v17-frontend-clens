@@ -1,6 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Home from './pages/Home/Home';
+import Personal from './pages/Personal';
 import LoginForm from './components/LoginForm/LoginForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import InfoCuenta from './components/InfoCuenta/InfoCuenta';
@@ -26,48 +28,80 @@ import ValidationEmail from './components/ValidationEmail';
 import MisServicios from './components/MisServicios';
 import AdministratorPanel from './components/AdministradorPanel';
 import PersonalDisponibility from './components/PersonalDisponibility';
-import PersonalClens from './components/PersonalClens';
 import './index.scss';
 
-const App = () => (
-  <BrowserRouter>
-    <ScrollToTop>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="" element={<Home />} />
-          <Route path="postula" element={<Postula />} />
-          <Route path="personal" element={<PersonalClens />} />
-          <Route path="disponibilidad" element={<PersonalDisponibility />} />
-          <Route path="services" element={<Services />} />
-          <Route path="/panel-administrador" element={<AdministratorPanel />} />
-          <Route path="/mis-servicios" element={<MisServicios />} />
-          <Route path="/mi-perfil/" element={<InfoCuenta />}>
-            <Route path="" element={<MiPerfil />} />
-            <Route path="cambio-contrasena" element={<NewPassword />} />
+const App = () => {
+  const user = useSelector((state) => state.user);
+  return (
+    <BrowserRouter>
+      <ScrollToTop>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="" element={<Home />} />
+            <Route path="postula" element={<Postula />} />
+            <Route path="personal" element={<Personal />} />
+            <Route
+              path="disponibilidad"
+              element={
+                user?.role === 'personal' ? (
+                  <PersonalDisponibility />
+                ) : (
+                  <Navigate push to="/" />
+                )
+              }
+            />
+            <Route path="services" element={<Services />} />
+            <Route
+              path="/panel-administrador"
+              element={
+                user?.role === 'admin' ? (
+                  <AdministratorPanel />
+                ) : (
+                  <Navigate push to="/" />
+                )
+              }
+            />
+            <Route
+              path="/mis-servicios"
+              element={
+                user?.role === 'personal' ? (
+                  <MisServicios />
+                ) : (
+                  <Navigate push to="/" />
+                )
+              }
+            />
+            <Route path="/mi-perfil/" element={<InfoCuenta />}>
+              <Route path="" element={<MiPerfil />} />
+              <Route path="cambio-contrasena" element={<NewPassword />} />
+            </Route>
+            <Route path="mi-historial" element={<Historial />} />
+            <Route path="mi-historial/:id" element={<Resumen />} />
+            <Route path="mi-carrito" element={<PendingOrder />} />
           </Route>
-          <Route path="mi-historial" element={<Historial />} />
-          <Route path="mi-historial/:id" element={<Resumen />} />
-          <Route path="mi-carrito" element={<PendingOrder />} />
-        </Route>
-        <Route path="/order/" element={<GoOrder />}>
-          <Route path="cotiza" element={<Cotiza />} />
-          <Route path="tiempo" element={<OrderTime />} />
-          <Route path="tu-info" element={<OrderDetails />} />
-          <Route path="pago" element={<Pay />} />
-        </Route>
-        <Route path="*" element={<Page404 />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />;
-        <Route
-          path="/validation-email/:userToken"
-          element={<ValidationEmail />}
-        />
-        <Route path="/reset-password/:userToken" element={<ResetPassword />} />;
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/register-success" element={<RegisterSuccess />} />
-      </Routes>
-    </ScrollToTop>
-  </BrowserRouter>
-);
-
+          <Route path="/order/" element={<GoOrder />}>
+            <Route path="cotiza" element={<Cotiza />} />
+            <Route path="tiempo" element={<OrderTime />} />
+            <Route path="tu-info" element={<OrderDetails />} />
+            <Route path="pago" element={<Pay />} />
+          </Route>
+          <Route path="*" element={<Page404 />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />;
+          <Route
+            path="/validation-email/:userToken"
+            element={<ValidationEmail />}
+          />
+          <Route
+            path="/reset-password/:userToken"
+            element={<ResetPassword />}
+          />
+          ;
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/register-success" element={<RegisterSuccess />} />
+        </Routes>
+      </ScrollToTop>
+    </BrowserRouter>
+  );
+};
 export default App;

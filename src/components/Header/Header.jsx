@@ -9,6 +9,7 @@ import {
   getUserOrdersFromDB,
   getPendingOrderFromOrders,
   getPendingReviewFromOrders,
+  getAllRolePersonal,
 } from '../../store/actions';
 
 import Loader from '../Loader';
@@ -53,8 +54,9 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
-    const getUser = () => {
-      getUserFromLocalStorage(dispatch);
+    const getUser = async () => {
+      await getUserFromLocalStorage(dispatch);
+      await getAllRolePersonal(dispatch);
     };
     if (user === null) {
       getUser();
@@ -110,7 +112,7 @@ const Header = () => {
 
   let buttons;
 
-  if (!isLoading) {
+  if (user && !isLoading) {
     buttons = user ? (
       <div className="header__user">
         <Link className="header__user__linkto-cart" to="/mi-carrito">
@@ -120,7 +122,7 @@ const Header = () => {
             aria-label="foto-carrito"
             onClick={handlerCart}
           />
-          {!isLoading ? (
+          {userPendingOrders.length >= 1 ? (
             <span className="header__user--cart__quantity">
               {userPendingOrders.length}
             </span>
@@ -132,7 +134,7 @@ const Header = () => {
           aria-label="foto-perfil"
           onClick={handlerMenuUser}
         >
-          <AdvancedImage cldImg={cld.image(user.photo.id || 'cld-sample')} />
+          <AdvancedImage cldImg={cld.image(user?.photo?.id || 'cld-sample')} />
         </button>
       </div>
     ) : (
@@ -140,7 +142,44 @@ const Header = () => {
         Ingresa
       </Link>
     );
-  } else {
+  } else if (!user && !isLoading) {
+    buttons = (
+      <Link className="header__login" to="/login">
+        Ingresa
+      </Link>
+    );
+  } else if (user && isLoading) {
+    buttons = user ? (
+      <div className="header__user">
+        <Loader />
+        <Link className="header__user__linkto-cart" to="/mi-carrito">
+          <button
+            className="header__user--cart"
+            type="button"
+            aria-label="foto-carrito"
+            onClick={handlerCart}
+          />
+          {userPendingOrders.length >= 1 ? (
+            <span className="header__user--cart__quantity">
+              {userPendingOrders.length}
+            </span>
+          ) : null}
+        </Link>
+        <button
+          className="header__user--user"
+          type="button"
+          aria-label="foto-perfil"
+          onClick={handlerMenuUser}
+        >
+          <AdvancedImage cldImg={cld.image(user?.photo?.id || 'cld-sample')} />
+        </button>
+      </div>
+    ) : (
+      <Link className="header__login" to="/login">
+        Ingresa
+      </Link>
+    );
+  } else if (isLoading && !user) {
     buttons = <Loader />;
   }
 
@@ -162,9 +201,6 @@ const Header = () => {
         </Link>
         <Link className="header__a" to="/personal">
           Personal
-        </Link>
-        <Link className="header__a" to="/reseñas">
-          Reseñas
         </Link>
         <Link className="header__a" to="/order/cotiza">
           Cotiza
@@ -202,7 +238,7 @@ const Header = () => {
           >
             Mi Perfil
           </Link>
-          {user?.role === 'usuario' ? null : (
+          {user?.role === 'personal' ? (
             <Link
               onClick={handlerMenuUser}
               className="header__perfil__a"
@@ -210,8 +246,8 @@ const Header = () => {
             >
               Mis servicios
             </Link>
-          )}
-          {user?.role === 'usuario' ? null : (
+          ) : null}
+          {user?.role === 'personal' ? (
             <Link
               onClick={handlerMenuUser}
               className="header__perfil__a"
@@ -219,7 +255,7 @@ const Header = () => {
             >
               Mi horario
             </Link>
-          )}
+          ) : null}
           <Link
             onClick={handlerMenuUser}
             className="header__perfil__a"
@@ -227,13 +263,15 @@ const Header = () => {
           >
             Mi historial
           </Link>
-          <Link
-            onClick={handlerMenuUser}
-            className="header__perfil__a"
-            to="/panel-administrador"
-          >
-            Administrador
-          </Link>
+          {user?.role === 'admin' ? (
+            <Link
+              onClick={handlerMenuUser}
+              className="header__perfil__a"
+              to="/panel-administrador"
+            >
+              Administrador
+            </Link>
+          ) : null}
           <Link
             onClick={handleCloseSession}
             type="button"
