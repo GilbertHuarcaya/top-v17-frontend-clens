@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
 const BtnSolicita = () => (
@@ -5,9 +6,9 @@ const BtnSolicita = () => (
     <h2 className="btn-solicita__title">
       ¿Listo para contactar a un personal Clens?
     </h2>
-    <button className="btn-solicita__button" type="button">
+    <Link to="/order/cotiza" className="btn-solicita__button">
       Vamos
-    </button>
+    </Link>
   </section>
 );
 

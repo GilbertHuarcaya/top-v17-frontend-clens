@@ -22,7 +22,7 @@
     width: 100px;
     height: 50px;
     bottom: 15rem;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     text-align: center;
     background: none;
@@ -35,6 +35,7 @@
     box-shadow: 4px 3px 28px -8px rgba(0, 0, 0, 0.7);
     cursor: pointer;
     transform: rotate(-3deg);
+    text-decoration: none;
   }
 }
 
@@ -52,6 +53,7 @@
       width: 140px;
       height: 70px;
       margin: 5rem auto;
+      padding: 15px;
     }
   }
 }

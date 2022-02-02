@@ -18,7 +18,7 @@ const OrderTime = () => {
   const prefilledForm = orderDetails
     ? {
         comentarioIngresoAlLugar: orderDetails.comentarioIngresoAlLugar,
-        ingresoAlLugar: orderDetails.ingresoAlLugar,
+        ingresoAlLugar: orderDetails.ingresoAlLugar || 'Alguien estará en casa',
       }
     : {
         ingresoAlLugar: 'Alguien estará en casa',
