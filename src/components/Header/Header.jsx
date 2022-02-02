@@ -122,7 +122,7 @@ const Header = () => {
             aria-label="foto-carrito"
             onClick={handlerCart}
           />
-          {!userPendingOrders ? (
+          {userPendingOrders.length >= 1 ? (
             <span className="header__user--cart__quantity">
               {userPendingOrders.length}
             </span>
@@ -159,7 +159,7 @@ const Header = () => {
             aria-label="foto-carrito"
             onClick={handlerCart}
           />
-          {!userPendingOrders ? (
+          {userPendingOrders.length >= 1 ? (
             <span className="header__user--cart__quantity">
               {userPendingOrders.length}
             </span>
