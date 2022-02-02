@@ -30,60 +30,64 @@ const MisServicios = () => {
       <section className="my-services-wrapper__grid-container">
         <article className="my-services-wrapper__grid-container-services-assigned">
           <h2>Servicios Asignados</h2>
-          {filteredServices?.map(
-            ({
-              ciudad,
-              distrito,
-              direccion,
-              horaLlegada,
-              incluirProductos,
-              ingresoAlLugar,
-              nombre,
-              telefono,
-              fecha,
-            }) => {
-              return (
-                <ul
-                  className="my-services-wrapper__grid-container-services-assigned__my-service-description"
-                  key={Math.random()}
-                >
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>Ciudad: </span> {ciudad}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>distrito: </span> {distrito}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>direccion: </span>
-                    {direccion}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>horaLlegada:</span>
-                    {horaLlegada}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>incluirProductos: </span>
-                    {incluirProductos}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>nombre: </span>
-                    {nombre}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>ingresoAlLugar: </span>
-                    {ingresoAlLugar}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>telefono: </span>
-                    {telefono}
-                  </li>
-                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
-                    <span>fecha: </span>
-                    {fecha.date}
-                  </li>
-                </ul>
-              );
-            },
+          {filteredServices.length > 0 ? (
+            filteredServices?.map(
+              ({
+                ciudad,
+                distrito,
+                direccion,
+                horaLlegada,
+                incluirProductos,
+                ingresoAlLugar,
+                nombre,
+                telefono,
+                fecha,
+              }) => {
+                return (
+                  <ul
+                    className="my-services-wrapper__grid-container-services-assigned__my-service-description"
+                    key={Math.random()}
+                  >
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>Ciudad: </span> {ciudad}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>distrito: </span> {distrito}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>direccion: </span>
+                      {direccion}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>horaLlegada:</span>
+                      {horaLlegada}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>incluirProductos: </span>
+                      {incluirProductos}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>nombre: </span>
+                      {nombre}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>ingresoAlLugar: </span>
+                      {ingresoAlLugar}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>telefono: </span>
+                      {telefono}
+                    </li>
+                    <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                      <span>fecha: </span>
+                      {fecha.date}
+                    </li>
+                  </ul>
+                );
+              },
+            )
+          ) : (
+            <h3>No tienes servicios asignados.</h3>
           )}
         </article>
         <article className="my-services-wrapper__grid-container-services-finished">
