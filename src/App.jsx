@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Home from './pages/Home/Home';
+import Personal from './pages/Personal';
 import LoginForm from './components/LoginForm/LoginForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import InfoCuenta from './components/InfoCuenta/InfoCuenta';
@@ -27,7 +28,6 @@ import ValidationEmail from './components/ValidationEmail';
 import MisServicios from './components/MisServicios';
 import AdministratorPanel from './components/AdministradorPanel';
 import PersonalDisponibility from './components/PersonalDisponibility';
-import PersonalClens from './components/PersonalClens';
 import './index.scss';
 
 const App = () => {
@@ -39,7 +39,7 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route path="" element={<Home />} />
             <Route path="postula" element={<Postula />} />
-            <Route path="personal" element={<PersonalClens />} />
+            <Route path="personal" element={<Personal />} />
             <Route
               path="disponibilidad"
               element={

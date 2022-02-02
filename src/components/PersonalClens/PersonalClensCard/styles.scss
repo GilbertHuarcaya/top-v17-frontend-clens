@@ -10,7 +10,16 @@
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
   margin: 3rem 0;
+  width: 100%;
   max-width: 50rem;
+
+  h3 {
+    margin: 1rem;
+    padding-top: 1rem;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #77c6ca;
+  }
 
   &__data {
     display: flex;
@@ -42,6 +51,7 @@
       height: fit-content;
       min-height: 9rem;
       box-shadow: none;
+      padding: 0;
     }
   }
 }

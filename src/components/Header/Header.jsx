@@ -112,7 +112,7 @@ const Header = () => {
 
   let buttons;
 
-  if (!isLoading) {
+  if (user && !isLoading) {
     buttons = user ? (
       <div className="header__user">
         <Link className="header__user__linkto-cart" to="/mi-carrito">
@@ -122,7 +122,7 @@ const Header = () => {
             aria-label="foto-carrito"
             onClick={handlerCart}
           />
-          {!isLoading ? (
+          {!userPendingOrders ? (
             <span className="header__user--cart__quantity">
               {userPendingOrders.length}
             </span>
@@ -134,7 +134,7 @@ const Header = () => {
           aria-label="foto-perfil"
           onClick={handlerMenuUser}
         >
-          <AdvancedImage cldImg={cld.image(user.photo.id || 'cld-sample')} />
+          <AdvancedImage cldImg={cld.image(user?.photo?.id || 'cld-sample')} />
         </button>
       </div>
     ) : (
@@ -142,7 +142,44 @@ const Header = () => {
         Ingresa
       </Link>
     );
-  } else {
+  } else if (!user && !isLoading) {
+    buttons = (
+      <Link className="header__login" to="/login">
+        Ingresa
+      </Link>
+    );
+  } else if (user && isLoading) {
+    buttons = user ? (
+      <div className="header__user">
+        <Loader />
+        <Link className="header__user__linkto-cart" to="/mi-carrito">
+          <button
+            className="header__user--cart"
+            type="button"
+            aria-label="foto-carrito"
+            onClick={handlerCart}
+          />
+          {!userPendingOrders ? (
+            <span className="header__user--cart__quantity">
+              {userPendingOrders.length}
+            </span>
+          ) : null}
+        </Link>
+        <button
+          className="header__user--user"
+          type="button"
+          aria-label="foto-perfil"
+          onClick={handlerMenuUser}
+        >
+          <AdvancedImage cldImg={cld.image(user?.photo?.id || 'cld-sample')} />
+        </button>
+      </div>
+    ) : (
+      <Link className="header__login" to="/login">
+        Ingresa
+      </Link>
+    );
+  } else if (isLoading && !user) {
     buttons = <Loader />;
   }
 

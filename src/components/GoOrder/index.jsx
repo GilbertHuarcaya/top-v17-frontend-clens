@@ -13,7 +13,7 @@ const GoOrder = () => {
     incluirProductos,
     horaLlegada,
     ciudad,
-    CVC,
+    distrito,
   } = useSelector((state) => state.orderDetails);
   const orderDetails = useSelector((state) => state.orderDetails);
 
@@ -53,45 +53,66 @@ const GoOrder = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                onClick={(e) => {
-                  if (!horaLlegada) e.preventDefault();
-                }}
-                to={ciudad ? '/order/tiempo' : '/'}
-                className={`step ${horaLlegada ? 'step-complete' : ''}`}
-              >
-                <div className="step-bullet" />
-                <span className="visible-inline">Tiempo</span>
-                <span className="hidden">Escoge el tiempo</span>
-              </NavLink>
+              {distrito ? (
+                <NavLink
+                  onClick={(e) => {
+                    if (!horaLlegada) e.preventDefault();
+                  }}
+                  to="/order/tiempo"
+                  className={`step ${horaLlegada ? 'step-complete' : ''}`}
+                >
+                  <div className="step-bullet" />
+                  <span className="visible-inline">Tiempo</span>
+                  <span className="hidden">Escoge el tiempo</span>
+                </NavLink>
+              ) : (
+                <div className="step">
+                  <span className="visible-inline">Tiempo</span>
+                  <span className="hidden">Escoge el tiempo</span>
+                </div>
+              )}
             </li>
             <li>
-              <NavLink
-                onClick={(e) => {
-                  if (!ciudad) {
-                    e.preventDefault();
-                  }
-                }}
-                to={ciudad ? '/order/tu-info' : '/'}
-                className={`step ${ciudad ? 'step-complete' : null}`}
-              >
-                <div className="step-bullet" />
-                <span className="visible-inline">Info</span>
-                <span className="hidden">Tu Información</span>
-              </NavLink>
+              {horaLlegada ? (
+                <NavLink
+                  onClick={(e) => {
+                    if (!ciudad) {
+                      e.preventDefault();
+                    }
+                  }}
+                  to="/order/tu-info"
+                  className={`step ${ciudad ? 'step-complete' : ''}`}
+                >
+                  <div className="step-bullet" />
+                  <span className="visible-inline">Info</span>
+                  <span className="hidden">Tu Información</span>
+                </NavLink>
+              ) : (
+                <div className="step">
+                  <span className="visible-inline">Info</span>
+                  <span className="hidden">Tu Información</span>
+                </div>
+              )}
             </li>
             <li>
-              <NavLink
-                onClick={(e) => {
-                  if (!CVC) e.preventDefault();
-                }}
-                to={ciudad ? '/order/pago' : '/'}
-                className={`step ${CVC ? 'step-complete' : null}`}
-              >
-                <span className="step-bullet" />
-                <span className="visible-inline">Pago</span>
-                <span className="hidden">Pago</span>
-              </NavLink>
+              {ciudad ? (
+                <NavLink
+                  onClick={(e) => {
+                    if (!orderDetails) e.preventDefault();
+                  }}
+                  to="/order/pago"
+                  className={`step ${!orderDetails ? 'step-complete' : null}`}
+                >
+                  <span className="step-bullet" />
+                  <span className="visible-inline">Pago</span>
+                  <span className="hidden">Pago</span>
+                </NavLink>
+              ) : (
+                <div className="step">
+                  <span className="visible-inline">Pago</span>
+                  <span className="hidden">Pago</span>
+                </div>
+              )}
             </li>
           </ul>
         </div>

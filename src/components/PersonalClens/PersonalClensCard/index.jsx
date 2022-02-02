@@ -5,7 +5,6 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { useSelector } from 'react-redux';
 import { Rating } from 'react-simple-star-rating';
 import { thumbnail } from '@cloudinary/url-gen/actions/resize';
-import Loader from '../../Loader';
 import CardsReviews from '../../ReviewsHome/CardsReviews';
 import './styles.scss';
 
@@ -57,11 +56,13 @@ const PersonalCard = (props) => {
           </p>
         </div>
       </div>
-      <h3>Reseñas:</h3>
-      {personalReviews ? (
-        <CardsReviews reviews={personalReviews} />
+      {personalReviews?.length >= 1 ? (
+        <>
+          <h3>Reseñas:</h3>
+          <CardsReviews reviews={personalReviews} />
+        </>
       ) : (
-        <Loader />
+        <h3>Aún no tiene reseñas</h3>
       )}
     </div>
   );

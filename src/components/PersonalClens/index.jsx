@@ -21,21 +21,34 @@ const PersonalReviews = () => {
   }, []);
 
   return (
-    <section className="personal-reviews">
-      <MinititleTitle
-        title="Nuestros son los mejores en el campo de limpieza"
-        minititle="Personal"
-      />
-      {rolePersonal ? (
-        rolePersonal.map((personalClens) => {
-          return (
-            <PersonalCard personal={personalClens} key={personalClens.id} />
-          );
-        })
-      ) : (
-        <h1>Espere un momoento</h1>
-      )}
-    </section>
+    <>
+      {' '}
+      <section className="hero-section">
+        <h2 className="hero-section__title">
+          Limpiadores a su disposicion, listos para darle una nueva cara a su
+          hogar.
+        </h2>
+        <p className="hero-section__information">
+          Limpiadores experimentados. Todo gestionado online. El servicio
+          doméstico que funciona.
+        </p>
+      </section>
+      <section className="personal-reviews">
+        <MinititleTitle
+          title="Nuestro personal es el mejor en el campo de limpieza"
+          minititle="Personal"
+        />
+        {rolePersonal ? (
+          rolePersonal.map((personalClens) => {
+            return (
+              <PersonalCard personal={personalClens} key={personalClens.id} />
+            );
+          })
+        ) : (
+          <h1>Espere un momoento</h1>
+        )}
+      </section>
+    </>
   );
 };
 

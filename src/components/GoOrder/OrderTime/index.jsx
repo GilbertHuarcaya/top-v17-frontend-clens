@@ -106,7 +106,7 @@ const OrderTime = () => {
                 id="home"
                 defaultValue="Alguien estará en casa"
                 defaultChecked={
-                  orderDetails
+                  orderDetails.ingresoAlLugar
                     ? orderDetails.ingresoAlLugar ===
                         'Alguien estará en casa' || false
                     : true
