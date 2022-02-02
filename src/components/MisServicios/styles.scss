@@ -27,6 +27,20 @@
       border-radius: 5px;
       padding: 7px;
       color: #507cab;
+
+      &__my-service-description {
+        color: black;
+        border: thin solid #507cab;
+        border-radius: 4px;
+        padding: 3px;
+        list-style: none;
+        margin-bottom: 5px;
+        font-size: 11px;
+
+        &--detail span {
+          font-weight: bold;
+        }
+      }
     }
 
     &-services-finished {
