@@ -19,7 +19,7 @@ const OrderDetails = () => {
       telefono: orderDetails.telefono || user.telefono,
       direccion: orderDetails.direccion || user.direccion,
       comentariosDeDireccion: orderDetails.comentariosDeDireccion,
-      ciudad: orderDetails.ciudad,
+      ciudad: orderDetails.ciudad || 'Lima',
     };
   } else if (user) {
     prefilledForm = {
@@ -29,6 +29,7 @@ const OrderDetails = () => {
       nombre: user.fullname,
       telefono: user.telefono,
       direccion: user.direccion,
+      ciudad: 'Lima',
     };
   }
   const { form, handleChange } = useForm(prefilledForm);
@@ -141,6 +142,10 @@ const OrderDetails = () => {
           <div className="form-group">
             <label className="control-label" htmlFor="ciudad">
               Ciudad
+              <span className="help-block">
+                / Por el momento solo estamos trabajando el Lima, pronto habrán
+                mas ciudades disponibles.
+              </span>
               <div className="slot">
                 <input
                   className="input-text"
@@ -149,7 +154,8 @@ const OrderDetails = () => {
                   name="ciudad"
                   required
                   type="text"
-                  defaultValue={orderDetails ? orderDetails.ciudad || '' : ''}
+                  defaultValue="Lima"
+                  disabled
                 />
               </div>
             </label>

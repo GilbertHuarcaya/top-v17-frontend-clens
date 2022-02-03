@@ -25,14 +25,14 @@ const useForm = (initialState = {}) => {
           form.service[find - 1] = {
             _id: '61b77b3cd185384f4cdb1557',
             name: 'Cocina',
-            precio: 20,
+            precio: 2,
             cantidad: value,
           };
         } else {
           form.service.push({
             _id: '61b77b3cd185384f4cdb1557',
             name: 'Cocina',
-            precio: 20,
+            precio: 2,
             cantidad: value,
           });
         }
@@ -46,14 +46,14 @@ const useForm = (initialState = {}) => {
           form.service[find - 1] = {
             _id: '61b77b77d185384f4cdb155e',
             name: 'Habitacion',
-            precio: 20,
+            precio: 2,
             cantidad: value,
           };
         } else {
           form.service.push({
             _id: '61b77b77d185384f4cdb155e',
             name: 'Habitacion',
-            precio: 20,
+            precio: 2,
             cantidad: value,
           });
         }
@@ -67,14 +67,14 @@ const useForm = (initialState = {}) => {
           form.service[find - 1] = {
             _id: '61b77bedd185384f4cdb1561',
             name: 'Bano',
-            precio: 30,
+            precio: 3,
             cantidad: value,
           };
         } else {
           form.service.push({
             _id: '61b77bedd185384f4cdb1561',
             name: 'Bano',
-            precio: 30,
+            precio: 3,
             cantidad: value,
           });
         }
@@ -88,14 +88,14 @@ const useForm = (initialState = {}) => {
           form.service[find - 1] = {
             _id: '61b79232c619a3a5063365b5',
             name: 'Sala',
-            precio: 30,
+            precio: 3,
             cantidad: value,
           };
         } else {
           form.service.push({
             _id: '61b79232c619a3a5063365b5',
             name: 'Sala',
-            precio: 30,
+            precio: 3,
             cantidad: value,
           });
         }

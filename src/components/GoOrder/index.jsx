@@ -130,14 +130,14 @@ const GoOrder = () => {
 
             {horasPorServicio ? (
               <div className="order__resumen__info">
-                <p>{horasPorServicio} Horas por servicio</p>
+                <p>{horasPorServicio} Horas por el servicio</p>
                 <p>+ ${precioPorTiempoServicio.toFixed(2)}</p>
               </div>
             ) : null}
             {incluirProductos === 'si' ? (
               <div className="order__resumen__info">
                 <p>Incluir productos</p>
-                <p>+ $10.00</p>
+                <p>+ $5.00</p>
               </div>
             ) : null}
 
