@@ -153,17 +153,17 @@ const Cotiza = () => {
       form.service.forEach((e) => {
         suma +=
           e.precio * Number(e.cantidad) +
-          (e.precio * form.horasPorServicio * Number(e.cantidad)) / 10;
+          (e.precio * form.horasPorServicio * Number(e.cantidad)) / 25;
       });
 
       const precio =
         form.incluirProductos === 'si'
-          ? { precio: suma + 10 }
+          ? { precio: suma + 5 }
           : { precio: suma };
       return getOrderForm(dispatch, { ...form, ...precio });
     }
     const precio =
-      form.incluirProductos === 'si' ? { precio: suma + 10 } : { precio: suma };
+      form.incluirProductos === 'si' ? { precio: suma + 5 } : { precio: suma };
     return getOrderForm(dispatch, { ...form, ...precio });
   };
 
@@ -543,7 +543,7 @@ const Cotiza = () => {
                 />
 
                 <div className="option-label__text">
-                  <p>Incluir productos de limpieza (+$10.00)</p>
+                  <p>Incluir productos de limpieza (+$5.00)</p>
                 </div>
               </label>
 
@@ -573,6 +573,9 @@ const Cotiza = () => {
             otros productos pesados.
           </p>
         </div>
+        <p className="help-block">
+          Precio total minimo debe ser mayor de $10.00
+        </p>
         <button
           className="btn btn-primary"
           id="btn-continue"
