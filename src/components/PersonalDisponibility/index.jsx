@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { patchPersonalDisponibility } from '../../store/actions';
+import {
+  patchPersonalDisponibility,
+  getUserFromLocalStorage,
+} from '../../store/actions';
 import useForm from '../../hooks/useForm';
 import './styles.scss';
 
@@ -21,14 +24,21 @@ const PersonalDisponibility = () => {
       };
   const { form, handleChange } = useForm(prefilledForm);
   const [formOk, setFormOk] = useState(false);
+  const [updated, setUpdated] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    /* loginUser(dispatch, form); */
-
-    patchPersonalDisponibility(dispatch, { ...form, userId: user.id });
-    navigate('/order/pago');
+    const response = await patchPersonalDisponibility(dispatch, {
+      ...form,
+      userId: user.id,
+    });
+    if (response.ok) {
+      setUpdated(true);
+    }
+    setTimeout(() => {
+      setUpdated(false);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -41,10 +51,18 @@ const PersonalDisponibility = () => {
     validateForm();
   }, [handleChange]);
 
+  useEffect(() => {
+    const getUser = async () => {
+      await getUserFromLocalStorage(dispatch);
+    };
+    getUser();
+  }, [updated]);
+
   return (
     <div className="disponibility">
       {user ? (
         <form onSubmit={handleSubmit}>
+          {updated ? <h3>Actualizado</h3> : null}
           <div className="form-group">
             <p>
               Durante este mes ¿<strong>qué dias</strong> trabajarás?
