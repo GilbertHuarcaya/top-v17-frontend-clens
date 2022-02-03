@@ -42,8 +42,9 @@ const MisServicios = () => {
                 nombre,
                 telefono,
                 fecha,
+                completed,
               }) => {
-                return (
+                return !completed ? (
                   <ul
                     className="my-services-wrapper__grid-container-services-assigned__my-service-description"
                     key={Math.random()}
@@ -83,7 +84,7 @@ const MisServicios = () => {
                       {fecha.date}
                     </li>
                   </ul>
-                );
+                ) : null;
               },
             )
           ) : (
@@ -92,6 +93,31 @@ const MisServicios = () => {
         </article>
         <article className="my-services-wrapper__grid-container-services-finished">
           <h2>Servicios Terminados</h2>
+          {filteredServices.length > 0 ? (
+            filteredServices?.map(({ nombre, completed, precio }) => {
+              return completed ? (
+                <ul
+                  className="my-services-wrapper__grid-container-services-assigned__my-service-description"
+                  key={precio * Math.random()}
+                >
+                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                    <span>Nombre: </span> {nombre}
+                  </li>
+                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                    <span>Estado: </span>
+                    {completed ? 'Servicio Completado' : 'Sin Completar'}
+                  </li>
+                  <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                    <span>Costo servicio: </span>
+                    {precio}
+                  </li>
+                </ul>
+              ) : null;
+            })
+          ) : (
+            <h2>Aun no hay servicios terminados</h2>
+          )}
+          ;
         </article>
         <article className="my-services-wrapper__grid-container-benefits-earned">
           <h2>Dinero Ganado</h2>
