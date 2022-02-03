@@ -80,9 +80,21 @@ const OrderTime = () => {
     getDays();
   }, [week]);
 
+  const horaDisponible = () => {
+    if (form.fecha.date === new Date().toLocaleDateString()) {
+      return new Date().getHours() < Number(form.horaLlegada.split(':')[0]);
+    }
+    return true;
+  };
+
   useEffect(() => {
     const validateForm = () => {
-      if (Object.keys(form).length >= 3 && Object.values(form).length >= 2) {
+      if (
+        Object.keys(form).length >= 3 &&
+        Object.values(form).length >= 2 &&
+        form.horaLlegada &&
+        horaDisponible()
+      ) {
         return setFormOk(true);
       }
       return setFormOk(false);
@@ -240,7 +252,7 @@ const OrderTime = () => {
                             id={e.hora}
                             onChange={handleChange}
                             disabled={e.disabled}
-                            defaultValue={e.hora}
+                            defaultValue={e.disabled ? '' : e.hora}
                           />
                           <div className="option-label__text">
                             <p>{e.horaLlegada}</p>
@@ -285,7 +297,7 @@ const OrderTime = () => {
                             id={e.hora}
                             disabled={e.disabled}
                             onChange={handleChange}
-                            defaultValue={e.hora}
+                            defaultValue={e.disabled ? '' : e.hora}
                           />
                           <div className="option-label__text">
                             <p>{e.horaLlegada}</p>
