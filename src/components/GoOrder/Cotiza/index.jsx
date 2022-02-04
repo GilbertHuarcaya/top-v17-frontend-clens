@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -155,15 +156,18 @@ const Cotiza = () => {
           e.precio * Number(e.cantidad) +
           (e.precio * form.horasPorServicio * Number(e.cantidad)) / 25;
       });
-
       const precio =
         form.incluirProductos === 'si'
-          ? { precio: suma + 5 }
-          : { precio: suma };
+          ? { precio: Math.round(suma) + 5 }
+          : { precio: Math.round(suma) };
+
       return getOrderForm(dispatch, { ...form, ...precio });
     }
     const precio =
-      form.incluirProductos === 'si' ? { precio: suma + 5 } : { precio: suma };
+      form.incluirProductos === 'si'
+        ? { precio: Math.round(suma) + 5 }
+        : { precio: Math.round(suma) };
+
     return getOrderForm(dispatch, { ...form, ...precio });
   };
 
@@ -182,7 +186,7 @@ const Cotiza = () => {
       if (
         Object.keys(form).length >= 4 &&
         form.service.length > 0 &&
-        orderDetails.precio > 10
+        orderDetails.precio > 20
       ) {
         return setFormOk(true);
       }
@@ -574,7 +578,7 @@ const Cotiza = () => {
           </p>
         </div>
         <p className="help-block">
-          Precio total minimo debe ser mayor de $10.00
+          Precio total minimo debe ser mayor de $20.00
         </p>
         <button
           className="btn btn-primary"
