@@ -20,6 +20,7 @@ import {
   POST_CUSTOMER_TOKEN,
   POST_PAYMENT,
   GET_ROLE_PERSONAL,
+  POST_POSTULA_PERSONAL,
 } from './constants';
 
 const initialState = {
@@ -40,6 +41,7 @@ const initialState = {
   payment: [],
   allOrders: [],
   rolePersonal: [],
+  postulaInfo: [],
 };
 
 function reducer(state = initialState, action = '') {
@@ -116,6 +118,12 @@ function reducer(state = initialState, action = '') {
         userPendingOrders: newValue,
         userOrders: newValue,
         pendingReview: newValue,
+      };
+    }
+    case POST_POSTULA_PERSONAL: {
+      return {
+        ...state,
+        postulaInfo: newValue,
       };
     }
     case GET_PENDING_REVIEW: {

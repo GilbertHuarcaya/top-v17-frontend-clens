@@ -25,6 +25,7 @@ import {
   POST_PAYMENT,
   GET_ROLE_PERSONAL,
   ASIGN_PERSONAL_TO_ORDER,
+  POST_POSTULA_PERSONAL,
 } from './constants';
 
 import authService from '../services/auth';
@@ -331,6 +332,20 @@ export const postUploadFile = async (dispatch, file, user) => {
   }
 };
 
+export const postUploadFiles = async (dispatch, files) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await uploadService.postFiles(files);
+    if (response.status === 200) {
+      dispatch({ type: POST_POSTULA_PERSONAL, payload: response });
+    }
+  } catch (error) {
+    throw new Error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
 export const changePassword = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
@@ -387,6 +402,17 @@ export const sendUserEmailResetPassword = async (dispatch, form) => {
   } catch (error) {
     // eslint-disable-next-line no-console
     return console.log(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const sendPostulaEmail = async (dispatch, form) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    await userService.postulaPersonal(form);
+  } catch (error) {
+    throw new Error(error);
   } finally {
     dispatch({ type: SET_LOADING, payload: false });
   }

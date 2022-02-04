@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const URL_BASE = process.env.REACT_APP_API_URL_BASE;
 
 const patchUser = (user) => {
@@ -27,6 +29,24 @@ const sendUserEmail = (form) => {
   return fetch(`${URL_BASE}/api/users/email`, payload);
 };
 
+const postulaPersonal = (form) => {
+  const formData = new FormData();
+  const { files } = form;
+
+  files.forEach((file) => {
+    formData.append('file', file);
+    formData.append('upload_preset', 'viz4umbi');
+    formData.append('api_key', '454469217291652');
+  });
+  formData.append('celular', form.celular);
+  formData.append('direccion', form.direccion);
+  formData.append('email', form.email);
+  formData.append('fullname', form.fullname);
+  formData.append('identificacion', form.identificacion);
+
+  return axios.post(`${URL_BASE}/api/users/postula`, formData);
+};
+
 // obtener usuarios con role PERSONAL
 const getAllRolePersonalService = () => {
   const accessTokenObj = localStorage.getItem('token');
@@ -46,6 +66,7 @@ const user = {
   patchUser,
   sendUserEmail,
   getAllRolePersonalService,
+  postulaPersonal,
   // forgotPassword,
 };
 
