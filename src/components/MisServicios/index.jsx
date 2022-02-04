@@ -28,7 +28,6 @@ const MisServicios = () => {
   // console.log(filterCompleted);
   const filtroDinero = filterCompleted.map((service) => service.precio);
   const dineroProducido = filtroDinero.reduce((a, b) => a + b, 0);
-  console.log(dineroProducido);
 
   return (
     <section className="my-services-wrapper">
