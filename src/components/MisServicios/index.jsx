@@ -21,6 +21,15 @@ const MisServicios = () => {
     return order.clensId === user?.id;
   });
 
+  const filterCompleted = filteredServices.filter(
+    (service) => service.completed === true,
+  );
+
+  // console.log(filterCompleted);
+  const filtroDinero = filterCompleted.map((service) => service.precio);
+  const dineroProducido = filtroDinero.reduce((a, b) => a + b, 0);
+  console.log(dineroProducido);
+
   return (
     <section className="my-services-wrapper">
       <h2 className="my-services-wrapper__user-name">
@@ -119,8 +128,59 @@ const MisServicios = () => {
           )}
           ;
         </article>
-        <article className="my-services-wrapper__grid-container-benefits-earned">
+        <article className="my-services-wrapper__grid-container__benefits-earned">
           <h2>Dinero Ganado</h2>
+          <ul className="my-services-wrapper__grid-container__benefits-earned__description-wrapper">
+            <li
+              key={Math.random() * 4}
+              className="my-services-wrapper__grid-container__benefits-earned__description-wrapper--item"
+            >
+              Servicios Asignados
+              <br />
+              <span>{filteredServices.length}</span>
+            </li>
+            <li
+              key={Math.random() * 5}
+              className="my-services-wrapper__grid-container__benefits-earned__description-wrapper--item"
+            >
+              Servicios sin Terminar
+              <br />
+              <span>{filteredServices.length - filterCompleted.length}</span>
+            </li>
+            <li
+              key={Math.random() * 6}
+              className="my-services-wrapper__grid-container__benefits-earned__description-wrapper--item"
+            >
+              Servicios Terminados
+              <br />
+              <span>{filterCompleted.length}</span>
+            </li>
+            <li
+              key={Math.random() * 7}
+              className="my-services-wrapper__grid-container__benefits-earned__description-wrapper--item"
+            >
+              Dinero Producido
+              <br />
+              <span>{`$${dineroProducido}`}</span>
+            </li>
+            <li
+              key={Math.random() * 8}
+              className="my-services-wrapper__grid-container__benefits-earned__description-wrapper--item"
+            >
+              Comision Clens
+              <br />
+              <span>{`$${(dineroProducido * 10) / 100}`}</span>
+            </li>
+            <li
+              key={Math.random() * 9}
+              className="my-services-wrapper__grid-container__benefits-earned__description-wrapper--item"
+            >
+              Total Ganado
+              <br />
+              <span>{`$${dineroProducido -
+                (dineroProducido * 10) / 100}`}</span>
+            </li>
+          </ul>
         </article>
       </section>
     </section>
