@@ -16,7 +16,7 @@
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 15px;
     grid-row-gap: 15px;
-    min-height: 400px;
+    min-height: fit-content;
     min-width: 350px;
     font-size: 10px;
 
@@ -52,13 +52,31 @@
       border: thin solid #507cab;
     }
 
-    &-benefits-earned {
+    &__benefits-earned {
       grid-column-start: 1;
       grid-column-end: 3;
       border-radius: 5px;
       padding: 7px;
       color: #507cab;
       border: thin solid #507cab;
+      height: fit-content;
+
+      &__description-wrapper {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+
+        &--item {
+          color: black;
+          font-size: 14px;
+          text-align: center;
+
+          & > span {
+            font-weight: 700;
+            color: red;
+          }
+        }
+      }
     }
   }
 }
