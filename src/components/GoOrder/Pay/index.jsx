@@ -109,7 +109,7 @@ const Pay = () => {
         form.cardExpMonth.length === 2 &&
         form.cardExpYear.length === 4 &&
         form.cardCVC.length >= 3 &&
-        orderDetails.precio > 10
+        orderDetails.precio >= 20
       ) {
         return setFormOk(true);
       }

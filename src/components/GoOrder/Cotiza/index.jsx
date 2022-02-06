@@ -186,7 +186,7 @@ const Cotiza = () => {
       if (
         Object.keys(form).length >= 4 &&
         form.service.length > 0 &&
-        orderDetails.precio > 20
+        orderDetails.precio >= 20
       ) {
         return setFormOk(true);
       }
