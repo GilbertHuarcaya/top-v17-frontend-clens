@@ -68,6 +68,8 @@ const LoginForm = () => {
         </div>
         <div className="form_login__item">
           <input
+            className="login-input_email"
+            data-cy="login-input_email"
             name="email"
             type="email"
             placeholder="correo"
@@ -78,6 +80,8 @@ const LoginForm = () => {
         </div>
         <div className="form_login__item">
           <input
+            className="login-input_password"
+            data-cy="login-input_password"
             name="password"
             type="password"
             value={undefined}
@@ -88,6 +92,7 @@ const LoginForm = () => {
         </div>
         <button
           className="form_login__button__login"
+          data-cy="login-btn_login"
           type="submit"
           disabled={!formOk}
         >

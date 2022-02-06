@@ -170,6 +170,7 @@ const Header = () => {
           type="button"
           aria-label="foto-perfil"
           onClick={handlerMenuUser}
+          data-cy="navbar__user-logo"
         >
           <AdvancedImage cldImg={cld.image(user?.photo?.id || 'cld-sample')} />
         </button>
@@ -202,7 +203,11 @@ const Header = () => {
         <Link className="header__a" to="/personal">
           Personal
         </Link>
-        <Link className="header__a" to="/order/cotiza">
+        <Link
+          className="header__a"
+          data-cy="navbar-btn-cotiza"
+          to="/order/cotiza"
+        >
           Cotiza
         </Link>
         <Link className="header__a" to="/postula">
@@ -274,6 +279,7 @@ const Header = () => {
           ) : null}
           <Link
             onClick={handleCloseSession}
+            data-cy="navbar__user-menu__logout"
             type="button"
             className="header__perfil__a"
             to="/"

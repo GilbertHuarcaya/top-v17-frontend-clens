@@ -209,6 +209,7 @@ const Cotiza = () => {
               <input
                 className="input-text"
                 name="distrito"
+                data-cy="order-input-distrito"
                 required
                 type="text"
                 id="distrito"
@@ -242,6 +243,7 @@ const Cotiza = () => {
                   }
                   name="cocina"
                   id="cocina"
+                  data-cy="order-select-cocina"
                   onChange={(evt) => getServiceAmount(evt)}
                   value={orderDetails.cocina || selectedCocina}
                 >
@@ -283,6 +285,7 @@ const Cotiza = () => {
                   }
                   name="habitacion"
                   id="habitacion"
+                  data-cy="order-select-habitacion"
                   onChange={(evt) => getServiceAmount(evt)}
                   value={orderDetails.habitacion || selectedHabitacion}
                 >
@@ -584,6 +587,7 @@ const Cotiza = () => {
           className="btn btn-primary"
           id="btn-continue"
           type="submit"
+          data-cy="order-btn-submit"
           disabled={!formOk}
         >
           Continuar
