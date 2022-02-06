@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllOrders } from '../../store/actions';
@@ -51,6 +52,7 @@ const MisServicios = () => {
                 telefono,
                 fecha,
                 completed,
+                service,
               }) => {
                 return !completed ? (
                   <ul
@@ -91,6 +93,29 @@ const MisServicios = () => {
                       <span>fecha: </span>
                       {fecha.date}
                     </li>
+                    {service?.length < 2 ? (
+                      <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                        <span>SERVICIO</span>
+                      </li>
+                    ) : (
+                      <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
+                        <span>SERVICIOS</span>
+                        {fecha.date}
+                      </li>
+                    )}
+                    {service.map((s) => {
+                      return (
+                        <li
+                          className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail"
+                          key={s._id}
+                        >
+                          <span>Servicio: </span>
+                          <span>{s.name} </span>
+                          <span>Cantidad: </span>
+                          <span>{s.cantidad}: </span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 ) : null;
               },

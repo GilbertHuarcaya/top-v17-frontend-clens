@@ -3,9 +3,12 @@ import { faImage, faFileUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { postUploadFiles, sendPostulaEmail } from '../../store/actions';
 import './Postula.scss';
 import useForm from '../../hooks/useFormCotizar';
+import ActionSuccess from '../ActionSuccess';
+import PaymentSuccess from '../PaymentSuccess';
 
 const image = <FontAwesomeIcon icon={faImage} />;
 const file = <FontAwesomeIcon icon={faFileUpload} />;
@@ -13,7 +16,11 @@ const file = <FontAwesomeIcon icon={faFileUpload} />;
 const Postula = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [files] = useState([]);
+  const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState();
+  const [loadingPayment, setLoadingPayment] = useState(false);
 
   const data = {
     fullname: '',
@@ -28,8 +35,17 @@ const Postula = () => {
 
   const onSubmitFiles = async (e) => {
     e.preventDefault();
+    setLoadingPayment(true);
     await postUploadFiles(dispatch, files);
-    await sendPostulaEmail(dispatch, form);
+    const response = await sendPostulaEmail(dispatch, form);
+    setFormData(response);
+    if (response.status === 200) {
+      setLoadingPayment(false);
+      setSuccess(true);
+      setTimeout(() => {
+        navigate('/');
+      }, 6000);
+    }
   };
 
   const onChangeFile = (e) => {
@@ -47,6 +63,36 @@ const Postula = () => {
     if (!/\d/.test(e.key)) {
       e.preventDefault();
     }
+  };
+
+  const handleClose = () => {
+    setSuccess(false);
+    setFormData(null);
+  };
+
+  const paymentMessage = () => {
+    if (formData?.status === 200) {
+      return (
+        <PaymentSuccess
+          title="Envio realizado"
+          message="Ha enviado satisfactoriamente sus datos, espere un correo de respuesta en su bandeja de mensajes"
+          visible={success}
+        />
+      );
+    }
+    if (formData !== null && formData !== undefined) {
+      return (
+        <ActionSuccess
+          title="Error"
+          message={formData?.message || 'Error inesperado, vuelva a intentarlo'}
+          redirect="/"
+          button="Volver a Home"
+          visible
+          handleClose={handleClose}
+        />
+      );
+    }
+    return null;
   };
 
   return (
@@ -155,6 +201,15 @@ const Postula = () => {
             Enviar
           </button>
         </form>
+        {loadingPayment ? (
+          <ActionSuccess
+            title="Enviando"
+            message="Envio de datos en progreso..."
+            visible
+            handleClose={handleClose}
+          />
+        ) : null}
+        {paymentMessage()}
       </div>
     </div>
   );
