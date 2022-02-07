@@ -410,7 +410,8 @@ export const sendUserEmailResetPassword = async (dispatch, form) => {
 export const sendPostulaEmail = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    await userService.postulaPersonal(form);
+    const response = await userService.postulaPersonal(form);
+    return response;
   } catch (error) {
     throw new Error(error);
   } finally {

@@ -109,7 +109,7 @@ const Pay = () => {
         form.cardExpMonth.length === 2 &&
         form.cardExpYear.length === 4 &&
         form.cardCVC.length >= 3 &&
-        orderDetails.precio > 10
+        orderDetails.precio >= 20
       ) {
         return setFormOk(true);
       }
@@ -194,6 +194,7 @@ const Pay = () => {
             <button
               type="button"
               className="seleccion-Button"
+              data-cy="order-btn-nueva-tarjeta"
               onClick={() => trueNewCCForm()}
               style={{
                 backgroundColor: showNewCCForm ? '#77c6ca' : 'transparent',
@@ -227,6 +228,7 @@ const Pay = () => {
                     formcontrolname="termsAndConditionsConsent"
                     hktrackfield="termsAndConditionsConsent"
                     id="terms-consent"
+                    data-cy="order-input-accept"
                     name="accept"
                     required
                     onChange={validateStoredCC}
@@ -287,6 +289,7 @@ const Pay = () => {
                       spellCheck="false"
                       type="text"
                       name="cardNumber"
+                      data-cy="order-input-tarjeta"
                       id="cardNumber"
                       onChange={handleChange}
                       maxLength={16}
@@ -313,6 +316,7 @@ const Pay = () => {
                         type="text"
                         name="cardExpMonth"
                         id="cardExpMonth"
+                        data-cy="order-input-month"
                         maxLength={2}
                         onChange={handleChange}
                         data-elements-stable-field-name="cardExpMonth"
@@ -335,6 +339,7 @@ const Pay = () => {
                         type="text"
                         name="cardExpYear"
                         id="cardExpYear"
+                        data-cy="order-input-year"
                         maxLength={4}
                         onChange={handleChange}
                         data-elements-stable-field-name="cardExpYear"
@@ -356,6 +361,7 @@ const Pay = () => {
                         spellCheck="false"
                         type="text"
                         name="cardCVC"
+                        data-cy="order-input-cvc"
                         id="cardCVC"
                         maxLength={4}
                         onChange={handleChange}
@@ -376,6 +382,7 @@ const Pay = () => {
                     formcontrolname="termsAndConditionsConsent"
                     hktrackfield="termsAndConditionsConsent"
                     id="terms-consent"
+                    data-cy="order-check-accept"
                     name="accept"
                     required
                     onChange={handleChange}
@@ -407,6 +414,7 @@ const Pay = () => {
               <button
                 className="btn btn-primary"
                 id="btn-continue"
+                data-cy="order-btn-submit"
                 type="submit"
                 disabled={!formOk}
               >

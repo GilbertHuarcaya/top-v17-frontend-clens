@@ -215,11 +215,12 @@ const OrderTime = () => {
               </button>
             </div>
             <div className="slot slot-days">
-              {days.map((e) => (
+              {days.map((e, index) => (
                 <label
                   className="option-label"
                   htmlFor={e.dayNumber}
                   key={e.dayNumber}
+                  data-cy={index === 1 ? 'order-check-day' : ''}
                 >
                   <input
                     type="radio"
@@ -259,11 +260,12 @@ const OrderTime = () => {
                           </div>
                         </label>
                       ))
-                    : createMorning().map((e) => (
+                    : createMorning().map((e, index) => (
                         <label
                           className="option-label btn-time-slot"
                           htmlFor={e.hora}
                           key={e.hora}
+                          data-cy={index === 0 ? 'order-check-hour' : ''}
                         >
                           <input
                             type="radio"
@@ -333,6 +335,7 @@ const OrderTime = () => {
           className="btn btn-primary"
           id="btn-continue"
           type="submit"
+          data-cy="order-btn-submit"
           disabled={!formOk}
         >
           Continuar

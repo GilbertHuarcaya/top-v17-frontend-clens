@@ -165,6 +165,7 @@ const OrderDetails = () => {
             className="btn btn-primary"
             id="btn-continue"
             type="submit"
+            data-cy="order-btn-submit"
             disabled={!formOk}
           >
             Continuar

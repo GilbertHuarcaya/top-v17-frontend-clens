@@ -38,7 +38,7 @@ const PendingOrder = () => {
         <PendingOrdersWrapper />
         <div className="cart__header">
           <span className="bag">
-            <span className="bag__quantity">
+            <span className="bag__quantity" data-cy="pending-order-cart-length">
               {pendingReview ? pendingReview.length : null}
             </span>
           </span>
@@ -59,7 +59,7 @@ const PendingOrder = () => {
             {userPendingOrders ? userPendingOrders.length : null}
           </span>
         </span>
-        <span className="header-title">Servicios de Limpieza en proceso</span>
+        <span className="header-title">Servicios de limpieza en proceso</span>
       </div>
 
       {isLoading ? (

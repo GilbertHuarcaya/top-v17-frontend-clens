@@ -104,7 +104,8 @@ const RegisterForm = () => {
           <input
             name="telefono"
             type="text"
-            placeholder="telefono/celular"
+            placeholder="celular"
+            minLength="8"
             value={undefined}
             onChange={handleChange}
             required
