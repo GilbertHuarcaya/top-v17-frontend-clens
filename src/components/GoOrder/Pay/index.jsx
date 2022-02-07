@@ -44,7 +44,7 @@ const Pay = () => {
     address: orderDetails.direccion,
     phone: `${orderDetails.telefono}`,
     cellPhone: `${orderDetails.telefono}`,
-    value: `${orderDetails.precio}000`,
+    value: `${orderDetails.precio}`,
     tokenId: `${tokenId}`,
   };
 
