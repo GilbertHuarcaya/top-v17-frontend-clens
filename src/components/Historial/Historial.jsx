@@ -43,6 +43,10 @@ const OrdersContainer = styled.div`
   }
 `;
 
+const H3 = styled.h3`
+  margin-top: 40px;
+`;
+
 const View = styled.div`
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
@@ -335,55 +339,58 @@ const Historial = () => {
             );
             const date = new Date(order.createdAt);
             const fecha = date.toLocaleDateString('es-PE');
-            return (
-              <View key={order._id} order={order}>
-                <Services>
-                  <Scroll>
-                    {order.service.map((services) => {
-                      return (
-                        <Service key={services._id} services={services}>
-                          <Img src={imgs[services.name]} />
-                          <Nombre>
-                            {services.name} - {services.cantidad}
-                          </Nombre>
-                        </Service>
-                      );
-                    })}
-                  </Scroll>
-                  <Dots>
-                    {order.service.map((total) => {
-                      return <Dot key={total._id} total={total} />;
-                    })}
-                  </Dots>
-                </Services>
-                <Detail>
-                  <Number>#{i + 1}</Number>
-                  <Info>
-                    Fecha: {fecha} <br />
-                    Cantidad: {cantidadTotal} <br />
-                    Total: {order.precio}
-                  </Info>
-                  <Buttons>
-                    <Link className="btn" to={`/mi-historial/${order._id}`}>
+            if (userOrdersToShow.length > 0) {
+              return (
+                <View key={order._id} order={order}>
+                  <Services>
+                    <Scroll>
+                      {order.service.map((services) => {
+                        return (
+                          <Service key={services._id} services={services}>
+                            <Img src={imgs[services.name]} />
+                            <Nombre>
+                              {services.name} - {services.cantidad}
+                            </Nombre>
+                          </Service>
+                        );
+                      })}
+                    </Scroll>
+                    <Dots>
+                      {order.service.map((total) => {
+                        return <Dot key={total._id} total={total} />;
+                      })}
+                    </Dots>
+                  </Services>
+                  <Detail>
+                    <Number>#{i + 1}</Number>
+                    <Info>
+                      Fecha: {fecha} <br />
+                      Cantidad: {cantidadTotal} <br />
+                      Total: {order.precio}
+                    </Info>
+                    <Buttons>
+                      <Link className="btn" to={`/mi-historial/${order._id}`}>
+                        <Button
+                          color="white"
+                          border="none"
+                          bgColor="#4CAF50"
+                          id={order._id}
+                        >
+                          Ver resumen
+                        </Button>
+                      </Link>
                       <Button
-                        color="white"
-                        border="none"
-                        bgColor="#4CAF50"
                         id={order._id}
+                        onClick={(e) => DownloadInvoice(e.target.id)}
                       >
-                        Ver resumen
+                        Descargar Comprobante
                       </Button>
-                    </Link>
-                    <Button
-                      id={order._id}
-                      onClick={(e) => DownloadInvoice(e.target.id)}
-                    >
-                      Descargar Comprobante
-                    </Button>
-                  </Buttons>
-                </Detail>
-              </View>
-            );
+                    </Buttons>
+                  </Detail>
+                </View>
+              );
+            }
+            return <H3 key={order._id}>Aun no tiene ordenes</H3>;
           })
         ) : (
           <Loader />
@@ -400,6 +407,7 @@ const Historial = () => {
                 VER MAS
               </Button>
             )}
+        {userOrders.length === 0 ? <H3>Aun no tiene ordenes</H3> : null}
         <div id="pdf" />
       </OrdersContainer>
     </>
