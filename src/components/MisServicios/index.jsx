@@ -100,11 +100,10 @@ const MisServicios = () => {
                     ) : (
                       <li className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail">
                         <span>SERVICIOS</span>
-                        {fecha.date}
                       </li>
                     )}
                     {service.map((s) => {
-                      return (
+                      return s.cantidad > 0 ? (
                         <li
                           className="my-services-wrapper__grid-container-services-assigned__my-service-description--detail"
                           key={s._id}
@@ -114,7 +113,7 @@ const MisServicios = () => {
                           <span>Cantidad: </span>
                           <span>{s.cantidad}: </span>
                         </li>
-                      );
+                      ) : null;
                     })}
                   </ul>
                 ) : null;

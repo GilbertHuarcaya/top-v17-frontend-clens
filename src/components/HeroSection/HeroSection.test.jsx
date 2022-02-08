@@ -6,7 +6,9 @@ import HeroSection from './index';
 test('render HeroSection and title,information and button', () => {
   render(<HeroSection />);
   // encontrar el titulo
-  const title = screen.getByText(/el mejor servicio, al mejor precio/i);
+  const title = screen.getByText(
+    /el mejor servicio de limpieza del hogar, al mejor precio/i,
+  );
   expect(title).toBeInTheDocument();
   // encontrar el texto informacion
   const information = screen.getByText(
