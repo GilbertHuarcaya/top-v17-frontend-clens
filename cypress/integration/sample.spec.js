@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 /// <reference types="Cypress" />
 
-describe('my first e2e test', () => {
+describe('render e2e test', () => {
   beforeEach(() => {
     cy.visit('/');
   });
   it('successfuly renders the page header', () => {
-    cy.contains('El mejor servicio, al mejor precio');
+    cy.contains('El mejor servicio de limpieza del hogar, al mejor precio');
   });
   it('successfuly renders the Home content', () => {
     cy.contains('Como funciona');
