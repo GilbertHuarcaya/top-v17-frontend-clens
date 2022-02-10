@@ -5,7 +5,7 @@
 Solución al Servicio de Limpieza Doméstica.
 
 ## Link de la pagina
-[CLENS](https://gilberthuarcaya.github.io/top-v17-frontend-clens/)
+[CLENS](https://clens.netlify.app/)
 
 ## Integrantes
 - Alonso Garay
